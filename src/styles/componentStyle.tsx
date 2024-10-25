@@ -80,3 +80,96 @@ export const loginStyle = StyleSheet.create({
         fontWeight: "500",
     },
 });
+
+
+const topbarStyles = StyleSheet.create({
+    topBar: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: 15,
+      marginBottom:20
+    },
+    leftSection: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    rightSection: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor:"#fff",
+      padding:10,
+      borderRadius:50
+    },
+    pageTitle: {
+      fontSize: 24,
+      fontWeight: "600",
+      marginLeft: 10,
+      color:"#444"
+    },
+    profileSection: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginRight: 10,
+      paddingRight:12,
+      borderRightWidth:2,
+      borderRightColor:"#eee"
+    },
+    profileImage: {
+      width: 30,
+      height: 30,
+      borderRadius: 20,
+    },
+    userName: {
+      marginLeft: 10,
+      marginRight: 15,
+      fontSize: 13,
+    },
+    chevronIcon: {
+      width: 9,
+      height: 15,
+    },
+    notificationSection: {
+      padding: 5,
+    },
+    notificationIcon: {
+      width: 20,
+      height: 20,
+    },
+  });
+  
+
+  const cardStyles = StyleSheet.create({
+    card: {
+        width: '50%',
+        flex:1,
+        borderRadius: 25,
+        overflow: 'hidden',
+        backgroundColor: '#fff',
+    },
+    image: {
+        width: '100%',
+        height: 250,
+        aspectRatio:4 / 3,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    title: {
+        paddingVertical: 20,
+        fontSize: 18,
+        fontWeight: '600',
+        color:"#444444"
+    },
+    chevronIcon: {
+      width: 8,
+      height: 13,
+    },
+    titleContainer:{
+        paddingHorizontal:25,
+        display:"flex",
+        flexDirection: 'row',
+        justifyContent:"space-between",
+        alignItems:"center"
+    }
+});
+  export {topbarStyles,cardStyles}

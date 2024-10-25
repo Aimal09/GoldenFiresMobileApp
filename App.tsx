@@ -1,24 +1,11 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Tabs from './src/navigations/Tabs';
 
-import {
-  Colors,
-  Header,
-} from 'react-native/Libraries/NewAppScreen';
-import Login from './src/components/Auth/Login';
-
-function App(): React.JSX.Element {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Login />
-    </SafeAreaView>
-  );
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Tabs />
+        </NavigationContainer>
+    );
 }
-
-
-export default App;

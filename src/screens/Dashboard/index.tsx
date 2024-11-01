@@ -17,7 +17,7 @@ const Dashboard = ({ navigation }:any) => {
                 <Card
                     title="Supplier Inbound"
                     image={require('../../assets/images/supplier-inbound.png')}
-                    onPress={() => navigation.navigate('SupplierDocket')}
+                    onPress={() => navigation.navigate('Supplier Docket')}
                 />
                 <Card
                     title="Goods Track"

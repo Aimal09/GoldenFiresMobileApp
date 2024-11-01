@@ -50,4 +50,60 @@ const dashboardStyles = StyleSheet.create({
     },
 });
 
-export {dashboardStyles}
+const DocketDetailsFormStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingHorizontal:20,
+        backgroundColor: '#f4f4f4',
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    dateText: {
+        fontSize: 18,
+        color: "#444",
+        fontWeight: 'bold',
+    },
+    timeText: {
+        fontSize: 18,
+        color: "#444",
+        fontWeight: 'bold',
+    },
+    docketNumber: {
+        fontSize: 16,
+        color: '#444',
+        marginBottom: 20,
+    },
+    fieldContainer: {
+        backgroundColor: '#fff',
+        padding: 35,
+        borderRadius: 30,
+        flex: 1
+    },
+    label: {
+        fontSize: 15,
+        color: '#444',
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginLeft: 15
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 15,
+        gap: 10
+    },
+    inputContainer: {
+        flex: 1,
+    },
+    input: {
+        height: 60,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor: '#f4f4f4',
+        borderRadius: 30,
+    },
+});
+export {dashboardStyles, DocketDetailsFormStyles}

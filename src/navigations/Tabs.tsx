@@ -1,13 +1,29 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/Dashboard';
-import SupplierDocket from '../screens/Dashboard/SupplierDocket';
-import GoodsTrack from '../screens/Dashboard/GoodsTrack';
-import ViewDocket from '../screens/Dashboard/ViewDocket';
-import Load from '../screens/Dashboard/Load';
+import SupplierDocket from '../screens/SupplierDocket/SupplierDocket';
+import GoodsTrack from '../screens/GoodsTrack/GoodsTrack';
+import ViewDocket from '../screens/ViewDocket/ViewDocket';
+import Load from '../screens/Load/Load';
 import { Image } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import DocketDetailsForm from '../screens/SupplierDocket/DocketDetailsForm';
+import { RootStackParamList } from './Types';
+import DocketDetailsPictureForm from '../screens/SupplierDocket/DocketDetailsPictureForm';
+import DocketSignatureForm from '../screens/SupplierDocket/DocketSignatureForm';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
+const tabOptions = {headerShown:false,tabBarStyle:{height:90,paddingBottom:15,paddingTop:15}};
+
+const SupplierDocketStack = () => 
+    <Stack.Navigator>
+        <Stack.Screen name='SupplierDocket' component={SupplierDocket} options={tabOptions}/>
+        <Stack.Screen name='DocketDetailsForm' component={DocketDetailsForm} options={tabOptions}/>
+        <Stack.Screen name='DocketDetailsPictureForm' component={DocketDetailsPictureForm} options={tabOptions}/>
+        <Stack.Screen name='DocketSignatureForm' component={DocketSignatureForm} options={tabOptions}/>
+    </Stack.Navigator>
+
 
 const Tabs = () => {
     return (
@@ -33,11 +49,11 @@ const Tabs = () => {
                 tabBarInactiveTintColor: 'gray',
             })}
         >
-            <Tab.Screen name="Dashboard" component={Dashboard} options={{headerShown:false}} />
-            <Tab.Screen name="Supplier Docket" component={SupplierDocket} options={{headerShown:false}} />
-            <Tab.Screen name="Goods Track" component={GoodsTrack} options={{headerShown:false}} />
-            <Tab.Screen name="View Docket" component={ViewDocket} options={{headerShown:false}} />
-            <Tab.Screen name="Load" component={Load} options={{headerShown:false}} />
+            <Tab.Screen name="Dashboard" component={Dashboard} options={tabOptions} />
+            <Tab.Screen name="Supplier Docket" component={SupplierDocketStack} options={tabOptions} />
+            <Tab.Screen name="Goods Track" component={GoodsTrack} options={tabOptions} />
+            <Tab.Screen name="View Docket" component={ViewDocket} options={tabOptions} />
+            <Tab.Screen name="Load" component={Load} options={tabOptions} />
         </Tab.Navigator>
     );
 };

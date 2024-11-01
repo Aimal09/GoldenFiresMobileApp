@@ -1,7 +1,5 @@
-// components/Card.tsx
 import React from 'react';
 import { TouchableOpacity, Text, Image, StyleSheet, View } from 'react-native';
-import right from "../assets/images/chevron-right.png";
 import { cardStyles } from '../styles/componentStyle';
 
 interface CardProps {
@@ -16,7 +14,7 @@ const Card: React.FC<CardProps> = ({ title, image, onPress }) => {
             <Image source={image} style={cardStyles.image} />
             <View style={cardStyles.titleContainer}>
                 <Text style={cardStyles.title}>{title}</Text>
-                <Image source={right} style={cardStyles.chevronIcon} />
+                <Image source={require("../assets/images/chevron-right.png")} style={cardStyles.chevronIcon} />
             </View>
         </TouchableOpacity>
     );

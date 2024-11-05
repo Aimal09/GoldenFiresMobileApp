@@ -1,10 +1,10 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import TopBar from "../../components/TopBar";
 import { DocketSignatureFormNavigationProp, DocketSignatureFormRouteProp } from "../../navigations/Types";
 import styles from "../../styles/style";
 import SignaturePad from "../../components/SignaturePad";
-import { WebView } from 'react-native-webview';
 import { useRef, useState } from "react";
+import { signatureStyles } from "../../styles/componentStyle";
 
 type Props = {
     navigation: DocketSignatureFormNavigationProp;
@@ -21,8 +21,8 @@ const DocketSignatureForm:React.FC<Props> = ({navigation,route}) => {
 
     const handleContinue = ()=>{
         setDriverSign(driverSignature.current);
-        setRecieverSign(driverSignature.current);
-        // navigation.navigate("")
+        setRecieverSign(recieverSignature.current);
+        navigation.navigate("Overview", {details:data, driverSign:driverSignature.current,recieverSign:recieverSignature.current})
     }
     return (
         <>
@@ -45,17 +45,3 @@ const DocketSignatureForm:React.FC<Props> = ({navigation,route}) => {
 }
 
 export default DocketSignatureForm;
-
-const signatureStyles = StyleSheet.create({
-    mainContainer:{
-        paddingHorizontal:20,
-        flex:1,
-    },
-    container:{
-        backgroundColor:"#FFFFFF",
-        borderRadius:30,
-        flex:1,
-        padding:25,
-        gap:25
-    }
-});

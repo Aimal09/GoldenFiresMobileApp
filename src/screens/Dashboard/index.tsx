@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Card from '../../components/Card'; 
 import TopBar from '../../components/TopBar';
 import { dashboardStyles } from '../../styles/screensStyle';

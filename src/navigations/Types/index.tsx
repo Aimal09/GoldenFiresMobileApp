@@ -19,12 +19,18 @@ type DocketSignatureFormProp = {
     details: DocketDetailsPictureFormProp;
     docketPhoto:string;
 }
+type OverviewProp = {
+    details: DocketSignatureFormProp;
+    driverSign:string;
+    recieverSign:string;
+}
 // Define the types of parameters each screen expects
 export type RootStackParamList = {
     'SupplierDocket': SupplierDocketProp;
     'DocketDetailsForm': DocketDetailsFormProp;
     "DocketDetailsPictureForm": DocketDetailsPictureFormProp;
     "DocketSignatureForm" : DocketSignatureFormProp;
+    "Overview":OverviewProp;
 };
 
 export type DocketDetailsFormNavigationProp = StackNavigationProp<RootStackParamList, 'DocketDetailsForm'>;
@@ -35,3 +41,6 @@ export type DocketDetailsPictureFormRouteProp = RouteProp<RootStackParamList, 'D
 
 export type DocketSignatureFormNavigationProp = StackNavigationProp<RootStackParamList, 'DocketSignatureForm'>;
 export type DocketSignatureFormRouteProp = RouteProp<RootStackParamList, 'DocketSignatureForm'>;
+
+export type OverviewNavigationProp = StackNavigationProp<RootStackParamList, 'Overview'>;
+export type OverviewRouteProp = RouteProp<RootStackParamList, 'Overview'>;

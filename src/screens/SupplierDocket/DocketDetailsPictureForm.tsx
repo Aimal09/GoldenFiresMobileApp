@@ -1,6 +1,6 @@
 import { DocketDetailsPictureFormNavigationProp, DocketDetailsPictureFormRouteProp } from "../../navigations/Types";
 import React, { useState } from 'react';
-import { View, Button, Image, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, Image, Alert, TouchableOpacity, Text } from 'react-native';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import TopBar from "../../components/TopBar";
 import styles from "../../styles/style";

@@ -2,9 +2,10 @@ import TopBar from "../../components/TopBar";
 import { DocketDetailsFormNavigationProp, DocketDetailsFormRouteProp } from '../../navigations/Types';
 import styles from "../../styles/style";
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import ComboBox from "../../components/ComoboBox";
 import { DocketDetailsFormStyles } from "../../styles/screensStyle";
+import { ScrollView } from "react-native-gesture-handler";
 
 type Props = {
     navigation: DocketDetailsFormNavigationProp;
@@ -28,7 +29,11 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
         <>
             <TopBar pageName={data.title} />
 
-            <View style={DocketDetailsFormStyles.container}>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Ensure proper behavior for both iOS and Android
+            >
+            <ScrollView style={DocketDetailsFormStyles.container}>
                 <View style={DocketDetailsFormStyles.fieldContainer}>
                     <View style={DocketDetailsFormStyles.headerContainer}>
                         <Text style={DocketDetailsFormStyles.dateText}>24.05.2024</Text>
@@ -86,8 +91,8 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                     </View>
                 </View>
-            </View>
-
+            </ScrollView>
+            </KeyboardAvoidingView>
             <View style={{ padding: 20, paddingTop: 0 }}>
                 <TouchableOpacity style={styles.btn} onPress={() => { navigation.navigate('DocketDetailsPictureForm', {supplierName,potatoVariety,docketNumber,grossWeight,nettWeight,trailerRego})}}>
                     <Text style={styles.btnText}>Continue</Text>

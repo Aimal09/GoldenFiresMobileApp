@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { loginStyle } from "../../styles/componentStyle";
-import styles from "../../styles/style";
 
 const Login = () => {
     const [userType, setUserType] = useState("regular");

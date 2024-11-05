@@ -324,4 +324,18 @@ const DocketDetailsPictureFormStyles = StyleSheet.create({
   }
 });
 
-export { topbarStyles, cardStyles, productCardStyles, comboBoxStyles, DocketDetailsPictureFormStyles }
+const signatureStyles = StyleSheet.create({
+  mainContainer:{
+      paddingHorizontal:20,
+      flex:1,
+  },
+  container:{
+      backgroundColor:"#FFFFFF",
+      borderRadius:30,
+      flex:1,
+      padding:25,
+      gap:25
+  }
+});
+
+export { topbarStyles, cardStyles, productCardStyles, comboBoxStyles, DocketDetailsPictureFormStyles, signatureStyles }

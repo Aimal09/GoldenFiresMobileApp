@@ -11,6 +11,7 @@ import DocketDetailsForm from '../screens/SupplierDocket/DocketDetailsForm';
 import { RootStackParamList } from './Types';
 import DocketDetailsPictureForm from '../screens/SupplierDocket/DocketDetailsPictureForm';
 import DocketSignatureForm from '../screens/SupplierDocket/DocketSignatureForm';
+import Overview from '../screens/SupplierDocket/Overview';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -22,6 +23,7 @@ const SupplierDocketStack = () =>
         <Stack.Screen name='DocketDetailsForm' component={DocketDetailsForm} options={tabOptions}/>
         <Stack.Screen name='DocketDetailsPictureForm' component={DocketDetailsPictureForm} options={tabOptions}/>
         <Stack.Screen name='DocketSignatureForm' component={DocketSignatureForm} options={tabOptions}/>
+        <Stack.Screen name='Overview' component={Overview} options={tabOptions}/>
     </Stack.Navigator>
 
 

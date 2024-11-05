@@ -29,7 +29,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     usePlaceholder = true,
     placeholder = '-- Select --',
 }) => {
-    
+
     const initialOptions = usePlaceholder
         ? [{ value: '0', name: placeholder }, ...options]
         : options;
@@ -40,7 +40,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
     const handleOptionSelect = (value: string) => {
-        const option = initialOptions.find((opt) => opt.value === value);
+        const option = initialOptions.find((opt) => opt.name === value);
         if (option) {
             setSelectedOption(option);
             onDropdownChange(value);
@@ -62,20 +62,20 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 <Image source={require('../assets/images/down.png')} style={comboBoxStyles.icon} />
             </TouchableOpacity>
 
-            {isModalVisible && <View style={comboBoxStyles.optionBox}>
+            <View style={isModalVisible ? comboBoxStyles.optionBox : { display: "none" }}>
                 <FlatList
                     data={initialOptions}
                     keyExtractor={(item) => item.value}
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={comboBoxStyles.option}
-                            onPress={() => handleOptionSelect(item.value)}
+                            onPress={() => handleOptionSelect(item.name)}
                         >
                             <Text style={comboBoxStyles.optionText}>{item.name}</Text>
                         </TouchableOpacity>
                     )}
                 />
-            </View>}
+            </View>
         </View>
     );
 };

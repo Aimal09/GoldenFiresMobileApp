@@ -10,11 +10,12 @@ import { comboBoxStyles } from '../styles/componentStyle';
 
 // Define props and types for the component
 interface ComboBoxProps {
-    label: string;
+    label?: string;
     options: OptionItem[];
     onDropdownChange: (option: string) => void;
     usePlaceholder?: boolean;
     placeholder?: string;
+    isDark?:boolean;
 }
 
 interface OptionItem {
@@ -28,6 +29,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     onDropdownChange,
     usePlaceholder = true,
     placeholder = '-- Select --',
+    isDark = true
 }) => {
 
     const initialOptions = usePlaceholder
@@ -40,20 +42,21 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
     const handleOptionSelect = (value: string) => {
-        const option = initialOptions.find((opt) => opt.name === value);
+        const option = initialOptions.find((opt) => opt.value === value);
         if (option) {
             setSelectedOption(option);
             onDropdownChange(value);
         }
-        setIsModalVisible(false); // Close dropdown after selecting
+        setIsModalVisible(false);
     };
 
     return (
         <View style={comboBoxStyles.container}>
-            <Text style={comboBoxStyles.label}>{label}</Text>
+            {label && <Text style={comboBoxStyles.label}>{label}</Text>}
 
             <TouchableOpacity
-                style={isModalVisible ? comboBoxStyles.comboBoxOpen : comboBoxStyles.comboBox}
+                style={isModalVisible ? (isDark ? comboBoxStyles.comboBoxOpen : comboBoxStyles.comboBoxOpenLight) : 
+                    (isDark ? comboBoxStyles.comboBox : comboBoxStyles.comboBoxLight)}
                 onPress={() => setIsModalVisible(!isModalVisible)}
             >
                 <Text style={comboBoxStyles.selectedOption}>
@@ -62,14 +65,14 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 <Image source={require('../assets/images/down.png')} style={comboBoxStyles.icon} />
             </TouchableOpacity>
 
-            <View style={isModalVisible ? comboBoxStyles.optionBox : { display: "none" }}>
+            <View style={isModalVisible ? (isDark ? comboBoxStyles.optionBox : comboBoxStyles.optionBoxLight) : { display: "none" }}>
                 <FlatList
                     data={initialOptions}
                     keyExtractor={(item) => item.value}
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={comboBoxStyles.option}
-                            onPress={() => handleOptionSelect(item.name)}
+                            onPress={() => handleOptionSelect(item.value)}
                         >
                             <Text style={comboBoxStyles.optionText}>{item.name}</Text>
                         </TouchableOpacity>

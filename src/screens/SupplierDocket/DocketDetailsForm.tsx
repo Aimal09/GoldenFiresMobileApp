@@ -24,7 +24,7 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
     const [nettWeight, setNettWeight] = useState('');
     const [trailerRego, setTrailerRego] = useState('');
     const data = route.params;
-    const options:OptionItem[] = [{name:"Suranme lastname", value:"1"},{name:"Firstname Lastname", value:"2"}]
+    const options:OptionItem[] = [{name:"Suranme lastname", value:"Suranme lastname"},{name:"Firstname Lastname", value:"Suranme lastname"}]
     return (
         <>
             <TopBar pageName={data.title} />

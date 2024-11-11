@@ -185,6 +185,18 @@ const productCardStyles = StyleSheet.create({
     flexDirection:"row",
     alignItems:"center"
   },
+  cardActive:{
+    backgroundColor:COLORS.white,
+    paddingHorizontal:20,
+    marginBottom:8,
+    paddingVertical:15,
+    borderRadius:28,
+    display:"flex",
+    flexDirection:"row",
+    alignItems:"center",
+    borderWidth:2,
+    borderColor:COLORS.yellow
+  },
   title:{
     fontSize:23,
     fontWeight:'600',
@@ -193,14 +205,16 @@ const productCardStyles = StyleSheet.create({
     flex:1
   },
   icon:{
-    width:80,
+    width:65,
     display:"flex",
     alignItems:"center",
     justifyContent:"center",
-    height:80
+    height:65,
   },
   iconImage:{
-    
+    maxWidth:65,
+    maxHeight:65,
+    objectFit:"contain"    
   }
 });
 const comboBoxStyles = StyleSheet.create({
@@ -223,6 +237,15 @@ const comboBoxStyles = StyleSheet.create({
       height:60,
       backgroundColor: '#f4f4f4',
   },
+  comboBoxLight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 20,
+      borderRadius: 30,
+      height:60,
+      backgroundColor: '#ffffff',
+  },
   comboBoxOpen: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -232,6 +255,16 @@ const comboBoxStyles = StyleSheet.create({
       borderTopRightRadius:30,
       height:60,
       backgroundColor: '#f4f4f4',
+  },
+  comboBoxOpenLight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 20,
+      borderTopLeftRadius: 30,
+      borderTopRightRadius:30,
+      height:60,
+      backgroundColor: '#ffffff',
   },
   selectedOption: {
       fontSize: 16,
@@ -252,6 +285,18 @@ const comboBoxStyles = StyleSheet.create({
       width: '100%',
       maxHeight:150,
       backgroundColor: '#f4f4f4',
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
+      position:"absolute",
+      top:"100%",
+      zIndex:2,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+  },
+  optionBoxLight: {
+      width: '100%',
+      maxHeight:150,
+      backgroundColor: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
       position:"absolute",

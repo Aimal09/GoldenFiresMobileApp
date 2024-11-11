@@ -14,11 +14,24 @@ const styles = StyleSheet.create({
         borderRadius:20,
         marginTop:20
     },
+    btnSecondary:{
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 20,
+      borderRadius: 30,
+      height:60,
+      backgroundColor: '#ffffff',
+    },
     btnText:{
         color:"#fff",
         fontSize:22,
         fontWeight:"600",
         textAlign:"center"
+    },
+    btnSecondaryText: {
+        fontSize: 16,
+        color: '#444',
     },
     container: {
         flex: 1,

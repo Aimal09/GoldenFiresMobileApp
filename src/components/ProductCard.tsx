@@ -5,10 +5,11 @@ interface ProductCardProp {
     iconUrl?: ImageSourcePropType;
     title: string;
     onClick: () => void;
+    isActive?: boolean
 }
-const ProductCard = ({ iconUrl, title, onClick }: ProductCardProp) => {
+const ProductCard = ({ iconUrl, title, onClick, isActive = false }: ProductCardProp) => {
     return (
-        <TouchableOpacity onPress={()=>onClick()} style={productCardStyles.card}>
+        <TouchableOpacity onPress={()=>onClick()} style={isActive ? productCardStyles.cardActive : productCardStyles.card}>
             {iconUrl && <View style={productCardStyles.icon}><Image source={iconUrl} style={productCardStyles.iconImage}/></View>}
             <Text style={productCardStyles.title}>{title}</Text>
             <Image source={require("../assets/images/chevron-right.png")} style={cardStyles.chevronIcon} />

@@ -1,0 +1,254 @@
+{
+  "inventoryTypeCount": "5",
+  "data": [
+    {
+      "id": 1,
+      "inventoryType": "Edible Stocks",
+      "invertoryCardType": "PRODUCT_CARD",
+      "cities": null,
+      "total": null,
+      "items": [
+        {
+          "title": "Potato",
+          "imageUrl": "potato",
+          "amount": "$123",
+          "description": null,
+          "suppliers": [
+            {
+              "name": "Supplier A",
+              "total": "350 kg"
+            },
+            {
+              "name": "Supplier B",
+              "total": "350 kg"
+            },
+            {
+              "name": "Supplier C",
+              "total": "450 kg"
+            }
+          ],
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "title": "Oil",
+          "imageUrl": "oil",
+          "amount": "$123",
+          "description": null,
+          "suppliers": [
+            {
+              "name": "Supplier A",
+              "total": "80 L"
+            },
+            {
+              "name": "Supplier B",
+              "total": "80 L"
+            },
+            {
+              "name": "Supplier C",
+              "total": "80 L"
+            }
+          ],
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "inventoryType": "Goods",
+      "invertoryCardType": "PRODUCT_CARD",
+      "cities": null,
+      "total": null,
+      "items": [
+        {
+          "imageUrl": "box.png",
+          "title": "Boxes",
+          "description": "Supplier Name",
+          "amount": "3,293",
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "imageUrl": "duct-tape.png",
+          "title": "Duct Tape",
+          "description": "Supplier Name",
+          "amount": "3,293",
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "imageUrl": "wood-pallet.png",
+          "title": "Wood Pallets",
+          "description": "Supplier Name",
+          "amount": "3,293",
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "imageUrl": "plastic-wrap.png",
+          "title": "Plastic Wraps",
+          "description": "Supplier Name",
+          "amount": "3,293",
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "inventoryType": "Cleaning Supplies",
+      "invertoryCardType": "PRODUCT_CARD",
+      "cities": null,
+      "total": null,
+      "items": [
+        {
+          "imageUrl": "detergent.png",
+          "title": "Cleaning Chemical",
+          "amount": "3,293",
+          "description": null,
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "imageUrl": "cap.png",
+          "title": "Hair Hat",
+          "amount": "3,293",
+          "description": null,
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "imageUrl": "gloves.png",
+          "title": "Rubber Gloves",
+          "amount": "3,293",
+          "description": null,
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        },
+        {
+          "imageUrl": "antifoam.png",
+          "title": "Antiform liquid",
+          "amount": "3,293",
+          "description": null,
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "inventoryType": "Ready Fries",
+      "invertoryCardType": "SPECIAL_CARD",
+      "cities": [
+        {
+          "id": 1,
+          "name": "Sydney"
+        },
+        {
+          "id": 2,
+          "name": "Adelaide"
+        }
+      ],
+      "total": 123456,
+      "items": [
+        {
+          "imageUrl": "13mm-fries.png",
+          "title": "13mm Fries",
+          "description": null,
+          "amount": "3,293",
+          "suppliers": null,
+          "packages": "234",
+          "boxes": "234",
+          "palettes": "23",
+          "city": [
+            {
+              "cityId": 1,
+              "amount": "1,293",
+              "suppliers": null,
+              "packages": "100",
+              "boxes": "100",
+              "palettes": "10"
+            },
+            {
+              "cityId": 2,
+              "amount": "2,000",
+              "suppliers": null,
+              "packages": "134",
+              "boxes": "134",
+              "palettes": "13"
+            }
+          ]
+        },
+        {
+          "imageUrl": "15mm-fries.png",
+          "title": "15mm Fries",
+          "description": null,
+          "amount": "3,293",
+          "suppliers": null,
+          "packages": "23466",
+          "boxes": "234",
+          "palettes": "23",
+          "city": [
+            {
+              "cityId": 1,
+              "amount": "3,293",
+              "suppliers": null,
+              "packages": "23466",
+              "boxes": "234",
+              "palettes": "23"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "inventoryType": "Sap",
+      "invertoryCardType": "PRODUCT_CARD",
+      "cities": null,
+      "total": null,
+      "items": [
+        {
+          "imageUrl": "saapchemical.png",
+          "title": "SAAP Chemical",
+          "amount": "522 kg",
+          "description": null,
+          "suppliers": null,
+          "packages": null,
+          "boxes": null,
+          "palettes": null,
+          "city": null
+        }
+      ]
+    }
+  ]
+}

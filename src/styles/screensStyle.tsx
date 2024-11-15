@@ -99,7 +99,7 @@ const DocketDetailsFormStyles = StyleSheet.create({
         flex: 1,
     },
     input: {
-        height: 60,
+        minHeight: 60,
         paddingVertical: 10,
         paddingHorizontal: 20,
         backgroundColor: '#f4f4f4',

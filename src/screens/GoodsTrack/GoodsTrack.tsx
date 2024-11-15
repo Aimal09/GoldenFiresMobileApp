@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 import ComboBox from "../../components/ComoboBox";
 import TopBar from "../../components/TopBar";
 import FilterByDate from "../../components/FilterByDate";
@@ -7,6 +7,10 @@ import { useState } from "react";
 import ProductCard from "../../components/ProductCard";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { GoodsTrackStyles } from "../../styles/screensStyle";
+import FullScreenModal from "../../components/Modal";
+import TextField from "../../components/TextField";
+import styles from "../../styles/style";
+import SignaturePad from "../../components/SignaturePad";
 
 type ImageKey = 'potato' | 'oil' | 'box' | 'tape' | 'pallets' | 'plastic' | "detergent" | "hat" | "gloves" | "antifoam" | "saap";
 
@@ -62,6 +66,10 @@ const GoodsTrack = () => {
     { name: "SAAP", value: "5" }
     ]);
     const [esActiveProduct, setEsActiveProduct] = useState<Item>(screenData.items[0]);
+    const [esActiveProductSupplier, setEsActiveProductSupplier] = useState<Supplier>();
+    const [showForm, setShowForm] = useState(false);
+    const [showSignForm, setShowSignForm] = useState(false);
+    const [val, setVal] = useState("");
 
     const OnDropdownChange = (option: string) => {
         const filtered = rawData.data.find(d => d.id.toString() === option);
@@ -77,9 +85,49 @@ const GoodsTrack = () => {
         />
     );
     const keyExtractor = (item: Supplier) => item.name;
+
+    const handleProductClick = (item:Item) => {
+        setEsActiveProduct(item);
+        if(screenData.inventoryType !== "Edible Stocks") setShowForm(true);
+    }
+
+    const handleSupplierClick = (supplier:Supplier) => {
+        setEsActiveProductSupplier(supplier);
+        setShowForm(true);
+    }
+
+    const handleContinueClick = () => {
+        setShowForm(false);
+        setShowSignForm(true);
+    }
+
+    const handleUpdateClick = () => {
+        setShowSignForm(false);
+    }
     return (
         <>
             <TopBar pageName="Goods Track" />
+
+
+            {showForm && <FullScreenModal title="Item" onClose={() => { setShowForm(false) }} visible={true}>
+                <View>
+                    <TextField label="Quantity" value={val} setValue={setVal} placeholder="Enter a value" styles={{marginBottom:15}}/>
+                    <TextField label="Date" value={val} setValue={setVal} placeholder="10.05.2024" styles={{marginBottom:15}}/>
+                    <TextField label="Updated By" value={val} setValue={setVal} placeholder="Enter Name Surename" styles={{marginBottom:15}}/>
+                    <TextField label="Comment" value={val} setValue={setVal} placeholder="Reason for change" styles={{marginBottom:15}} multiline={true} numberOfLine={6}/>
+                    <TouchableOpacity style={styles.btn} onPress={handleContinueClick}><Text style={styles.btnText}>Continue</Text></TouchableOpacity>
+                </View>
+            </FullScreenModal>}
+
+            {showSignForm &&
+            <FullScreenModal title="Item" onClose={() => { setShowSignForm(false) }} visible={true}>
+                <View>
+                    <SignaturePad/>
+                    <TouchableOpacity style={styles.btn}><Text style={styles.btnText} onPress={handleUpdateClick}>Update</Text></TouchableOpacity>
+                </View>
+            </FullScreenModal>
+            }
+
 
             <View style={GoodsTrackStyles.container}>
                 <View style={GoodsTrackStyles.types}>
@@ -92,7 +140,7 @@ const GoodsTrack = () => {
 
                 <View>
                     {screenData && screenData.items && screenData.items.map(item =>
-                        <ProductCard key={item.title} iconUrl={imagePath[item.imageUrl as ImageKey]} title={item.title} onClick={() => { setEsActiveProduct(item) }} isActive={item.title === esActiveProduct?.title} amount={item.amount} />
+                        <ProductCard key={item.title} iconUrl={imagePath[item.imageUrl as ImageKey]} title={item.title} onClick={() => { handleProductClick(item) }} isActive={item.title === esActiveProduct?.title} amount={item.amount} />
                     )}
                 </View>
 
@@ -111,7 +159,7 @@ const GoodsTrack = () => {
                         <GestureHandlerRootView style={GoodsTrackStyles.supplierGestureBox}>
                             <ScrollView >
                                 {screenData && esActiveProduct.suppliers && esActiveProduct.suppliers.map(supplier =>
-                                    <ProductCard key={supplier.name} iconUrl={imagePath[esActiveProduct.imageUrl as ImageKey]} title={esActiveProduct.title} onClick={() => { }} description={supplier.name} amount={supplier.total} />
+                                    <ProductCard key={supplier.name} iconUrl={imagePath[esActiveProduct.imageUrl as ImageKey]} title={esActiveProduct.title} onClick={() => { handleSupplierClick(supplier) }} description={supplier.name} amount={supplier.total} />
                                 )}
                             </ScrollView>
                         </GestureHandlerRootView>

@@ -25,6 +25,14 @@
             {
               "name": "Supplier C",
               "total": "450 kg"
+            },
+            {
+              "name": "Supplier Ba",
+              "total": "350 kg"
+            },
+            {
+              "name": "Supplier Ca",
+              "total": "450 kg"
             }
           ],
           "packages": null,
@@ -66,7 +74,7 @@
       "total": null,
       "items": [
         {
-          "imageUrl": "box.png",
+          "imageUrl": "box",
           "title": "Boxes",
           "description": "Supplier Name",
           "amount": "3,293",
@@ -77,7 +85,7 @@
           "city": null
         },
         {
-          "imageUrl": "duct-tape.png",
+          "imageUrl": "tape",
           "title": "Duct Tape",
           "description": "Supplier Name",
           "amount": "3,293",
@@ -88,7 +96,7 @@
           "city": null
         },
         {
-          "imageUrl": "wood-pallet.png",
+          "imageUrl": "pallets",
           "title": "Wood Pallets",
           "description": "Supplier Name",
           "amount": "3,293",
@@ -99,7 +107,7 @@
           "city": null
         },
         {
-          "imageUrl": "plastic-wrap.png",
+          "imageUrl": "plastic",
           "title": "Plastic Wraps",
           "description": "Supplier Name",
           "amount": "3,293",
@@ -119,7 +127,7 @@
       "total": null,
       "items": [
         {
-          "imageUrl": "detergent.png",
+          "imageUrl": "detergent",
           "title": "Cleaning Chemical",
           "amount": "3,293",
           "description": null,
@@ -130,7 +138,7 @@
           "city": null
         },
         {
-          "imageUrl": "cap.png",
+          "imageUrl": "hat",
           "title": "Hair Hat",
           "amount": "3,293",
           "description": null,
@@ -141,7 +149,7 @@
           "city": null
         },
         {
-          "imageUrl": "gloves.png",
+          "imageUrl": "gloves",
           "title": "Rubber Gloves",
           "amount": "3,293",
           "description": null,
@@ -152,7 +160,7 @@
           "city": null
         },
         {
-          "imageUrl": "antifoam.png",
+          "imageUrl": "antifoam",
           "title": "Antiform liquid",
           "amount": "3,293",
           "description": null,
@@ -238,7 +246,7 @@
       "total": null,
       "items": [
         {
-          "imageUrl": "saapchemical.png",
+          "imageUrl": "saap",
           "title": "SAAP Chemical",
           "amount": "522 kg",
           "description": null,

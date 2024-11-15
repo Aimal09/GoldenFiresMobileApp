@@ -33,8 +33,8 @@ const dashboardStyles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        gap:10,
-        marginBottom:10
+        gap: 10,
+        marginBottom: 10
     },
     newLoadButton: {
         backgroundColor: '#f2b233',
@@ -53,7 +53,7 @@ const dashboardStyles = StyleSheet.create({
 const DocketDetailsFormStyles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal:20,
+        paddingHorizontal: 20,
         backgroundColor: '#f4f4f4',
     },
     headerContainer: {
@@ -106,4 +106,22 @@ const DocketDetailsFormStyles = StyleSheet.create({
         borderRadius: 30,
     },
 });
-export {dashboardStyles, DocketDetailsFormStyles}
+
+
+const GoodsTrackStyles = StyleSheet.create({
+    container: { padding: 10 },
+    full: { flex: 1 },
+    types: { display: "flex", flexDirection: "row", gap: 10 },
+    filterContainer: { display: "flex", flexDirection: "row", paddingHorizontal: 20, marginTop: 30, marginBottom: 20 },
+    filters: {
+        fontSize: 17, fontWeight: '600', color: COLORS.text
+    },
+    filterItems: { display: "flex", flexDirection: "row", gap: 10, alignItems: "center" },
+    active: {
+        borderBottomWidth: 2, borderBottomColor: COLORS.yellow
+    },
+    heading: { flex: 1, fontSize: 23, fontWeight: '600', color: COLORS.text, },
+    supplierBox: { height: 300 },
+    supplierGestureBox: { height: "100%" }
+});
+export { dashboardStyles, DocketDetailsFormStyles, GoodsTrackStyles }

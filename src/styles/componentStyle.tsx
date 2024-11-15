@@ -197,12 +197,21 @@ const productCardStyles = StyleSheet.create({
     borderWidth:2,
     borderColor:COLORS.yellow
   },
+  titleBox:{
+    marginLeft:18,
+    flex:1
+  },
   title:{
     fontSize:23,
     fontWeight:'600',
     color:COLORS.text,
-    marginLeft:18,
-    flex:1
+  },
+  amount:{
+    marginLeft:20,
+    marginRight:40,
+    fontSize:27,
+    color:"#444",
+    fontWeight:"500"
   },
   icon:{
     width:65,

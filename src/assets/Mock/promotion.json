@@ -1,0 +1,104 @@
+{
+  "nextPage": true,
+  "data": [
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved by",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "boxes.png",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "palette.png",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved by",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "boxes.png",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "palette.png",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved by",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "boxes.png",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "palette.png",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    }
+  ]
+}

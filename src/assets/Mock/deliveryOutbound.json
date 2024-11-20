@@ -1,0 +1,137 @@
+{
+  "nextPage": true,
+  "data": [
+    {
+      "columns": [
+        {
+          "title": "Product Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Destination",
+          "value": "Lorem Ipsum"
+        },
+        {
+          "title": "Approved Date",
+          "value": "24.05.2024"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "https://image",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "https://image",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Product Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Destination",
+          "value": "Lorem Ipsum"
+        },
+        {
+          "title": "Approved Date",
+          "value": "24.05.2024"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "https://image",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "https://image",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Product Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Destination",
+          "value": "Lorem Ipsum"
+        },
+        {
+          "title": "Approved Date",
+          "value": "24.05.2024"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "https://image",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "https://image",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Product Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Destination",
+          "value": "Lorem Ipsum"
+        },
+        {
+          "title": "Approved Date",
+          "value": "24.05.2024"
+        }
+      ],
+      "details": {
+        "title": "Delivery 293883",
+        "signatureUrl": "sign.png",
+        "invertoryItems": [
+          {
+            "title": "Boxes",
+            "icon": "https://image",
+            "value": 2349
+          },
+          {
+            "title": "Palettes",
+            "icon": "https://image",
+            "value": 2349
+          }
+        ],
+        "date": "2024-09-07"
+      }
+    }
+  ]
+}

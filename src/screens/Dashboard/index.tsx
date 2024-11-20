@@ -22,14 +22,14 @@ const Dashboard = ({ navigation }:any) => {
                 <Card
                     title="Goods Track"
                     image={require('../../assets/images/goods-track.png')}
-                    onPress={() => navigation.navigate('GoodsTrack')}
+                    onPress={() => navigation.navigate('Goods Track')}
                 />
             </View>
             <View style={dashboardStyles.cardsContainer}>
                 <Card
                     title="View Docket"
                     image={require('../../assets/images/view-docket.png')}
-                    onPress={() => navigation.navigate('ViewDocket')}
+                    onPress={() => navigation.navigate('View Docket')}
                 />
                 <Card
                     title="Load"

@@ -189,7 +189,7 @@
       "total": 123456,
       "items": [
         {
-          "imageUrl": "13mm-fries.png",
+          "imageUrl": "13mm-fries",
           "title": "13mm Fries",
           "description": null,
           "amount": "3,293",
@@ -217,7 +217,7 @@
           ]
         },
         {
-          "imageUrl": "15mm-fries.png",
+          "imageUrl": "15mm-fries",
           "title": "15mm Fries",
           "description": null,
           "amount": "3,293",

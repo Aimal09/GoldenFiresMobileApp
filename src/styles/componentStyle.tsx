@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import COLORS from './colors';
+import Overview from '../screens/SupplierDocket/Overview';
 
 export const loginStyle = StyleSheet.create({
   main: {
@@ -105,7 +106,7 @@ const topbarStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "600",
     marginLeft: 20,
-    color: "#444"
+    color: COLORS.text
   },
   profileSection: {
     flexDirection: "row",
@@ -145,7 +146,7 @@ const cardStyles = StyleSheet.create({
     flex: 1,
     borderRadius: 25,
     overflow: 'hidden',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   image: {
     width: '100%',
@@ -158,7 +159,7 @@ const cardStyles = StyleSheet.create({
     paddingVertical: 20,
     fontSize: 18,
     fontWeight: '600',
-    color: "#444444",
+    color: COLORS.text,
     fontFamily: "Satoshi-Light"
   },
   chevronIcon: {
@@ -185,6 +186,17 @@ const productCardStyles = StyleSheet.create({
     flexDirection:"row",
     alignItems:"center"
   },
+  specialCard:{
+    backgroundColor:COLORS.white,
+    paddingHorizontal:20,
+    marginBottom:8,
+    paddingVertical:35,
+    borderRadius:28,
+    display:"flex",
+    flexDirection:"row",
+    alignItems:"flex-start",
+    overflow:"hidden"
+  },
   cardActive:{
     backgroundColor:COLORS.white,
     paddingHorizontal:20,
@@ -197,9 +209,30 @@ const productCardStyles = StyleSheet.create({
     borderWidth:2,
     borderColor:COLORS.yellow
   },
+  specialCardActive:{
+    backgroundColor:COLORS.white,
+    paddingHorizontal:20,
+    marginBottom:8,
+    paddingVertical:35,
+    borderRadius:28,
+    display:"flex",
+    flexDirection:"row",
+    alignItems:"flex-start",
+    overflow:"hidden",
+    borderWidth:2,
+    borderColor:COLORS.yellow
+  },
   titleBox:{
     marginLeft:18,
     flex:1
+  },
+  specialProductTitleBox:{
+    marginLeft:18,
+    flex:1,
+    position:"relative",
+    height:"100%",
+    borderRightWidth:1,
+    borderColor:COLORS.lightGrey
   },
   title:{
     fontSize:23,
@@ -210,8 +243,24 @@ const productCardStyles = StyleSheet.create({
     marginLeft:20,
     marginRight:40,
     fontSize:27,
-    color:"#444",
+    color:COLORS.text,
     fontWeight:"500"
+  },
+  specialProductAmount:{
+    marginLeft:20,
+    marginRight:20,
+    marginBottom:20,
+    fontSize:27,
+    color:COLORS.text,
+    textAlign:"right",
+    fontWeight:"500"
+  },
+  details:{
+    textAlign:"right",
+    marginRight:20,
+    fontSize:17,
+    color:COLORS.text,
+    marginBottom:5
   },
   icon:{
     width:65,
@@ -224,6 +273,18 @@ const productCardStyles = StyleSheet.create({
     maxWidth:65,
     maxHeight:65,
     objectFit:"contain"    
+  },
+  specialProductImageContainer:{
+    display:"flex",
+    alignItems:"flex-start",
+    justifyContent:"flex-end",
+    position:"absolute",
+    left:-45,
+    bottom:-50
+  },
+  specialProductImage:{
+    maxWidth:"90%",
+    maxHeight:"90%",
   }
 });
 const comboBoxStyles = StyleSheet.create({
@@ -232,7 +293,7 @@ const comboBoxStyles = StyleSheet.create({
   },
   label: {
       fontSize: 15,
-      color: '#444',
+      color: COLORS.text,
       fontWeight: 'bold',
       marginBottom: 10,
       marginLeft: 15
@@ -244,7 +305,7 @@ const comboBoxStyles = StyleSheet.create({
       padding: 20,
       borderRadius: 30,
       height:60,
-      backgroundColor: '#f4f4f4',
+      backgroundColor: COLORS.background,
   },
   comboBoxLight: {
       flexDirection: 'row',
@@ -253,7 +314,7 @@ const comboBoxStyles = StyleSheet.create({
       padding: 20,
       borderRadius: 30,
       height:60,
-      backgroundColor: '#ffffff',
+      backgroundColor: COLORS.white,
   },
   comboBoxOpen: {
       flexDirection: 'row',
@@ -263,7 +324,7 @@ const comboBoxStyles = StyleSheet.create({
       borderTopLeftRadius: 30,
       borderTopRightRadius:30,
       height:60,
-      backgroundColor: '#f4f4f4',
+      backgroundColor: COLORS.background,
   },
   comboBoxOpenLight: {
       flexDirection: 'row',
@@ -273,16 +334,16 @@ const comboBoxStyles = StyleSheet.create({
       borderTopLeftRadius: 30,
       borderTopRightRadius:30,
       height:60,
-      backgroundColor: '#ffffff',
+      backgroundColor: COLORS.white,
   },
   selectedOption: {
       fontSize: 16,
-      color: '#444',
+      color: COLORS.text,
   },
   icon: {
       width: 12,
       height: 7,
-      tintColor: '#444',
+      tintColor: COLORS.text,
   },
   modalOverlay: {
       flex: 1,
@@ -293,7 +354,7 @@ const comboBoxStyles = StyleSheet.create({
   optionBox: {
       width: '100%',
       maxHeight:150,
-      backgroundColor: '#f4f4f4',
+      backgroundColor: COLORS.background,
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
       position:"absolute",
@@ -305,7 +366,7 @@ const comboBoxStyles = StyleSheet.create({
   optionBoxLight: {
       width: '100%',
       maxHeight:150,
-      backgroundColor: '#ffffff',
+      backgroundColor: COLORS.white,
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
       position:"absolute",
@@ -320,20 +381,20 @@ const comboBoxStyles = StyleSheet.create({
   },
   optionText: {
       fontSize: 16,
-      color: '#444',
+      color: COLORS.text,
   },
 });
 
 
 const DocketDetailsPictureFormStyles = StyleSheet.create({
   container: {
-      backgroundColor: "#ffffff",
+      backgroundColor: COLORS.white,
       borderRadius: 30,
       padding: 40
   },
   title: {
       fontSize: 22,
-      color: "#444444",
+      color: COLORS.text,
       marginLeft: 15,
       fontWeight: "500",
       marginBottom: 10
@@ -343,7 +404,7 @@ const DocketDetailsPictureFormStyles = StyleSheet.create({
       height: 80
   },
   button: {
-      backgroundColor: '#f4f4f4',
+      backgroundColor: COLORS.background,
       borderRadius: 15,
       alignItems: 'center',
       justifyContent: "center",
@@ -351,7 +412,7 @@ const DocketDetailsPictureFormStyles = StyleSheet.create({
       height: 250
   },
   buttonText: {
-      color: '#fff',
+      color: COLORS.white,
       fontSize: 16,
   },
   image: {
@@ -367,7 +428,7 @@ const DocketDetailsPictureFormStyles = StyleSheet.create({
   },
   infoIcon:{
       color:"#8e8e8e",
-      backgroundColor:"#f4f4f4",
+      backgroundColor:COLORS.background,
       borderRadius:40,
       paddingHorizontal:10,
       paddingTop:2,
@@ -384,7 +445,7 @@ const signatureStyles = StyleSheet.create({
       flex:1,
   },
   container:{
-      backgroundColor:"#FFFFFF",
+      backgroundColor:COLORS.white,
       borderRadius:30,
       flex:1,
       padding:25,

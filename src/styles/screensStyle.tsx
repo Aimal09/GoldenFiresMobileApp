@@ -122,6 +122,24 @@ const GoodsTrackStyles = StyleSheet.create({
     },
     heading: { flex: 1, fontSize: 23, fontWeight: '600', color: COLORS.text, },
     supplierBox: { height: 300 },
-    supplierGestureBox: { height: "100%" }
+    supplierGestureBox: { height: "100%" },
+    totalRow:{display:"flex",flexDirection:"row", justifyContent:"space-between", paddingHorizontal:25, marginVertical:20},
+    totalHeading: { fontSize: 26, fontWeight: '600', color: COLORS.text },
+    filterBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 30,
+        paddingVertical:12,
+        borderRadius: 30,
+        backgroundColor: COLORS.white,
+    },
+    filterBtnActive: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 30,
+        paddingVertical:12,
+        borderRadius: 30,
+        backgroundColor: COLORS.yellow,
+    }
 });
 export { dashboardStyles, DocketDetailsFormStyles, GoodsTrackStyles }

@@ -18,7 +18,7 @@ const DocketSignatureForm:React.FC<Props> = ({navigation,route}) => {
     const [recieverSign,setRecieverSign] = useState("");
 
     const data = route.params;
-
+const a = "";
     const handleContinue = ()=>{
         setDriverSign(driverSignature.current);
         setRecieverSign(recieverSignature.current);

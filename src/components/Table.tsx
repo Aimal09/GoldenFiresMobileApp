@@ -1,7 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import COLORS from "../styles/colors";
+import { useState } from "react";
 
 interface TableProp {
     data: Data[];
+    onRowSelect: (data:Data)=>void;
 }
 interface Data {
     columns: Column[];
@@ -11,7 +14,12 @@ interface Column {
     title: string;
     value: string | number;
 }
-const Table: React.FC<TableProp> = ({ data }) => {
+const Table: React.FC<TableProp> = ({ data, onRowSelect }) => {
+    if(!data || data.length == 0)
+        return(<Text style={tableStyle.emptyTable}>No data found</Text>);
+    
+    
+    
     return (
         <>
             {/* Header */}
@@ -23,17 +31,25 @@ const Table: React.FC<TableProp> = ({ data }) => {
             </View>
 
             {/* Rows  */}
-            {data.map((rows,i) =>
-                <View key={i} style={[
+            {data.map((row,i) =>
+                <TouchableOpacity key={i} style={[
                     tableStyle.rowHeader,
                     tableStyle.row
-                ]}>
-                    {rows.columns.map(col =>
-                        <Text style={tableStyle.text}>{col.value}</Text>
+                ]} onPress={()=>onRowSelect(row)}>
+                    {row.columns.map(col =>
+                        col.title === 'Status' ?
+                        <View key={col.title} style={tableStyle.statusBubbleContainer}><View 
+                        style={[
+                            tableStyle.statusBubble,
+                            col.value === 'Completed' && tableStyle.statusCompleted,
+                            col.value === 'Credited' && tableStyle.statusCredited,
+                            col.value === 'Pending' && tableStyle.statusPending,
+                        ]}></View></View> :
+                        <Text key={col.title} style={tableStyle.text}>{col.value}</Text>
                     )}
                     <Image source={require("../assets/images/chevron-right.png")} style={tableStyle.chevronIcon} />
 
-                </View>
+                </TouchableOpacity>
             )}
         </>
     );
@@ -42,6 +58,13 @@ const Table: React.FC<TableProp> = ({ data }) => {
 export default Table;
 
 const tableStyle = StyleSheet.create({
+    emptyTable:{
+        marginHorizontal:15,
+        padding:10,
+        borderRadius:7,
+        textAlign:"center",
+        backgroundColor:COLORS.disable
+    },
     rowHeader: {
         display: "flex",
         flexDirection: "row",
@@ -67,5 +90,17 @@ const tableStyle = StyleSheet.create({
         color: "#444",
         fontWeight: "400",
         fontSize: 15
-    }
+    },
+    statusBubbleContainer:{
+        width:50,
+        alignItems:"center"
+    },
+    statusBubble:{
+        width:10,
+        height:10,
+        borderRadius:10,
+    },
+    statusCompleted:{backgroundColor:COLORS.completed},
+    statusCredited:{backgroundColor:COLORS.credited},
+    statusPending:{backgroundColor:COLORS.pending}
 });

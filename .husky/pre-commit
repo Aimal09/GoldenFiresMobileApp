@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/husky.sh"
+
+
+yarn format
+yarn lint
+yarn eslint src

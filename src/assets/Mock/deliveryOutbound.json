@@ -17,17 +17,19 @@
         }
       ],
       "details": {
-        "title": "Delivery 293883",
-        "signatureUrl": "sign.png",
+        "title": "Delivery 2938831",
+        "signatureUrl": "../../assets/images/sign.png",
+        "weight":"341 kg",
+        "approvedBy":"Name Surname",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "https://image",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "https://image",
+            "icon": "palette",
             "value": 2349
           }
         ],
@@ -52,15 +54,17 @@
       "details": {
         "title": "Delivery 293883",
         "signatureUrl": "sign.png",
+        "weight":"1340 kg",
+        "approvedBy":"Name Surname",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "https://image",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "https://image",
+            "icon": "palette",
             "value": 2349
           }
         ],
@@ -85,15 +89,17 @@
       "details": {
         "title": "Delivery 293883",
         "signatureUrl": "sign.png",
+        "weight":"320 kg",
+        "approvedBy":"Name Surname",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "https://image",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "https://image",
+            "icon": "palette",
             "value": 2349
           }
         ],
@@ -118,15 +124,17 @@
       "details": {
         "title": "Delivery 293883",
         "signatureUrl": "sign.png",
+        "weight":"345 kg",
+        "approvedBy":"Name Surname",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "https://image",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "https://image",
+            "icon": "palette",
             "value": 2349
           }
         ],

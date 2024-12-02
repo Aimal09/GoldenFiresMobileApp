@@ -1,5 +1,5 @@
 import { DocketDetailsPictureFormNavigationProp, DocketDetailsPictureFormRouteProp } from "../../navigations/Types";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Alert, TouchableOpacity, Text } from 'react-native';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import TopBar from "../../components/TopBar";
@@ -14,7 +14,11 @@ type Props = {
 const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
     const data = route.params;
     const [photoUri, setPhotoUri] = useState<string | null>(null);
+    const [photoUriV, setPhotoUriV] = useState(false);
 
+    useEffect(()=>{
+        setPhotoUriV(false);
+    },[photoUri]);
     const openCamera = async () => {
         const options: CameraOptions = {
             mediaType: 'photo',
@@ -34,12 +38,18 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
         }
     };
 
+    const handleContinue = () => {
+        if (photoUri === null || photoUri === '') setPhotoUriV(true);
+        else navigation.navigate("DocketSignatureForm", { details: data, docketPhoto: photoUri ?? "" });
+    }
+
     return (
         <>
-            <TopBar pageName="Supplier Docket" />
+            <TopBar pageName="Supplier Docket" showBackButton={false} />
 
             <View style={{ paddingHorizontal: 20, flex: 1 }}>
                 <View style={DocketDetailsPictureFormStyles.container}>
+                    {photoUriV && <Text style={styles.errorTxt}>Photo is required *</Text>}
                     <Text style={DocketDetailsPictureFormStyles.title}>Docket Photo</Text>
                     <TouchableOpacity style={DocketDetailsPictureFormStyles.button} onPress={openCamera}>
                         {!photoUri && <Image source={require("../../assets/images/camera.png")} style={DocketDetailsPictureFormStyles.camera} />}
@@ -49,7 +59,7 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.btn} onPress={() => { setPhotoUri(null); openCamera(); }}>
-                        <Text style={styles.btnText}>{photoUri ==null ? "Take Photo" : "Retake Photo" }</Text>
+                        <Text style={styles.btnText}>{photoUri == null ? "Take Photo" : "Retake Photo"}</Text>
                     </TouchableOpacity>
 
                     <View style={DocketDetailsPictureFormStyles.info}>
@@ -61,7 +71,7 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
 
 
             <View style={{ padding: 20, paddingTop: 0 }}>
-                <TouchableOpacity style={styles.btn} onPress={() => { navigation.navigate("DocketSignatureForm", {details:data, docketPhoto:photoUri??""}) }}>
+                <TouchableOpacity style={styles.btn} onPress={() => handleContinue()}>
                     <Text style={styles.btnText}>Continue</Text>
                 </TouchableOpacity>
             </View>

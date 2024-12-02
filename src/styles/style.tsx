@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: '#f4f4f4',
+    },
+    errorTxt: {
+        fontSize:12, 
+        paddingHorizontal:15, 
+        color: COLORS.credited,
+        opacity:.7
     }
 })
 

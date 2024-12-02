@@ -7,6 +7,7 @@ import {
     Image,
 } from 'react-native';
 import { comboBoxStyles } from '../styles/componentStyle';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // Define props and types for the component
 interface ComboBoxProps {
@@ -65,20 +66,17 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 <Image source={require('../assets/images/down.png')} style={comboBoxStyles.icon} />
             </TouchableOpacity>
 
-            <View style={isModalVisible ? (isDark ? comboBoxStyles.optionBox : comboBoxStyles.optionBoxLight) : { display: "none" }}>
-                <FlatList
-                    data={initialOptions}
-                    keyExtractor={(item) => item.value}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-                            style={comboBoxStyles.option}
-                            onPress={() => handleOptionSelect(item.value)}
-                        >
-                            <Text style={comboBoxStyles.optionText}>{item.name}</Text>
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
+            <ScrollView style={isModalVisible ? (isDark ? comboBoxStyles.optionBox : comboBoxStyles.optionBoxLight) : { display: "none" }}>
+                {initialOptions.map((item,i)=>
+                    <TouchableOpacity
+                    key={i}
+                    style={comboBoxStyles.option}
+                    onPress={() => handleOptionSelect(item.value)}
+                    >
+                    <Text style={comboBoxStyles.optionText}>{item.name}</Text>
+                    </TouchableOpacity>
+                )}
+            </ScrollView>
         </View>
     );
 };

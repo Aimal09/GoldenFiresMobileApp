@@ -14,7 +14,7 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
     const handleSend = () => { }
     return (
         <>
-            <TopBar pageName="Overview" />
+            <TopBar pageName="Overview" showBackButton={false}/>
             <View style={overviewStyles.mainContainer}>
                 <View style={overviewStyles.container}>
                     <View style={overviewStyles.row}>

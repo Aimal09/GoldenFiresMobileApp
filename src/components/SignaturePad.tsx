@@ -1,15 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { View, Button, StyleSheet, Alert, Text, Image } from 'react-native';
 import SignatureScreen, { SignatureViewRef } from 'react-native-signature-canvas';
-import { DocketDetailsPictureFormStyles } from '../styles/componentStyle';
 
 interface Prop{
   label?:string;
   signatureValue?: React.MutableRefObject<string | null>;
+  sign?:SignatureViewRef | null;
+  returnSign?:(sign:SignatureViewRef|null)=>void;
 }
-const SignaturePad: React.FC<Prop> = ({label,signatureValue}) => {
-  const signatureRef = useRef<SignatureViewRef>(null);
+const SignaturePad: React.FC<Prop> = ({label,signatureValue,sign, returnSign}) => {
+  const signatureRef = useRef<SignatureViewRef>(sign ?? null);
   const [signature, setSignature] = useState<string | null>(null);
+
 
   const handleSignature = (signature: string) => {
     // This function is called with the base64-encoded signature when completed
@@ -17,6 +19,7 @@ const SignaturePad: React.FC<Prop> = ({label,signatureValue}) => {
     if (signatureValue) {
       signatureValue.current = signature; // Update the ref with the signature
     }
+    if(returnSign) returnSign(signatureRef.current);
     // Alert.alert('Signature saved');
   };
 
@@ -29,6 +32,10 @@ const SignaturePad: React.FC<Prop> = ({label,signatureValue}) => {
     // Save the current signature
     signatureRef.current?.readSignature();
   };
+   
+  // if(sign)
+  // console.log("======+")
+  // handleConfirm();
 
   return (
     <View>

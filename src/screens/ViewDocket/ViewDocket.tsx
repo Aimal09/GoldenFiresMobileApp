@@ -169,7 +169,7 @@ const ViewDocket = () => {
             </FullScreenModal>}
 
 
-            <View style={VDstyles.container}>
+            <GestureHandlerRootView style={VDstyles.container}>
                 <TopBar pageName="View Docket" />
 
                 {showFilterByDate && <FilterByDateCalendar onFilterChange={onFilterChangeHandler} closeFilter={() => setShowFilterByDate(false)} />}
@@ -192,7 +192,7 @@ const ViewDocket = () => {
                         <Table data={selectedOptionData} onRowSelect={onRowSelectHandler} />
                     </ScrollView>
                 </GestureHandlerRootView>
-            </View>
+            </GestureHandlerRootView>
 
         </>
     );

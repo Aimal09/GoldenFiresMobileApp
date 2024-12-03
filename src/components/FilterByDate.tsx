@@ -27,11 +27,10 @@ const FilterByDateCalendar: React.FC<FilterByDateCalendarProp> = ({ onFilterChan
 
     const onDayPress = (day: any) => {
         const { startDate, endDate } = selectedRange;
-        console.log(day.dateString)
         if (!startDate || (startDate && endDate)) {
             setSelectedRange({ startDate: day.dateString, endDate: null });
         } else {
-            setSelectedRange({ startDate, endDate: day.dateString });
+            setSelectedRange({ startDate, endDate: day.dateString+"T23:59:59.999" });
         }
     };
 

@@ -1,0 +1,335 @@
+{
+  "nextPage": true,
+  "data": [
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar"
+        },
+        {
+          "title": "Date by",
+          "value": "25.11.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "closed",
+        "destination": "Destination Name",
+        "dateFor": "2024-11-24 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.11.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "running",
+        "destination": "Destination Name",
+        "dateFor": "2024-11-25 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "running",
+        "destination": "Destination Name",
+        "dateFor": "2024-11-26 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "closed",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "running",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "closed",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "running",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "closed",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "running",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    },
+    {
+      "columns": [
+        {
+          "title": "Supplier Name",
+          "value": "Lorem ipsum dolar 1"
+        },
+        {
+          "title": "Date by",
+          "value": "24.05.2024"
+        },
+        {
+          "title": "Recieved By",
+          "value": "Name Surename"
+        }
+      ],
+      "details": {
+        "title":"Load 23232323",
+        "productName": "13mm Fries",
+        "invoiceNo":"23232323",
+        "weight":"89.5 Kg",
+        "status": "closed",
+        "destination": "Destination Name",
+        "dateFor": "2024-09-06 13:40:45",
+        "driver": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        },
+        "reciever": {
+          "name": "Name Surename",
+          "signatureUrl": "sign.png"
+        }
+      }
+    }
+  ]
+}

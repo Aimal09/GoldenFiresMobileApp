@@ -344,6 +344,7 @@ const comboBoxStyles = StyleSheet.create({
       width: 12,
       height: 7,
       tintColor: COLORS.text,
+      marginLeft:10
   },
   modalOverlay: {
       flex: 1,

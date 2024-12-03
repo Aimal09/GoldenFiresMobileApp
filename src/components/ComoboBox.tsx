@@ -17,6 +17,7 @@ interface ComboBoxProps {
     usePlaceholder?: boolean;
     placeholder?: string;
     isDark?:boolean;
+    style?:object;
 }
 
 interface OptionItem {
@@ -30,7 +31,8 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     onDropdownChange,
     usePlaceholder = true,
     placeholder = '-- Select --',
-    isDark = true
+    isDark = true,
+    style
 }) => {
 
     const initialOptions = usePlaceholder
@@ -52,7 +54,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     };
 
     return (
-        <View style={comboBoxStyles.container}>
+        <View style={[comboBoxStyles.container, style]}>
             {label && <Text style={comboBoxStyles.label}>{label}</Text>}
 
             <TouchableOpacity

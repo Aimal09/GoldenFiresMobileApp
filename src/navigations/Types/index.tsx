@@ -31,6 +31,9 @@ export type RootStackParamList = {
     "DocketDetailsPictureForm": DocketDetailsPictureFormProp;
     "DocketSignatureForm" : DocketSignatureFormProp;
     "Overview":OverviewProp;
+    "Load":object;
+    "NewLoad":object;
+    "GoodStock":object;
 };
 
 export type DocketDetailsFormNavigationProp = StackNavigationProp<RootStackParamList, 'DocketDetailsForm'>;
@@ -44,3 +47,9 @@ export type DocketSignatureFormRouteProp = RouteProp<RootStackParamList, 'Docket
 
 export type OverviewNavigationProp = StackNavigationProp<RootStackParamList, 'Overview'>;
 export type OverviewRouteProp = RouteProp<RootStackParamList, 'Overview'>;
+
+export type LoadNavigationProp = StackNavigationProp<RootStackParamList, 'NewLoad'>;
+export type LoadRouteProp = RouteProp<RootStackParamList, 'Load'>;
+
+export type NewLoadNavigationProp = StackNavigationProp<RootStackParamList, 'GoodStock'>;
+export type NewLoadRouteProp = RouteProp<RootStackParamList, 'NewLoad'>;

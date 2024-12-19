@@ -58,10 +58,7 @@ const ViewDocket = () => {
         "box": require("../../assets/images/goods-track-icon.png"),
         "palette": require("../../assets/images/palette.png"),
     };
-
-    const [supplierData, setSupplierData] = useState(supplierInboundRaw);
-    const [deliveryData, setDeliveryData] = useState(deliveryOutboundRaw);
-    const [promotionData, setPromotionData] = useState(promotionRaw);
+    
     const [showFilterByDate, setShowFilterByDate] = useState(false);
     const [selectedOptionData, setselectedOptionData] = useState<Data[]>(supplierInboundRaw);
     const [selectedOption, setselectedOption] = useState<string>("1");
@@ -172,7 +169,7 @@ const ViewDocket = () => {
             <GestureHandlerRootView style={VDstyles.container}>
                 <TopBar pageName="View Docket" />
 
-                {showFilterByDate && <FilterByDateCalendar onFilterChange={onFilterChangeHandler} closeFilter={() => setShowFilterByDate(false)} />}
+                {showFilterByDate && <FilterByDateCalendar maximumToday onFilterChange={onFilterChangeHandler} closeFilter={() => setShowFilterByDate(false)} />}
 
                 <View style={VDstyles.types}>
                     <View style={VDstyles.full}>

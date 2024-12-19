@@ -10,6 +10,7 @@ import TextBlock from "../../components/TextBlock";
 import COLORS from "../../styles/colors";
 import { FilterByDate, FilterByDateCalendar } from "../../components/FilterByDate";
 import ComboBox from "../../components/ComoboBox";
+import { LoadNavigationProp, LoadRouteProp } from "../../navigations/Types";
 
 interface OptionItem {
     value: string;
@@ -51,7 +52,11 @@ interface DateRangeAsDateProp {
     startDate: Date | null,
     endDate: Date | null
 }
-const Load = () => {
+type Props = {
+    navigation: LoadNavigationProp;
+    route: LoadRouteProp;
+};
+const Load:React.FC<Props> = ({navigation,route}) => {
     const rawData = processLoad.data;
 
     const [data, setData] = useState<Data[]>(rawData);
@@ -145,6 +150,9 @@ const Load = () => {
                             <Image source={require("../../assets/images/times.png")} style={loadStyles.filterCross} />
                         </TouchableOpacity>}
                     </View>
+                    <TouchableOpacity style={[styles.btnSecondary, {marginLeft:"auto"}]} onPress={()=>navigation.navigate("NewLoad",{})}>
+                        <Text>New</Text>
+                    </TouchableOpacity>
                 </View>
                 <GestureHandlerRootView>
                     <ScrollView>

@@ -12,6 +12,8 @@ import { RootStackParamList } from './Types';
 import DocketDetailsPictureForm from '../screens/SupplierDocket/DocketDetailsPictureForm';
 import DocketSignatureForm from '../screens/SupplierDocket/DocketSignatureForm';
 import Overview from '../screens/SupplierDocket/Overview';
+import NewLoad from '../screens/NewLoad';
+import GoodStock from '../screens/NewLoad/goodStock';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -24,6 +26,13 @@ const SupplierDocketStack = () =>
         <Stack.Screen name='DocketDetailsPictureForm' component={DocketDetailsPictureForm} options={tabOptions}/>
         <Stack.Screen name='DocketSignatureForm' component={DocketSignatureForm} options={tabOptions}/>
         <Stack.Screen name='Overview' component={Overview} options={tabOptions}/>
+    </Stack.Navigator>
+
+const NewLoadStack = () => 
+    <Stack.Navigator>
+        <Stack.Screen name='Load' component={Load} options={tabOptions}/>
+        <Stack.Screen name='NewLoad' component={NewLoad} options={tabOptions}/>
+        <Stack.Screen name='GoodStock' component={GoodStock} options={tabOptions}/>
     </Stack.Navigator>
 
 
@@ -55,7 +64,7 @@ const Tabs = () => {
             <Tab.Screen name="Supplier Docket" component={SupplierDocketStack} options={tabOptions} />
             <Tab.Screen name="Goods Track" component={GoodsTrack} options={tabOptions} />
             <Tab.Screen name="View Docket" component={ViewDocket} options={tabOptions} />
-            <Tab.Screen name="Load" component={Load} options={tabOptions} />
+            <Tab.Screen name="Load" component={NewLoadStack} options={tabOptions} />
         </Tab.Navigator>
     );
 };

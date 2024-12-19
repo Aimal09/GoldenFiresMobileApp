@@ -4,7 +4,7 @@ import { DocketDetailsFormStyles } from "../styles/screensStyle";
 import { Dispatch, SetStateAction } from "react";
 
 interface TextFieldProp {
-    label:string;
+    label?:string;
     value: string;
     setValue:Dispatch<SetStateAction<string>>;
     placeholder?:string;
@@ -17,7 +17,7 @@ const TextField:React.FC<TextFieldProp> = ({label, value, setValue, placeholder,
 
     return (
         <View style={styles}>
-            <Text style={DocketDetailsFormStyles.label}>{label}</Text>
+            {label&&<Text style={DocketDetailsFormStyles.label}>{label}</Text>}
                 <TextInput
                     placeholder={placeholder}
                     style={{...DocketDetailsFormStyles.input, paddingTop:20}}

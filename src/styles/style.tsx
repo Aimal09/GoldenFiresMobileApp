@@ -43,6 +43,27 @@ const styles = StyleSheet.create({
         paddingHorizontal:15, 
         color: COLORS.credited,
         opacity:.7
+    },
+    card:{
+        padding:25,
+        borderRadius:20,
+        backgroundColor:COLORS.white
+    },
+    headText: {
+        fontSize: 22,
+        color: COLORS.text,
+        fontWeight: "600",
+        marginLeft:15,
+        marginBottom:20
+    },
+    text: {
+        fontSize: 18,
+        color: COLORS.text,
+        fontWeight: "500",
+        marginLeft:15
+    },
+    full:{
+        flex:1
     }
 })
 

@@ -3,27 +3,28 @@ import { Modal, View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Dimensio
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 
 interface ModalProps {
-    title: string;
+    title?: string;
     children: React.ReactNode;
     onClose: () => void;
     visible: boolean;
+    hideClose?: boolean;
 }
 
 const { height: screenHeight } = Dimensions.get('window');
 
-const FullScreenModal: React.FC<ModalProps> = ({ title, children, onClose, visible }) => {
+const FullScreenModal: React.FC<ModalProps> = ({ title, children, onClose, visible, hideClose=false }) => {
     return (
 
         <GestureHandlerRootView style={styles.modalContainerMain}>
             <SafeAreaView style={{flex:1}}>
                 <View style={styles.modalContainer}>
                     {/* Title Section */}
-                    <View style={styles.header}>
-                        <Text style={styles.title}>{title}</Text>
-                        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+                    {(title && !hideClose )&& <View style={styles.header}>
+                        {title&&<Text style={styles.title}>{title}</Text>}
+                        {!hideClose&&<TouchableOpacity onPress={onClose} style={styles.closeButton}>
                             <Text style={styles.closeText}>x</Text>
-                        </TouchableOpacity>
-                    </View>
+                        </TouchableOpacity>}
+                    </View>}
 
                     {/* Modal Content */}
                     <View style={styles.contentContainer}>

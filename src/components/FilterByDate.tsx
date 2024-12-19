@@ -5,8 +5,12 @@ import { useState } from "react";
 import { Calendar } from "react-native-calendars";
 
 interface FilterByDateCalendarProp {
+    title?:string;
     onFilterChange: (range: DateRangeProp) => void;
     closeFilter: () => void;
+    minimumToday?: boolean;
+    maximumToday?: boolean;
+    isSingle?:boolean;
 }
 interface FilterByDateProp {
     onClick: () => void;
@@ -16,16 +20,18 @@ interface DateRangeProp {
     endDate: string | null
 }
 
-const FilterByDateCalendar: React.FC<FilterByDateCalendarProp> = ({ onFilterChange, closeFilter }) => {
-    const [selectedRange, setSelectedRange] = useState<{
-        startDate: string | null;
-        endDate: string | null;
-    }>({
+const FilterByDateCalendar: React.FC<FilterByDateCalendarProp> = ({ title="Filter By Date" ,onFilterChange, closeFilter, minimumToday = false, maximumToday = false, isSingle = false }) => {
+    const [selectedRange, setSelectedRange] = useState<DateRangeProp>({
         startDate: null,
         endDate: null,
     });
 
     const onDayPress = (day: any) => {
+        if(isSingle){
+            setSelectedRange({ startDate: day.dateString, endDate: day.dateString });
+            return;
+        }
+        
         const { startDate, endDate } = selectedRange;
         if (!startDate || (startDate && endDate)) {
             setSelectedRange({ startDate: day.dateString, endDate: null });
@@ -93,13 +99,15 @@ const FilterByDateCalendar: React.FC<FilterByDateCalendarProp> = ({ onFilterChan
     return (
         <>
             {/* */}
-            <FullScreenModal title="Filter By Date" onClose={() => { closeFilter() }} visible={true}>
+            <FullScreenModal title={title} onClose={() => { closeFilter() }} visible={true}>
                 <Calendar
-                    current={new Date().toISOString().split("T")[0]}
-                    maxDate={new Date().toISOString().split("T")[0]} // Example max date
+                    current={(new Date('2024-12-15T23:59:59.000').toISOString().split("T")[0])}
+                    maxDate={maximumToday?(new Date().toISOString().split("T")[0]):null}
+                    minDate={minimumToday?(new Date().toISOString().split("T")[0]):null}
                     onDayPress={onDayPress}
                     markingType={"custom"} // Custom marking
                     dayComponent={CustomDayComponent} // Custom day component
+                    
                     theme={{
                         backgroundColor: "#ffffff",
                         calendarBackground: "#ffffff",
@@ -124,7 +132,6 @@ const FilterByDateCalendar: React.FC<FilterByDateCalendarProp> = ({ onFilterChan
 
 
 const FilterByDate:React.FC<FilterByDateProp> = ({onClick}) => {
-    const [showModal, setShowModal] = useState(false);
     return (
         <TouchableOpacity style={{ ...styles.btnSecondary, alignItems: "center" }} onPress={() => onClick()}>
             <Text style={styles.btnSecondaryText}>Filter by Date</Text>

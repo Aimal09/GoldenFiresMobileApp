@@ -1,5 +1,8 @@
 import { Image, ImageSourcePropType, Text, Touchable, TouchableOpacity, View } from "react-native";
 import { cardStyles, productCardStyles } from "../styles/componentStyle";
+import TextField from "./TextField";
+import COLORS from "../styles/colors";
+import { Dispatch, SetStateAction } from "react";
 
 interface ProductCardProp {
     iconUrl?: ImageSourcePropType;
@@ -8,8 +11,13 @@ interface ProductCardProp {
     isActive?: boolean;
     description?:string;
     amount?:string;
+    iconOnRight?:boolean;
+    textField?:boolean;
+    textFieldValue?:string;
+    textFieldSetValue?:Dispatch<SetStateAction<string>>;
 }
-const ProductCard = ({ iconUrl, title, onClick, isActive = false, description, amount }: ProductCardProp) => {
+const ProductCard = ({ iconUrl, title, onClick, isActive = false, description, amount, iconOnRight=true, textField=false, textFieldValue, textFieldSetValue }: ProductCardProp) => {
+    const setHandler = ()=>{}
     return (
         <TouchableOpacity onPress={()=>onClick()} style={isActive ? productCardStyles.cardActive : productCardStyles.card}>
             {iconUrl && <View style={productCardStyles.icon}><Image source={iconUrl} style={productCardStyles.iconImage}/></View>}
@@ -18,7 +26,8 @@ const ProductCard = ({ iconUrl, title, onClick, isActive = false, description, a
                 {description && <Text>{description}</Text>}
             </View>
             {amount && <Text style={productCardStyles.amount}>{amount}</Text>}
-            <Image source={require("../assets/images/chevron-right.png")} style={cardStyles.chevronIcon} />
+            {iconOnRight&&<Image source={require("../assets/images/chevron-right.png")} style={cardStyles.chevronIcon} />}
+            {textField&&<TextField value={textFieldValue??""} setValue={textFieldSetValue??setHandler} styles={{borderRadius:10,backgroundColor:COLORS.background}} placeholder="Enter a value"/>}
         </TouchableOpacity>
     );
 }

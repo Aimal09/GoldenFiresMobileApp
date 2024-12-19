@@ -137,7 +137,7 @@ const GoodsTrack = () => {
 
             {showFilterByDate && <FilterByDateCalendar onFilterChange={(range)=>setFilterByDate(range)} closeFilter={()=>setShowFilterByDate(false)}/>}
 
-            <View style={GoodsTrackStyles.container}>
+            <GestureHandlerRootView style={GoodsTrackStyles.container}>
                 <View style={GoodsTrackStyles.types}>
                     <View style={GoodsTrackStyles.full}>
                         <ComboBox label="" options={comboOptions} onDropdownChange={OnDropdownChange} usePlaceholder={false} isDark={false} />
@@ -179,17 +179,17 @@ const GoodsTrack = () => {
                     </View>
 
                     <View style={GoodsTrackStyles.supplierBox}>
-                        <GestureHandlerRootView style={GoodsTrackStyles.supplierGestureBox}>
+                        <View style={GoodsTrackStyles.supplierGestureBox}>
                             <ScrollView >
                                 {screenData && esActiveProduct.suppliers && esActiveProduct.suppliers.map(supplier =>
                                     <ProductCard key={supplier.name} iconUrl={imagePath[esActiveProduct.imageUrl as ImageKey]} title={esActiveProduct.title} onClick={() => { handleSupplierClick(supplier) }} description={supplier.name} amount={supplier.total} />
                                 )}
                             </ScrollView>
-                        </GestureHandlerRootView>
+                        </View>
                     </View>
                 </>
                 }
-            </View>
+            </GestureHandlerRootView>
         </>
     );
 }

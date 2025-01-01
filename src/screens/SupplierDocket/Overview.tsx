@@ -11,7 +11,12 @@ type Props = {
 const Overview: React.FC<Props> = ({ navigation, route }) => {
     const data = route.params;
 
-    const handleSend = () => { }
+    const handleSend = () => { 
+        navigation.reset({
+            index:0,
+            routes:[{name:"SupplierDocket"}]
+        });
+    }
     return (
         <>
             <TopBar pageName="Overview" showBackButton={false}/>

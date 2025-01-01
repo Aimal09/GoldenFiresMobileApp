@@ -34,7 +34,7 @@ const Dashboard = ({ navigation }:any) => {
                 <Card
                     title="Load"
                     image={require('../../assets/images/load.png')}
-                    onPress={() => navigation.navigate('LoadPanel')}
+                    onPress={() => navigation.navigate('Load')}
                 />
             </View>
 

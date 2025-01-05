@@ -2,24 +2,96 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TopBar from "../../components/TopBar";
 import { OverviewNavigationProp, OverviewRouteProp } from "../../navigations/Types";
 import styles from "../../styles/style";
+import Realm from "realm";
+import { useEffect, useState } from "react";
+import NetInfo from '@react-native-community/netinfo';
 
 type Props = {
     navigation: OverviewNavigationProp;
     route: OverviewRouteProp;
 };
 
+const SupplierDocketSchema = {
+    name: "SupplierDocket",
+    primaryKey: "id",
+    properties: {
+        id: "int",
+        supplierName: "string",
+        potatoVariety: "string",
+        docketNumber: "string",
+        grossWeight: "string",
+        nettWeight: "string",
+        trailerRego: "string",
+        docketPhoto: "string",
+        driverSign: "string",
+        recieverSign: "string"
+    },
+};
+
 const Overview: React.FC<Props> = ({ navigation, route }) => {
     const data = route.params;
 
-    const handleSend = () => { 
+    const [isConnected, setIsConnected] = useState(false);
+
+    useEffect(() => {
+        NetInfo.fetch().then(state => {
+            setIsConnected(state.isConnected ?? false);
+        });
+
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setIsConnected(state.isConnected ?? false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const sendToAPI = async (docket: any) => {
+        console.log("data: ",docket);
+
+        // let res = api call here
+        if (true) { // api res.ok
+            // Clear the Realm data if the upload is successful
+            Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+                realm.write(() => {
+                    const allDockets = realm.objects("SupplierDocket");
+                    realm.delete(allDockets); // Delete all records from the realm
+                });
+            });
+        }
+    };
+
+    const handleSend = () => {
+        const paylaod = {
+            supplierName: data.details.details.supplierName,
+            potatoVariety: data.details.details.potatoVariety,
+            docketNumber: data.details.details.docketNumber,
+            grossWeight: data.details.details.grossWeight,
+            nettWeight: data.details.details.nettWeight,
+            trailerRego: data.details.details.trailerRego,
+            docketPhoto: data.details.docketPhoto,
+            driverSign: data.driverSign,
+            recieverSign: data.recieverSign
+        };
+
+        if (isConnected) sendToAPI(paylaod);
+        else
+            Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+                realm.write(() => {
+                    realm.create("SupplierDocket", {
+                        id: 1,
+                        ...paylaod
+                    });
+                });
+            });
+
         navigation.reset({
-            index:0,
-            routes:[{name:"SupplierDocket"}]
+            index: 0,
+            routes: [{ name: "SupplierDocket" }]
         });
     }
     return (
         <>
-            <TopBar pageName="Overview" showBackButton={false}/>
+            <TopBar pageName="Overview" showBackButton={false} />
             <View style={overviewStyles.mainContainer}>
                 <View style={overviewStyles.container}>
                     <View style={overviewStyles.row}>
@@ -98,16 +170,16 @@ const overviewStyles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        flexWrap:"wrap"
+        flexWrap: "wrap"
     },
     half: {
         width: "50%",
-        paddingHorizontal:10
+        paddingHorizontal: 10
     },
     label: {
         fontSize: 16,
         color: "#4448",
-        marginBottom:7
+        marginBottom: 7
     },
     heading: {
         fontSize: 24,

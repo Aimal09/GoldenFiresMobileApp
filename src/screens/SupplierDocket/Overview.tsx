@@ -5,6 +5,7 @@ import styles from "../../styles/style";
 import Realm from "realm";
 import { useEffect, useState } from "react";
 import NetInfo from '@react-native-community/netinfo';
+import { useNetwork } from '../../context/NetworkContext';
 
 type Props = {
     navigation: OverviewNavigationProp;
@@ -30,20 +31,7 @@ const SupplierDocketSchema = {
 
 const Overview: React.FC<Props> = ({ navigation, route }) => {
     const data = route.params;
-
-    const [isConnected, setIsConnected] = useState(false);
-
-    useEffect(() => {
-        NetInfo.fetch().then(state => {
-            setIsConnected(state.isConnected ?? false);
-        });
-
-        const unsubscribe = NetInfo.addEventListener(state => {
-            setIsConnected(state.isConnected ?? false);
-        });
-
-        return () => unsubscribe();
-    }, []);
+    const { isConnected } = useNetwork();
 
     const sendToAPI = async (docket: any) => {
         console.log("data: ",docket);

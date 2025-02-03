@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import Tabs from './src/navigations/Tabs';
-import NetInfo from '@react-native-community/netinfo';
+import React, { useEffect } from 'react';
 import Realm from "realm";
+import { AuthProvider } from './src/context/AuthContext';
+import { NetworkProvider, useNetwork } from './src/context/NetworkContext';
+import { useAuth } from './src/context/AuthContext';
 
 
 const SupplierDocketSchema = {
@@ -23,22 +23,20 @@ const SupplierDocketSchema = {
 };
 
 export default function App() {
-    const [isConnected, setIsConnected] = useState(false);
+    return (
+        <NetworkProvider>
+            <AuthProvider>
+                <AppContent />
+            </AuthProvider>
+        </NetworkProvider>
+    );
+}
+
+const AppContent = () => {
+    const { isConnected } = useNetwork();
+    const { authToken, isLoading } = useAuth();
 
     useEffect(() => {
-        NetInfo.fetch().then(state => {
-            setIsConnected(state.isConnected ?? false);
-        });
-
-        const unsubscribe = NetInfo.addEventListener(state => {
-            setIsConnected(state.isConnected ?? false);
-        });
-
-        return () => unsubscribe();
-    }, []);
-
-    useEffect(() => {
-        console.log("STATE: ", isConnected);
         if (isConnected) {
             syncDocketsIfNeeded();
         }
@@ -47,7 +45,7 @@ export default function App() {
     const syncDocketsIfNeeded = () => {
         if (isConnected) {
             Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
-                const docket = realm.objects('SupplierDocket')[0]; // Get the first docket (assuming there's only one)
+                const docket = realm.objects('SupplierDocket')[0];
                 if (docket) {
                     sendToAPI(docket);
                 }
@@ -70,8 +68,8 @@ export default function App() {
         }
     };
     return (
-        <NavigationContainer>
-            <Tabs />
-        </NavigationContainer>
+        <AuthProvider>
+            <AppContent />
+        </AuthProvider>
     );
 }

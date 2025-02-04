@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import loginResponse from '../assets/mock/loginResponse.json';
-import refreshTokenResponse from '../assets/mock/refreshTokenResponse.json';
+import {loginResponse} from '../assets/Mock/';
 import Realm from 'realm';
 import { AuthSchema } from '../context/AuthContext';
+import { refreshTokenResponse } from '../assets/Mock';
 
 interface ApiResponse<T> {
   data: T | null;

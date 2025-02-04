@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { ActivityIndicator, View } from 'react-native';
 import Realm from "realm";
 import { AuthProvider } from './src/context/AuthContext';
 import { NetworkProvider, useNetwork } from './src/context/NetworkContext';
 import { useAuth } from './src/context/AuthContext';
-
+import Login from './src/screens/Auth/Login';
+import Tabs from './src/navigations/Tabs';
 
 const SupplierDocketSchema = {
     name: "SupplierDocket",
@@ -54,22 +57,32 @@ const AppContent = () => {
     };
 
     const sendToAPI = async (docket: any) => {
-        console.log("\n\n\n\n\n\ndata: ",docket);
-
-        // let res = api call here
-        if (true) { // api res.ok
-            // Clear the Realm data if the upload is successful
-            Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+        try {
+            // let res = api call here
+            if (true) { // api res.ok
+                const realm = await Realm.open({ schema: [SupplierDocketSchema] });
                 realm.write(() => {
                     const allDockets = realm.objects("SupplierDocket");
-                    realm.delete(allDockets); // Delete all records from the realm
+                    realm.delete(allDockets);
                 });
-            });
+                realm.close();
+            }
+        } catch (error) {
+            console.error('Error sending to API:', error);
         }
     };
+
+    if (isLoading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
+
     return (
-        <AuthProvider>
-            <AppContent />
-        </AuthProvider>
+        <NavigationContainer>
+            {authToken ? <Tabs /> : <Login />}
+        </NavigationContainer>
     );
-}
+};

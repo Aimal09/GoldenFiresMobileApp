@@ -6,7 +6,7 @@ import styles from "../../styles/style";
 const SupplierDocket = ({ navigation }: any) => {
     return (
         <>
-            <TopBar pageName="Supplier Docket" />
+            <TopBar pageName="Supplier Docket" showBackButton={true}/>
             <ScrollView style={{ paddingHorizontal: 15, flex: 1 }}>
                 <ProductCard title="Potato Docket" iconUrl={require('../../assets/images/potato.png')} onClick={() => { navigation.navigate('DocketDetailsForm', {title:"Potato Docket"})}} />
                 <ProductCard title="Oil Docket" iconUrl={require('../../assets/images/oil.png')} onClick={() => { navigation.navigate('DocketDetailsForm', {title:"Oil Docket"})}} />

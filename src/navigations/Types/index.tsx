@@ -9,7 +9,7 @@ type DocketDetailsFormProp = {
 }
 type DocketDetailsPictureFormProp = {
     supplierName: string;
-    potatoVariety: string;
+    variety: string;
     docketNumber: string;
     grossWeight: string;
     nettWeight: string;

@@ -51,7 +51,7 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
     const handleSend = () => {
         const paylaod = {
             supplierName: data.details.details.supplierName,
-            potatoVariety: data.details.details.potatoVariety,
+            variety: data.details.details.variety,
             docketNumber: data.details.details.docketNumber,
             grossWeight: data.details.details.grossWeight,
             nettWeight: data.details.details.nettWeight,
@@ -98,7 +98,7 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.label}>Product Name</Text>
-                            <Text style={overviewStyles.heading}>{data.details.details.potatoVariety}</Text>
+                            <Text style={overviewStyles.heading}>{data.details.details.variety}</Text>
                         </View>
                     </View>
                     <View style={overviewStyles.row}>

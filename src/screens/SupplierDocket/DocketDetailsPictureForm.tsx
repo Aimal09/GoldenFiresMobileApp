@@ -45,7 +45,7 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
 
     return (
         <>
-            <TopBar pageName="Supplier Docket" showBackButton={false} />
+            <TopBar pageName="Supplier Docket" showBackButton={true} />
 
             <View style={{ paddingHorizontal: 20, flex: 1 }}>
                 <View style={DocketDetailsPictureFormStyles.container}>

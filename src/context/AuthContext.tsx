@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import Realm from 'realm';
 import { Alert } from 'react-native';
 import { useApi } from '../hooks/useApi';
+import { getRealm } from '../config/realm';
 
 export const AuthSchema = {
     name: "Auth",
@@ -9,7 +10,7 @@ export const AuthSchema = {
     properties: {
         id: "string",
         userProfile: "mixed?",
-        authToken: "string?",
+        accessToken: "string?",
         refreshToken: "string?",
         tokenExpiry: "int?",
     },
@@ -31,7 +32,7 @@ interface UserProfile {
 
 interface AuthState {
   userProfile: UserProfile | null;
-  authToken: string | null;
+  accessToken: string | null;
   refreshToken: string | null;
   tokenExpiry: number | null;
   isLoading: boolean;
@@ -49,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { loginApi, refreshTokenApi } = useApi();
     const [authState, setAuthState] = useState<AuthState>({
         userProfile: null,
-        authToken: null,
+        accessToken: null,
         refreshToken: null,
         tokenExpiry: null,
         isLoading: true,
@@ -57,15 +58,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const loadStoredAuthState = async () => {
         try {
-            const realm = await Realm.open({
-                schema: [AuthSchema],
-            });
+            const realm = await getRealm();
 
             const authData = (realm.objects('Auth')[0]);
             if (authData) {
                 setAuthState({
                     userProfile: authData.userProfile as UserProfile | null,
-                    authToken: authData.authToken as string | null,
+                    accessToken: authData.accessToken as string | null,
                     refreshToken: authData.refreshToken as string | null,
                     tokenExpiry: authData.tokenExpiry as number | null,
                     isLoading: false,
@@ -82,17 +81,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Add refresh token interval
     useEffect(() => {
-        if (authState.authToken && authState.tokenExpiry) {
+        if (authState.accessToken && authState.tokenExpiry) {
             const refreshInterval = setInterval(() => {
                 const currentTime = Date.now();
                 if (authState.tokenExpiry && currentTime >= authState.tokenExpiry - 60000) {
-                    refreshAuthToken();
+                    // refreshAuthToken();
                 }
             }, 60000); // Check every minute
 
             return () => clearInterval(refreshInterval);
         }
-    }, [authState.authToken, authState.tokenExpiry]);
+    }, [authState.accessToken, authState.tokenExpiry]);
 
     const refreshAuthToken = async () => {
         if (!authState.refreshToken) {
@@ -117,12 +116,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = async (credentials: { email: string; password: string }) => {
         try {
+            console.log('in login');
             const response = await loginApi(credentials);
+            console.log('resp: ', JSON.stringify(response));
             if (response.error) throw new Error(response.error);
 
             setAuthState({
                 userProfile: response.data.userProfile,
-                authToken: response.data.authToken,
+                accessToken: response.data.accessToken,
                 refreshToken: response.data.refreshToken,
                 tokenExpiry: response.data.tokenExpiry,
                 isLoading: false,
@@ -147,7 +148,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             setAuthState({
                 userProfile: null,
-                authToken: null,
+                accessToken: null,
                 refreshToken: null,
                 tokenExpiry: null,
                 isLoading: false,

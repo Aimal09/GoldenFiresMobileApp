@@ -1,104 +1,118 @@
+// src/hooks/useApi.ts
 import { useState } from 'react';
-import {loginResponse} from '../assets/Mock/';
 import Realm from 'realm';
 import { AuthSchema } from '../context/AuthContext';
-import { refreshTokenResponse } from '../assets/Mock';
+import { getAxiosInstance, updateToken } from '../services/api';
+import { AxiosError } from 'axios';
+import { loginResponse } from '../assets/Mock';
+import { getRealm } from '../config/realm';
 
 interface ApiResponse<T> {
-  data: T | null;
-  error: string | null;
-  loading: boolean;
+    data: T | null;
+    error: string | null;
+    loading: boolean;
 }
 
 export const useApi = () => {
-  const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-  const loginApi = async (credentials: { email: string; password: string }): Promise<ApiResponse<any>> => {
-    try {
-      setLoading(true);
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    const loginApi = async (credentials: { email: string; password: string }): Promise<ApiResponse<any>> => {
+        try {
+            setLoading(true);
+            const api = getAxiosInstance();
+            // const response = await api.post('', credentials);
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Use mock data
-      const response = loginResponse;
+            // Use mock data instead of API call
+            const response = { data: loginResponse };
+            console.log('response: ', JSON.stringify(response));
+            // Update axios instance with new token
+            updateToken(response.data.accessToken);
 
-      // Store in Realm
-      const realm = await Realm.open({
-        schema: [AuthSchema],
-      });
+            // Store in Realm
+            const realm = await getRealm();
 
-      realm.write(() => {
-        realm.deleteAll();
-        realm.create('Auth', {
-          id: '1',
-          userProfile: response.userProfile,
-          accessToken: response.accessToken,
-          refreshToken: response.refreshToken,
-          tokenExpiry: response.accessTokenExpiry,
-          accessTokenExpiry: response.accessTokenExpiry,
-          refreshTokenExpiry: response.refreshTokenExpiry
-        });
-      });
+            realm.write(() => {
+                realm.deleteAll();
+                realm.create('Auth', {
+                    id: '1',
+                    userProfile: response.data.userProfile,
+                    accessToken: response.data.accessToken,
+                    refreshToken: response.data.refreshToken,
+                    tokenExpiry: response.data.accessTokenExpiry,
+                    accessTokenExpiry: response.data.accessTokenExpiry,
+                    refreshTokenExpiry: response.data.refreshTokenExpiry
+                });
+            });
 
-      realm.close();
+            realm.close();
 
-      return {
-        data: response,
-        error: null,
-        loading: false,
-      };
-    } catch (error) {
-      return {
-        data: null,
-        error: 'Login failed',
-        loading: false,
-      };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const refreshTokenApi = async (refreshToken: string): Promise<ApiResponse<any>> => {
-    try {
-      setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const response = refreshTokenResponse;
-
-      const realm = await Realm.open({
-        schema: [AuthSchema],
-      });
-
-      realm.write(() => {
-        const authData = realm.objects('Auth')[0];
-        if (authData) {
-          authData.authToken = response.authToken;
-          authData.refreshToken = response.refreshToken;
-          authData.tokenExpiry = response.tokenExpiry;
+            return {
+                data: response.data,
+                error: null,
+                loading: false,
+            };
+        } catch (error) {
+            let errorMessage = 'Login failed';
+            if (error instanceof AxiosError) {
+                errorMessage = error.response?.data?.message || error.message;
+            }
+            return {
+                data: null,
+                error: errorMessage,
+                loading: false,
+            };
+        } finally {
+            setLoading(false);
         }
-      });
+    };
 
-      realm.close();
+    const refreshTokenApi = async (refreshToken: string): Promise<ApiResponse<any>> => {
+        try {
+            setLoading(true);
+            const api = getAxiosInstance();
+            const response = await api.post('/refresh', { refreshToken });
 
-      return {
-        data: response,
-        error: null,
-        loading: false,
-      };
-    } catch (error) {
-      return {
-        data: null,
-        error: 'Token refresh failed',
-        loading: false,
-      };
-    } finally {
-      setLoading(false);
-    }
-  };
+            updateToken(response.data.accessToken);
 
-  return {
-    loading,
-    loginApi,
-    refreshTokenApi,
-  };
+            const realm = await Realm.open({
+                schema: [AuthSchema],
+            });
+
+            realm.write(() => {
+                const authData = realm.objects('Auth')[0];
+                if (authData) {
+                    authData.authToken = response.data.authToken;
+                    authData.refreshToken = response.data.refreshToken;
+                    authData.tokenExpiry = response.data.tokenExpiry;
+                }
+            });
+
+            realm.close();
+
+            return {
+                data: response.data,
+                error: null,
+                loading: false,
+            };
+        } catch (error) {
+            let errorMessage = 'Token refresh failed';
+            if (error instanceof AxiosError) {
+                errorMessage = error.response?.data?.message || error.message;
+            }
+            return {
+                data: null,
+                error: errorMessage,
+                loading: false,
+            };
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return {
+        loading,
+        loginApi,
+        refreshTokenApi,
+    };
 };

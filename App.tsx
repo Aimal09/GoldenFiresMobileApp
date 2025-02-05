@@ -37,8 +37,9 @@ export default function App() {
 
 const AppContent = () => {
     const { isConnected } = useNetwork();
-    const { authToken, isLoading } = useAuth();
+    const { accessToken, isLoading } = useAuth();
 
+    console.log('auh token: ', accessToken);
     useEffect(() => {
         if (isConnected) {
             syncDocketsIfNeeded();
@@ -82,7 +83,7 @@ const AppContent = () => {
 
     return (
         <NavigationContainer>
-            {authToken ? <Tabs /> : <Login />}
+            {accessToken ? <Tabs /> : <Login />}
         </NavigationContainer>
     );
 };

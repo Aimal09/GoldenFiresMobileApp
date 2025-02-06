@@ -21,6 +21,7 @@ interface FormData {
     grossWeight: string;
     nettWeight: string;
     trailerRego: string;
+    weightBridgeDocketNumber: string;
 }
 
 interface FormErrors {
@@ -44,7 +45,8 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
         docketNumber: '',
         grossWeight: '',
         nettWeight: '',
-        trailerRego: ''
+        trailerRego: '',
+        weightBridgeDocketNumber: '',
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -73,6 +75,10 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
             return undefined;
         },
         docketNumber: (value: string) => {
+            if (!value) return 'Docket number is required';
+            return undefined;
+        },
+        weightBridgeDocketNumber: (value: string) => {
             if (!value) return 'Wightbridge Docket is required';
             return undefined;
         },
@@ -83,9 +89,22 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
     };
 
     const updateField = (field: keyof FormData, value: string) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
-        // Clear error when field is updated
-        setErrors(prev => ({ ...prev, [field]: undefined }));
+        // setFormData(prev => ({ ...prev, [field]: value }));
+        // // Clear error when field is updated
+        // setErrors(prev => ({ ...prev, [field]: undefined }));
+        if (field === 'supplierName' || field === 'variety') {
+            // Find selected option to get name
+            const option = currentOptions[field === 'supplierName' ? 'suppliers' : 'varieties']
+                .find(opt => opt.value === value);
+            
+            if (option) {
+                setFormData(prev => ({ ...prev, [field]: option.name }));
+                setErrors(prev => ({ ...prev, [field]: undefined }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [field]: value }));
+            setErrors(prev => ({ ...prev, [field]: undefined }));
+        }
     };
 
     const validateForm = (): boolean => {
@@ -130,7 +149,8 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                 docketNumber: '',
                 grossWeight: '',
                 nettWeight: '',
-                trailerRego: ''
+                trailerRego: '',
+                weightBridgeDocketNumber: ''
             });
             setErrors({});
         };
@@ -150,8 +170,20 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                             <Text style={DocketDetailsFormStyles.dateText}>{formatDate(currentDate)}</Text>
                             <Text style={DocketDetailsFormStyles.timeText}>{formatTime(currentDate)}</Text>
                         </View>
-                        <Text style={DocketDetailsFormStyles.docketNumber}>Docket number: {docketNumber}</Text>
-                        
+                        {/* <Text style={DocketDetailsFormStyles.docketNumber}>Docket number: {docketNumber}</Text> */}
+                        <View style={DocketDetailsFormStyles.row}>
+                        <View style={DocketDetailsFormStyles.inputContainer}>
+                            {errors.docketNumber && <Text style={styles.errorTxt}>{errors.docketNumber}</Text>}
+                            <Text style={DocketDetailsFormStyles.label}>Docket number</Text>
+                            <TextInput
+                                placeholder="Enter Docket number"
+                                style={DocketDetailsFormStyles.input}
+                                value={formData.docketNumber}
+                                onChangeText={(v) => updateField('docketNumber', v)}
+                                keyboardType="number-pad"
+                            />
+                        </View>
+                        </View>
                         {errors.supplierName && <Text style={styles.errorTxt}>{errors.supplierName}</Text>}
                         <ComboBox 
                             label="Supplier Name" 
@@ -170,13 +202,14 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
 
                         <View style={DocketDetailsFormStyles.row}>
                             <View style={DocketDetailsFormStyles.inputContainer}>
-                                {errors.docketNumber && <Text style={styles.errorTxt}>{errors.docketNumber}</Text>}
-                                <Text style={DocketDetailsFormStyles.label}>Wightbridge Docket N°</Text>
+                                {errors.weightBridgeDocketNumber && <Text style={styles.errorTxt}>{errors.weightBridgeDocketNumber}</Text>}
+                                <Text style={DocketDetailsFormStyles.label}>Wightbridge Docket No.</Text>
                                 <TextInput
-                                    placeholder="Enter Docket N°"
+                                    placeholder="Enter Docket No."
                                     style={DocketDetailsFormStyles.input}
-                                    value={formData.docketNumber}
-                                    onChangeText={(v) => updateField('docketNumber', v)}
+                                    value={formData.weightBridgeDocketNumber}
+                                    onChangeText={(v) => updateField('weightBridgeDocketNumber', v)}
+                                    keyboardType="number-pad"
                                 />
                             </View>
 
@@ -188,7 +221,7 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                                     style={DocketDetailsFormStyles.input}
                                     value={formData.grossWeight}
                                     onChangeText={(v) => updateField('grossWeight', v)}
-                                    keyboardType="numeric"
+                                    keyboardType="decimal-pad"
                                 />
                             </View>
                         </View>
@@ -202,7 +235,7 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                                     style={DocketDetailsFormStyles.input}
                                     value={formData.nettWeight}
                                     onChangeText={(v) => updateField('nettWeight', v)}
-                                    keyboardType="numeric"
+                                    keyboardType="decimal-pad"
                                 />
                             </View>
 

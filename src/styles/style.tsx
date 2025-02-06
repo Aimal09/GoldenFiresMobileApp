@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
     btn:{
         backgroundColor:COLORS.yellow,
         paddingHorizontal:20,
-        paddingVertical:25,
+        paddingVertical:8,
         borderRadius:20,
-        marginTop:20
+        marginTop:20,
     },
     btnSecondary:{
       flexDirection: 'row',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     btnText:{
         color:"#fff",
-        fontSize:22,
+        fontSize:15,
         fontWeight:"600",
         textAlign:"center"
     },

@@ -7,66 +7,79 @@ import { NetworkProvider, useNetwork } from './src/context/NetworkContext';
 import { useAuth } from './src/context/AuthContext';
 import Login from './src/screens/Auth/Login';
 import Tabs from './src/navigations/Tabs';
+import { RealmProvider, useRealm } from './src/context/RealmContext';
 
-const SupplierDocketSchema = {
-    name: "SupplierDocket",
-    primaryKey: "id",
-    properties: {
-        id: "int",
-        supplierName: "string",
-        potatoVariety: "string",
-        docketNumber: "string",
-        grossWeight: "string",
-        nettWeight: "string",
-        trailerRego: "string",
-        docketPhoto: "string",
-        driverSign: "string",
-        recieverSign: "string"
-    },
-};
+// const SupplierDocketSchema = {
+//     name: "SupplierDocket",
+//     primaryKey: "id",
+//     properties: {
+//         id: "int",
+//         supplierName: "string",
+//         Variety: "string",
+//         docketNumber: "string",
+//         weightBridgeDocketNumber: "string",
+//         grossWeight: "string",
+//         nettWeight: "string",
+//         trailerRego: "string",
+//         docketPhoto: "string",
+//         driverSign: "string",
+//         recieverSign: "string"
+//     },
+// };
 
 export default function App() {
     return (
-        <NetworkProvider>
-            <AuthProvider>
-                <AppContent />
-            </AuthProvider>
-        </NetworkProvider>
+        <RealmProvider>
+            <NetworkProvider>
+                <AuthProvider>
+                    <AppContent />
+                </AuthProvider>
+            </NetworkProvider>
+        </RealmProvider>
     );
 }
 
 const AppContent = () => {
     const { isConnected } = useNetwork();
     const { accessToken, isLoading } = useAuth();
+    const realm = useRealm();
 
     console.log('auh token: ', accessToken);
     useEffect(() => {
-        if (isConnected) {
-            syncDocketsIfNeeded();
+        if (isConnected && realm) {
+            syncDocketsIfNeeded(realm);
         }
     }, [isConnected]);
 
-    const syncDocketsIfNeeded = () => {
-        if (isConnected) {
-            Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
-                const docket = realm.objects('SupplierDocket')[0];
-                if (docket) {
-                    sendToAPI(docket);
-                }
-            });
+    const syncDocketsIfNeeded = (realmInstance: Realm) => {
+        // if (isConnected) {
+        //     Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+        //         const docket = realm.objects('SupplierDocket')[0];
+        //         if (docket) {
+        //             sendToAPI(docket);
+        //         }
+        //     });
+        // }
+        const docket = realmInstance.objects('SupplierDocket')[0];
+        if (docket) {
+            sendToAPI(realmInstance, docket);
         }
     };
 
-    const sendToAPI = async (docket: any) => {
+    const sendToAPI = async (realmInstance: Realm, docket: any) => {
         try {
             // let res = api call here
             if (true) { // api res.ok
-                const realm = await Realm.open({ schema: [SupplierDocketSchema] });
-                realm.write(() => {
-                    const allDockets = realm.objects("SupplierDocket");
-                    realm.delete(allDockets);
+                // const realm = await Realm.open({ schema: [SupplierDocketSchema] });
+                // realm.write(() => {
+                //     const allDockets = realm.objects("SupplierDocket");
+                //     realm.delete(allDockets);
+                // });
+                // realm.close();
+                realmInstance.write(() => {
+                    const allDockets = realmInstance.objects("SupplierDocket");
+                    realmInstance.delete(allDockets);
                 });
-                realm.close();
             }
         } catch (error) {
             console.error('Error sending to API:', error);

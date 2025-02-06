@@ -3,18 +3,19 @@ import Realm from 'realm';
 import { Alert } from 'react-native';
 import { useApi } from '../hooks/useApi';
 import { getRealm } from '../config/realm';
+import { useRealm } from './RealmContext';
 
-export const AuthSchema = {
-    name: "Auth",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        userProfile: "mixed?",
-        accessToken: "string?",
-        refreshToken: "string?",
-        tokenExpiry: "int?",
-    },
-};
+// export const AuthSchema = {
+//     name: "Auth",
+//     primaryKey: "id",
+//     properties: {
+//         id: "string",
+//         userProfile: "mixed?",
+//         accessToken: "string?",
+//         refreshToken: "string?",
+//         tokenExpiry: "int?",
+//     },
+// };
 interface UserWithAccess {
     email: string;
     access: number[];
@@ -48,6 +49,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { loginApi, refreshTokenApi } = useApi();
+    const realm = useRealm();
     const [authState, setAuthState] = useState<AuthState>({
         userProfile: null,
         accessToken: null,
@@ -57,10 +59,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
 
     const loadStoredAuthState = async () => {
+        console.log('Loading stored auth state. Realm:', !!realm);
+        if (!realm) {
+            console.log('No realm instance');
+            setAuthState(prev => ({ ...prev, isLoading: false }));
+            return;
+        }
         try {
-            const realm = await getRealm();
+            // if (!realm) return;
+            // const realm = await getRealm();
 
-            const authData = (realm.objects('Auth')[0]);
+            const authData = realm.objects('Auth')[0];
+            console.log('aauth data: ', JSON.stringify(authData));
             if (authData) {
                 setAuthState({
                     userProfile: authData.userProfile as UserProfile | null,
@@ -72,7 +82,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } else {
                 setAuthState(prev => ({ ...prev, isLoading: false }));
             }
-            realm.close();
+            // realm.close();
         } catch (error) {
             console.error('Error loading auth state:', error);
             setAuthState(prev => ({ ...prev, isLoading: false }));
@@ -105,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 // should be from realm to make the state
             setAuthState(prev => ({
                 ...prev,
-                authToken: response.data.authToken,
+                accessToken: response.data.accessToken,
                 refreshToken: response.data.refreshToken,
                 tokenExpiry: response.data.tokenExpiry,
             }));
@@ -135,16 +145,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const logout = async () => {
+        if (!realm) return;
         try {
-            const realm = await Realm.open({
-                schema: [AuthSchema],
-            });
+            // const realm = await Realm.open({
+            //     schema: [AuthSchema],
+            // });
 
+            // realm.write(() => {
+            //     realm.deleteAll();
+            // });
             realm.write(() => {
-                realm.deleteAll();
+                const authData = realm.objects('Auth');
+                realm.delete(authData);
             });
 
-            realm.close();
+            // realm.close();
 
             setAuthState({
                 userProfile: null,
@@ -160,11 +175,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const updateProfile = async (profile: UserProfile) => {
+        if (!realm) return;
         try {
-            const realm = await Realm.open({
-                schema: [AuthSchema],
-            });
+            // const realm = await Realm.open({
+            //     schema: [AuthSchema],
+            // });
 
+            // realm.write(() => {
+            //     const authData = realm.objects('Auth')[0];
+            //     if (authData) {
+            //         authData.userProfile = profile;
+            //     }
+            // });
             realm.write(() => {
                 const authData = realm.objects('Auth')[0];
                 if (authData) {
@@ -172,7 +194,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 }
             });
 
-            realm.close();
+            // realm.close();
 
             setAuthState(prev => ({
                 ...prev,
@@ -187,7 +209,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Keep existing useEffect and return statement
     useEffect(() => {
         loadStoredAuthState();
-    }, []);
+    }, [realm]);
 
     return (
         <AuthContext.Provider

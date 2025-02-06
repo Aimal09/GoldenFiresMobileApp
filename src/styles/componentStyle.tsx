@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import COLORS from './colors';
 import Overview from '../screens/SupplierDocket/Overview';
 
@@ -302,28 +302,30 @@ const comboBoxStyles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: 20,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
       borderRadius: 30,
-      height:60,
+      // height:50,
       backgroundColor: COLORS.background,
   },
   comboBoxLight: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: 20,
+      padding: 10,
       borderRadius: 30,
-      height:60,
+      // height:50,
       backgroundColor: COLORS.white,
   },
   comboBoxOpen: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: 20,
+      paddingHorizontal: 20,
+      paddingVertical: 10,
       borderTopLeftRadius: 30,
       borderTopRightRadius:30,
-      height:60,
+      // height:50,
       backgroundColor: COLORS.background,
   },
   comboBoxOpenLight: {
@@ -333,12 +335,13 @@ const comboBoxStyles = StyleSheet.create({
       padding: 20,
       borderTopLeftRadius: 30,
       borderTopRightRadius:30,
-      height:60,
+      // height:60,
       backgroundColor: COLORS.white,
   },
   selectedOption: {
-      fontSize: 16,
+      fontSize: 14,
       color: COLORS.text,
+      textAlignVertical: 'center'
   },
   icon: {
       width: 12,
@@ -355,9 +358,11 @@ const comboBoxStyles = StyleSheet.create({
   optionBox: {
       width: '100%',
       maxHeight:150,
-      backgroundColor: COLORS.background,
+      backgroundColor: COLORS.lightGrey,
       borderBottomLeftRadius: 30,
-      borderBottomRightRadius:30,
+      borderBottomRightRadius:0,
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 0,
       position:"absolute",
       top:"100%",
       zIndex:2,
@@ -386,12 +391,76 @@ const comboBoxStyles = StyleSheet.create({
   },
 });
 
+// const DocketDetailsPictureFormStyles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         backgroundColor: COLORS.white,
+//         paddingHorizontal: 20,
+//     },
+//     contentContainer: {
+//         flex: 1,
+//         backgroundColor: COLORS.white,
+//         borderRadius: 30,
+//         padding: 25,
+//     },
+//     title: {
+//         fontSize: 24,
+//         color: COLORS.text,
+//         fontWeight: "500",
+//         marginBottom: 20,
+//     },
+//     photoContainer: {
+//         width: '100%',
+//         height: undefined,
+//         aspectRatio: 16/9,
+//         backgroundColor: COLORS.background,
+//         borderRadius: 15,
+//         marginBottom: 20,
+//         overflow: 'hidden',
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//     },
+//     camera: {
+//         width: 80,
+//         height: 80,
+//     },
+//     image: {
+//         width: '100%',
+//         height: '100%',
+//         resizeMode: 'cover',
+//     },
+//     buttonContainer: {
+//         paddingHorizontal: 20,
+//         paddingBottom: Platform.OS === 'ios' ? 40 : 20,
+//         gap: 15,
+//     },
+//     infoContainer: {
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         backgroundColor: COLORS.background,
+//         padding: 15,
+//         borderRadius: 10,
+//         marginTop: 20,
+//     },
+//     infoIcon: {
+//         fontSize: 16,
+//         color: COLORS.grey,
+//         marginRight: 10,
+//     },
+//     infoText: {
+//         flex: 1,
+//         color: COLORS.textLight,
+//         fontSize: 14,
+//         lineHeight: 20,
+//     },
+// });
 
 const DocketDetailsPictureFormStyles = StyleSheet.create({
   container: {
       backgroundColor: COLORS.white,
       borderRadius: 30,
-      padding: 40
+      padding: 40,
+      flex: 1,
   },
   title: {
       fontSize: 22,
@@ -410,7 +479,7 @@ const DocketDetailsPictureFormStyles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: "center",
       marginBottom: 20,
-      height: 250
+      height: 240
   },
   buttonText: {
       color: COLORS.white,
@@ -442,15 +511,18 @@ const DocketDetailsPictureFormStyles = StyleSheet.create({
 
 const signatureStyles = StyleSheet.create({
   mainContainer:{
-      paddingHorizontal:20,
+      // paddingHorizontal:20,
       flex:1,
-  },
-  container:{
+      flexDirection: 'column',
+
       backgroundColor:COLORS.white,
       borderRadius:30,
-      flex:1,
+
       padding:25,
-      gap:25
+      // gap:25
+  },
+  container:{
+      flex:1,
   }
 });
 

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import COLORS from './colors';
 
 const dashboardStyles = StyleSheet.create({
@@ -99,7 +99,7 @@ const DocketDetailsFormStyles = StyleSheet.create({
         flex: 1,
     },
     input: {
-        minHeight: 60,
+        // minHeight: 60,
         paddingVertical: 10,
         paddingHorizontal: 20,
         backgroundColor: '#f4f4f4',

@@ -1,6 +1,6 @@
 import { DocketDetailsPictureFormNavigationProp, DocketDetailsPictureFormRouteProp } from "../../navigations/Types";
 import React, { useEffect, useState } from 'react';
-import { View, Image, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, Image, Alert, TouchableOpacity, Text, SafeAreaView } from 'react-native';
 import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import TopBar from "../../components/TopBar";
 import styles from "../../styles/style";
@@ -44,9 +44,62 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
     }
 
     return (
-        <>
+    //     <SafeAreaView style={DocketDetailsPictureFormStyles.container}>
+    //        <TopBar pageName="Supplier Docket" showBackButton={true} />
+           
+    //        <View style={DocketDetailsPictureFormStyles.contentContainer}>
+    //            <Text style={DocketDetailsPictureFormStyles.title}>Docket Photo</Text>
+               
+    //            {photoUriV && <Text style={styles.errorTxt}>Photo is required *</Text>}
+               
+    //            <TouchableOpacity 
+    //                style={DocketDetailsPictureFormStyles.photoContainer} 
+    //                onPress={openCamera}
+    //            >
+    //                {!photoUri && (
+    //                    <Image 
+    //                        source={require("../../assets/images/camera.png")} 
+    //                        style={DocketDetailsPictureFormStyles.camera} 
+    //                    />
+    //                )}
+    //                {photoUri && (
+    //                    <Image 
+    //                        source={{ uri: photoUri }} 
+    //                        style={DocketDetailsPictureFormStyles.image} 
+    //                    />
+    //                )}
+    //            </TouchableOpacity>
+
+    //            <View style={DocketDetailsPictureFormStyles.infoContainer}>
+    //                <Text style={DocketDetailsPictureFormStyles.infoIcon}>i</Text>
+    //                <Text style={DocketDetailsPictureFormStyles.infoText}>
+    //                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //                </Text>
+    //            </View>
+    //        </View>
+
+    //        <View style={DocketDetailsPictureFormStyles.buttonContainer}>
+    //            <TouchableOpacity 
+    //                style={styles.btnSecondary} 
+    //                onPress={() => { setPhotoUri(null); openCamera(); }}
+    //            >
+    //                <Text style={styles.btnSecondaryText}>
+    //                    {photoUri ? "Retake Photo" : "Take Photo"}
+    //                </Text>
+    //            </TouchableOpacity>
+
+    //            <TouchableOpacity 
+    //                style={styles.btn} 
+    //                onPress={handleContinue}
+    //            >
+    //                <Text style={styles.btnText}>Continue</Text>
+    //            </TouchableOpacity>
+    //        </View>
+    //    </SafeAreaView>
+        <View style={{padding: 20, flex: 1}}>
             <TopBar pageName="Supplier Docket" showBackButton={true} />
 
+            
             <View style={{ paddingHorizontal: 20, flex: 1 }}>
                 <View style={DocketDetailsPictureFormStyles.container}>
                     {photoUriV && <Text style={styles.errorTxt}>Photo is required *</Text>}
@@ -58,14 +111,15 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
                         )}
                     </TouchableOpacity>
 
+                    {/* <View style={{padding: 0}}> */}
                     <TouchableOpacity style={styles.btn} onPress={() => { setPhotoUri(null); openCamera(); }}>
                         <Text style={styles.btnText}>{photoUri == null ? "Take Photo" : "Retake Photo"}</Text>
                     </TouchableOpacity>
-
-                    <View style={DocketDetailsPictureFormStyles.info}>
+                    {/* </View> */}
+                    {/* <View style={DocketDetailsPictureFormStyles.info}>
                         <Text style={DocketDetailsPictureFormStyles.infoIcon}>i</Text>
                         <Text style={DocketDetailsPictureFormStyles.infoText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</Text>
-                    </View>
+                    </View> */}
                 </View>
             </View>
 
@@ -76,7 +130,7 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
                 </TouchableOpacity>
             </View>
 
-        </>
+        </View>
     );
 }
 

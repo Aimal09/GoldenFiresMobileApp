@@ -1,11 +1,10 @@
 // src/hooks/useApi.ts
 import { useState } from 'react';
 import Realm from 'realm';
-import { AuthSchema } from '../context/AuthContext';
 import { getAxiosInstance, updateToken } from '../services/api';
 import { AxiosError } from 'axios';
 import { loginResponse } from '../assets/Mock';
-import { getRealm } from '../config/realm';
+import { useRealm } from '../context/RealmContext';
 
 interface ApiResponse<T> {
     data: T | null;
@@ -15,7 +14,7 @@ interface ApiResponse<T> {
 
 export const useApi = () => {
     const [loading, setLoading] = useState(false);
-
+    const realm = useRealm();
     const loginApi = async (credentials: { email: string; password: string }): Promise<ApiResponse<any>> => {
         try {
             setLoading(true);
@@ -30,22 +29,21 @@ export const useApi = () => {
             updateToken(response.data.accessToken);
 
             // Store in Realm
-            const realm = await getRealm();
-
-            realm.write(() => {
-                realm.deleteAll();
-                realm.create('Auth', {
-                    id: '1',
-                    userProfile: response.data.userProfile,
-                    accessToken: response.data.accessToken,
-                    refreshToken: response.data.refreshToken,
-                    tokenExpiry: response.data.accessTokenExpiry,
-                    accessTokenExpiry: response.data.accessTokenExpiry,
-                    refreshTokenExpiry: response.data.refreshTokenExpiry
+            // const realm = await getRealm();
+            if(realm){
+                realm.write(() => {
+                    realm.deleteAll();
+                    realm.create('Auth', {
+                        id: '1',
+                        userProfile: response.data.userProfile,
+                        accessToken: response.data.accessToken,
+                        refreshToken: response.data.refreshToken,
+                        tokenExpiry: response.data.accessTokenExpiry,
+                        accessTokenExpiry: response.data.accessTokenExpiry,
+                        refreshTokenExpiry: response.data.refreshTokenExpiry
+                    });
                 });
-            });
-
-            realm.close();
+            }
 
             return {
                 data: response.data,
@@ -75,20 +73,22 @@ export const useApi = () => {
 
             updateToken(response.data.accessToken);
 
-            const realm = await Realm.open({
-                schema: [AuthSchema],
-            });
+            // const realm = await Realm.open({
+            //     schema: [AuthSchema],
+            // });
+            if(realm){
 
-            realm.write(() => {
-                const authData = realm.objects('Auth')[0];
-                if (authData) {
-                    authData.authToken = response.data.authToken;
-                    authData.refreshToken = response.data.refreshToken;
-                    authData.tokenExpiry = response.data.tokenExpiry;
-                }
-            });
+                realm.write(() => {
+                    const authData = realm.objects('Auth')[0];
+                    if (authData) {
+                        authData.accessToken = response.data.accessToken;
+                        authData.refreshToken = response.data.refreshToken;
+                        authData.tokenExpiry = response.data.tokenExpiry;
+                    }
+                });
+            }
 
-            realm.close();
+            // realm.close();
 
             return {
                 data: response.data,

@@ -1,12 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TopBar from "../../components/TopBar";
 import { OverviewNavigationProp, OverviewRouteProp } from "../../navigations/Types";
 import styles from "../../styles/style";
-import Realm from "realm";
-import { useEffect, useState } from "react";
-import NetInfo from '@react-native-community/netinfo';
 import { useNetwork } from '../../context/NetworkContext';
-
+import { formatDate } from "../../utils";
+import { ScrollView } from "react-native-gesture-handler";
+import { useRealm } from "../../context/RealmContext";
 type Props = {
     navigation: OverviewNavigationProp;
     route: OverviewRouteProp;
@@ -31,55 +30,82 @@ const SupplierDocketSchema = {
 
 const Overview: React.FC<Props> = ({ navigation, route }) => {
     const data = route.params;
+    const realm = useRealm();
     const { isConnected } = useNetwork();
 
     const sendToAPI = async (docket: any) => {
-        console.log("data: ",docket);
+        // console.log("data: ",docket);
 
         // let res = api call here
         if (true) { // api res.ok
             // Clear the Realm data if the upload is successful
-            Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+            // Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+            //     realm.write(() => {
+            //         const allDockets = realm.objects("SupplierDocket");
+            //         realm.delete(allDockets); // Delete all records from the realm
+            //     });
+            // });
+            if (realm) {
                 realm.write(() => {
                     const allDockets = realm.objects("SupplierDocket");
-                    realm.delete(allDockets); // Delete all records from the realm
+                    realm.delete(allDockets);
                 });
-            });
+            }
         }
     };
 
     const handleSend = () => {
-        const paylaod = {
+        const payload = {
             supplierName: data.details.details.supplierName,
             variety: data.details.details.variety,
             docketNumber: data.details.details.docketNumber,
+            weightBridgeDocketNumber: data.details.details.weightBridgeDocketNumber,
             grossWeight: data.details.details.grossWeight,
             nettWeight: data.details.details.nettWeight,
             trailerRego: data.details.details.trailerRego,
             docketPhoto: data.details.docketPhoto,
             driverSign: data.driverSign,
-            recieverSign: data.recieverSign
+            recieverSign: data.recieverSign,
+            date: new Date(),
         };
+        // console.log('payload: ', JSON.stringify(payload));
 
-        if (isConnected) sendToAPI(paylaod);
-        else
-            Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+        // if (isConnected) sendToAPI(paylaod);
+        // else
+        //     Realm.open({ schema: [SupplierDocketSchema] }).then(realm => {
+        //         realm.write(() => {
+        //             realm.create("SupplierDocket", {
+        //                 id: 1,
+        //                 ...paylaod
+        //             });
+        //         });
+        //     });
+        if (false) {
+            sendToAPI(payload)
+            navigation.navigate('View Docket', {});
+        } else if (realm) {
+            try {
                 realm.write(() => {
                     realm.create("SupplierDocket", {
-                        id: 1,
-                        ...paylaod
+                        id: new Date().getTime(),
+                        ...payload
                     });
+                    navigation.navigate('View Docket', {});
                 });
-            });
-
-        navigation.reset({
-            index: 0,
-            routes: [{ name: "SupplierDocket" }]
-        });
+            } catch (e) {
+                console.error('Realm write error:', e);
+                Alert.alert('Error', 'Failed to save docket. Please try again.');
+            }
+        } else {
+            console.log('no realm instance');
+            Alert.alert('Error', 'Local Db issue');
+        }
+        
     }
     return (
         <>
             <TopBar pageName="Overview" showBackButton={false} />
+            <ScrollView style={overviewStyles.mainContainer}>
             <View style={overviewStyles.mainContainer}>
                 <View style={overviewStyles.container}>
                     <View style={overviewStyles.row}>
@@ -88,7 +114,7 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.heading}>Supplier Docket</Text>
-                            <Text style={overviewStyles.heading}>004583</Text>
+                            <Text style={overviewStyles.heading}>{data.details.details.docketNumber}</Text>
                         </View>
                     </View>
                     <View style={overviewStyles.row}>
@@ -108,29 +134,30 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
                         </View>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.label}>Date</Text>
-                            <Text style={overviewStyles.heading}>{data.details.details.supplierName}</Text>
+                            <Text style={overviewStyles.heading}>{formatDate(new Date())}</Text>
                         </View>
                     </View>
                     <View style={overviewStyles.row}>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.label}>Driver</Text>
-                            <Text style={overviewStyles.heading}>{data.details.details.nettWeight}</Text>
+                            <View style={overviewStyles.half}>
+                            <Image source={{ uri: data.driverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 4, height: 100, borderRadius: 10 }} />
+                        </View>
                         </View>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.label}>Receiver</Text>
-                            <Text style={overviewStyles.heading}>{data.details.details.supplierName}</Text>
+                            <View style={overviewStyles.half}>
+                            <Image source={{ uri: data.recieverSign }} resizeMode="contain" style={{ width: "100%", height: 100, borderRadius: 10 }} />
+                            
                         </View>
-                        <View style={overviewStyles.half}>
-                            <Image source={{ uri: data.driverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 1, height: 100, borderRadius: 10 }} />
                         </View>
-                        <View style={overviewStyles.half}>
-                            <Image source={{ uri: data.recieverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 1, height: 100, borderRadius: 10 }} />
-                        </View>
+                        
+                        
                     </View>
 
                 </View>
             </View>
-
+            </ScrollView>
             <View style={{ padding: 20, paddingTop: 0 }}>
                 <TouchableOpacity style={styles.btn} onPress={handleSend}>
                     <Text style={styles.btnText}>Continue</Text>

@@ -3,7 +3,7 @@ import COLORS from "../styles/colors";
 
 interface TextBlockProp {
     label:string;
-    value: string;
+    value?: string;
     styles?:object;
 }
 

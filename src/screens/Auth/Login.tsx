@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, Alert, ActivityIndicator } from "react-native";
 import { loginStyle } from "../../styles/componentStyle";
 import { useAuth } from "../../context/AuthContext";
 
@@ -29,6 +29,25 @@ const Login = () => {
             setIsLoading(false);
         }
     };
+
+    if (isLoading) {
+        return (
+            <View style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(0,0,0,0.3)',
+                zIndex: 999
+            }}>
+                <ActivityIndicator size="large" color="#f2b233" />
+            </View>
+        );
+    }
+
 
     return (
         <View style={loginStyle.main}>
@@ -80,7 +99,7 @@ const Login = () => {
                     disabled={isLoading}
                 >
                     <Text style={loginStyle.confirmButtonText}>
-                        {isLoading ? "Loading..." : "Confirm"}
+                        {"Confirm"}
                     </Text>
                 </TouchableOpacity>
             </View>

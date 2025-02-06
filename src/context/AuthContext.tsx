@@ -208,6 +208,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Keep existing useEffect and return statement
     useEffect(() => {
+        logout();
         loadStoredAuthState();
     }, [realm]);
 

@@ -80,7 +80,9 @@ const GoodsTrack = () => {
     const [showForm, setShowForm] = useState(false);
     const [showSignForm, setShowSignForm] = useState(false);
     const [qty, setQty] = useState('');
-    const [val, setVal] = useState();
+    const [comment, setComment] = useState('');
+    const [updatedBy, setUpdatedBy] = useState('');
+    const [val, setVal] = useState('');
     const [selectedCityId, setSelectedCityId] = useState(0);
     const [filterByDate, setFilterByDate] = useState<DateRangeProp>(initFilterByDate);
     const [showFilterByDate,setShowFilterByDate] = useState(false);
@@ -122,8 +124,8 @@ const GoodsTrack = () => {
                 <View>
                     <TextField label="Quantity" value={qty} setValue={setQty} placeholder="Enter a value" styles={{ marginBottom: 15 }} />
                     <TextField label="Date" value={val} setValue={setVal} placeholder="10.05.2024" styles={{ marginBottom: 15 }} />
-                    <TextField label="Updated By" value={val} setValue={setVal} placeholder="Enter Name Surename" styles={{ marginBottom: 15 }} />
-                    <TextField label="Comment" value={val} setValue={setVal} placeholder="Reason for change" styles={{ marginBottom: 15 }} multiline={true} numberOfLine={6} />
+                    <TextField label="Updated By" value={updatedBy} setValue={setUpdatedBy} placeholder="Enter Name Surename" styles={{ marginBottom: 15 }} />
+                    <TextField label="Comment" value={comment} setValue={setComment} placeholder="Reason for change" styles={{ marginBottom: 15 }} multiline={true} numberOfLine={6} />
                     <TouchableOpacity style={styles.btn} onPress={handleContinueClick}><Text style={styles.btnText}>Continue</Text></TouchableOpacity>
                 </View>
             </FullScreenModal>}

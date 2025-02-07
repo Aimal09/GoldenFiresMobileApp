@@ -37,6 +37,11 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
     const [box, setBox] = useState<string>('');
     const [tape, setTape] = useState<string>('');
     const [plastic, setPlastic] = useState<string>('');
+    const [woodenPlattes, setWoodenPlattes] = useState<string>('');
+    const [editBox, setEditBox] = useState<string>('');
+    const [editTape, setEditTape] = useState<string>('');
+    const [editPlastic, setEditPlastic] = useState<string>('');
+    const [editWoodenPlattes, setEditWoodenPlattes] = useState<string>('');
     const [showDates, setShowDates] = useState(false);
     const [calendarDate, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [surname, setSurname] = useState<string>('');
@@ -56,6 +61,88 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         "13mm-fries": require("../../assets/images/13mm.png"),
         "15mm-fries": require("../../assets/images/15mm.png"),
     };
+
+    interface FormData {
+        box: string;
+        tape: string;
+        plastic: string;
+        woodenPlattes: string;
+        editBox: string;
+        editTape: string;
+        editPlatic: string;
+        editWoodenPlattes: string;
+    }
+
+    interface ValidationRules {
+        [key: string]: (value: string, formData: FormData) => string | undefined;
+    }
+
+     const [formData, setFormData] = useState<FormData>({
+            box: '',
+            tape: '',
+            plastic: '',
+            woodenPlattes: '',
+            editBox: '',
+            editTape: '',
+            editPlatic: '',
+            editWoodenPlattes:'',
+        });
+
+            const [errors, setErrors] = useState<FormErrors>({});
+        
+
+        
+        const validationRules: ValidationRules = {
+           
+            box: (value: string) => {
+                if (!value) return 'Box is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            tape: (value: string) => {
+                if (!value) return 'Tape is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            plastic: (value: string) => {
+                if (!value) return 'Plastic Wrap is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            woodenPlattes: (value: string) => {
+                if (!value) return 'Wooden Pallets is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            editBox: (value: string) => {
+                if (!value) return 'Editable Box is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            editTape: (value: string) => {
+                if (!value) return 'Editable Tape is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            editPlastic: (value: string) => {
+                if (!value) return 'Editable Plastic is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            },
+            editWoodenPlattes: (value: string) => {
+                if (!value) return 'Editable Wooden Pallets is required';
+                if (isNaN(Number(value))) return 'Must be a number';
+                if (Number(value) <= 0) return 'Must be greater than 0';
+                return undefined;
+            }
+        };
 
     useEffect(() => {
         const targetDate = new Date(date);
@@ -94,12 +181,43 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         return () => clearInterval(intervalId);
     }, [date]); // Effect runs whenever `date` changes
 
+    interface FormErrors {
+        [key: string]: string | undefined;
+    }
+
+    const validateForm = (): boolean => {
+        const newErrors: FormErrors = {};
+        let isValid = true;
+
+        Object.keys(formData).forEach(key => {
+            const fieldKey = key as keyof FormData;
+            if (validationRules[fieldKey]) {
+                const error = validationRules[fieldKey](formData[fieldKey], formData);
+                if (error) {
+                    newErrors[fieldKey] = error;
+                    isValid = false;
+                }
+            }
+        });
+
+        setErrors(newErrors);
+        return isValid;
+    };
+
+
     const closeLoadFormHandler = () => {
         setCloseLoad(true);
         setMain(false);
         //navigation.goBack();
     }
+
+    // const handleContinue = () => {
+        
+    // };
     const continueToDateHandler = () => {
+        if (validateForm()) {
+            // navigation.navigate('DocketDetailsPictureForm', formData);
+        }
         setDateOfCloseLoad(true);
         setCloseLoad(false);
         //navigation.goBack();
@@ -168,68 +286,77 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                     <ScrollView style={{ height: 350 }}>
                         <Text style={[styles.text, { marginLeft: 5, marginBottom: 15 }]}>Good Stock</Text>
 
+                        {errors.box && <Text style={{ color: 'red' }}>{errors.box}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["box"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Boxes</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={box} Keyboardtypedefine= "numeric" setValue={setBox} placeholder="Enter a value" />
                             </View>
                         </View>
 
+                        {errors.tape && <Text style={{ color: 'red' }}>{errors.tape}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["tape"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Tape</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={tape} Keyboardtypedefine= "numeric" setValue={setTape} placeholder="Enter a value" />
                             </View>
                         </View>
-
+                        
+                        {errors.woodenPlattes && <Text style={{ color: 'red' }}>{errors.woodenPlattes}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["pallets"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Wooden Pallets</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={woodenPlattes} Keyboardtypedefine= "numeric" setValue={setWoodenPlattes} placeholder="Enter a value" />
                             </View>
                         </View>
 
+                        {errors.plastic && <Text style={{ color: 'red' }}>{errors.plastic}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["plastic"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Plastic Wrap</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={plastic} Keyboardtypedefine= "numeric" setValue={setPlastic} placeholder="Enter a value" />
                             </View>
                         </View>
 
                         <Text style={[styles.text, { marginLeft: 5, marginBottom: 15, marginTop: 15 }]}>Editable Stock</Text>
 
+                        {errors.editBox && <Text style={{ color: 'red' }}>{errors.editBox}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["box"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Boxes</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={editBox} Keyboardtypedefine= "numeric" setValue={setEditBox} placeholder="Enter a value" />
                             </View>
                         </View>
 
+                        {errors.editTape && <Text style={{ color: 'red' }}>{errors.editTape}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["tape"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Tape</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={editTape} Keyboardtypedefine= "numeric" setValue={setEditTape} placeholder="Enter a value" />
                             </View>
                         </View>
 
                         <View style={clStyles.itemContainer}>
+                        {errors.editPlastic && <Text style={{ color: 'red' }}>{errors.editPlastic}</Text>}
                             <Image source={imagePath["pallets"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Wooden Pallets</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={editWoodenPlattes} Keyboardtypedefine= "numeric" setValue={setEditWoodenPlattes} placeholder="Enter a value" />
                             </View>
                         </View>
+
+                        {errors.editWoodenPlattes && <Text style={{ color: 'red' }}>{errors.editWoodenPlattes}</Text>}
                         <View style={clStyles.itemContainer}>
                             <Image source={imagePath["plastic"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Plastic Wrap</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} setValue={setBox} placeholder="Enter a value" />
+                                <TextField value={editPlastic} Keyboardtypedefine= "numeric" setValue={setEditPlastic} placeholder="Enter a value" />
                             </View>
                         </View>
                     </ScrollView>

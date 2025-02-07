@@ -140,6 +140,20 @@ const Load:React.FC<Props> = ({navigation,route}) => {
             {showFilterByDate && <FilterByDateCalendar onFilterChange={onFilterChangeHandler} closeFilter={() => setShowFilterByDate(false)} />}
 
             <GestureHandlerRootView style={styles.container}>
+                <ScrollView
+                
+                horizontal = {true}
+                contentContainerStyle = {
+                    {
+                        flexDirection : "row",
+                        alignContent:"center",
+                        height:65,
+                        flex:0,
+                        flexGrow:1,
+                    }
+                }
+                >
+
                 <View style={loadStyles.filterContainer}>
                     <Text style={loadStyles.text}>Filter: </Text>
                     <ComboBox label="" style={{ marginBottom: 0, minWidth: 140 }} options={comboOptions} onDropdownChange={OnDropdownChange} usePlaceholder={false} isDark={false} />
@@ -154,11 +168,14 @@ const Load:React.FC<Props> = ({navigation,route}) => {
                         <Text>New</Text>
                     </TouchableOpacity>
                 </View>
+
+                </ScrollView>
                 <GestureHandlerRootView>
                     <ScrollView>
                         <Table data={data} onRowSelect={onRowSelectHandler} />
                     </ScrollView>
                 </GestureHandlerRootView>
+               
             </GestureHandlerRootView>
         </>
     );
@@ -219,3 +236,4 @@ const loadStyles = StyleSheet.create({
     filterByDate: { display: "flex", flexDirection: "row", alignItems: 'center', gap: 10 },
     popupCols: { display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }
 });
+

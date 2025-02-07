@@ -8,6 +8,8 @@ import { DocketDetailsFormStyles } from "../../styles/screensStyle";
 import { ScrollView } from "react-native-gesture-handler";
 import { docketOptions } from "../../assets/Mock/docketOptions";
 import { formatDate, formatTime, generateDocketNumber } from "../../utils";
+import { useWindowDimensions } from 'react-native';
+
 
 type Props = {
     navigation: DocketDetailsFormNavigationProp;
@@ -46,6 +48,8 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
         nettWeight: '',
         trailerRego: ''
     });
+    const { width, height } = useWindowDimensions();
+const isLandscape = width > height;
 
     const [errors, setErrors] = useState<FormErrors>({});
 
@@ -138,7 +142,11 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
 
     return (
         <>
-            <TopBar pageName={data.title} showBackButton={true} />
+       
+        {
+              isLandscape ? <TopBar  pageName={data.title} showBackButton={true}  /> :
+              <TopBar  pageName={data.title} showBackButton={true}  />
+        }
 
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
@@ -221,9 +229,12 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                 </ScrollView>
             </KeyboardAvoidingView>
             <View style={{ padding: 20, paddingTop: 0 }}>
-                <TouchableOpacity style={styles.btn} onPress={handleContinue}>
+            <TouchableOpacity style={[styles.btn, isLandscape && { paddingVertical: 0, marginTop:10,marginBottom:0, paddingHorizontal: 20 }]} onPress={handleContinue}>
+    <Text style={styles.btnText}>Continue</Text>
+</TouchableOpacity>
+                {/* <TouchableOpacity style={styles.btn} onPress={handleContinue}>
                     <Text style={styles.btnText}>Continue</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </>
     );

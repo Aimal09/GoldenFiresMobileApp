@@ -65,9 +65,9 @@ const TextField: React.FC<TextFieldProp> = ({
 }) => {
     const handleChange = (text: string) => {
         // Allow only numbers
-        if (/^\d*$/.test(text)) {
+        // if (/^\d*$/.test(text)) {
             setValue(text);
-        }
+        // }
     };
 
     return (

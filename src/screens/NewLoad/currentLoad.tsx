@@ -10,6 +10,7 @@ import TextField from "../../components/TextField";
 import { FilterByDateCalendar } from "../../components/FilterByDate";
 import SignaturePad from "../../components/SignaturePad";
 import { SignatureViewRef } from "react-native-signature-canvas";
+import React from "react";
 
 type ImageKey = 'potato' | 'oil' | 'box' | 'tape' | 'pallets' | 'plastic' | "detergent" | "hat" | "gloves" | "antifoam" | "saap" | "13mm-fries" | "15mm-fries";
 
@@ -237,6 +238,10 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         setDate(range.startDate ?? "");
         setShowDates(false);
     }
+    function alert(arg0: string) {
+        throw new Error("Function not implemented.");
+    }
+
     return (
         <>
             {main && <FullScreenModal onClose={() => { }} visible={main} hideClose>
@@ -378,7 +383,7 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                     </TouchableOpacity>
 
                     <Text style={[styles.text, clStyles.mt20]}>Closed By</Text>
-                    <TextField placeholder="Enter a value" value={surname} setValue={setSurname} styles={styles.full} />
+                    <TextField placeholder="Enter a value"   value={surname} setValue={setSurname} styles={styles.full} />
 
                     <TouchableOpacity style={styles.btn} onPress={continueToDSignature}>
                         <Text style={styles.btnText}>Continue</Text>
@@ -389,7 +394,57 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
 
 
             {/* Continue to Date */}
-            {signOfCloseLoad && <FullScreenModal onClose={() => { setSignOfCloseLoad(false); setMain(true)}} visible title="Close the Load">
+            {signOfCloseLoad && (
+  <FullScreenModal
+    onClose={() => {
+      setSignOfCloseLoad(false);
+      setMain(true);
+    }}
+    visible
+    title="Close the Load"
+  >
+    <>
+      <Text
+        style={{
+          fontWeight: "500",
+          color: COLORS.text,
+          marginLeft: 10,
+          marginBottom: 15,
+        }}
+      >
+        Put your signature here
+      </Text>
+
+      <SignaturePad
+        label=""
+        signatureValue={driverSignature}
+        sign={dsign}
+        returnSign={(s) => setDSign(s)}
+      />
+
+      {!dsign && (
+        <Text style={{ color: "red", marginLeft: 10, marginBottom: 10 }}>
+          Signature is required!
+        </Text>
+      )}
+
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => {
+          if (!dsign) {
+            // alert("Please provide a signature before closing the load.");
+            return;
+          }
+          closeLoadHandler();
+        }}
+      >
+        <Text style={styles.btnText}>Close the load</Text>
+      </TouchableOpacity>
+    </>
+  </FullScreenModal>
+)}
+
+            {/* {signOfCloseLoad && <FullScreenModal onClose={() => { setSignOfCloseLoad(false); setMain(true)}} visible title="Close the Load">
                 <>
 
                     <Text style={{fontWeight:"500", color:COLORS.text, marginLeft:10,marginBottom:15}}>Put your signature here</Text>
@@ -401,7 +456,7 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                         <Text style={styles.btnText}>Close the load</Text>
                     </TouchableOpacity>
                 </>
-            </FullScreenModal>}
+            </FullScreenModal>} */}
 
         </>
     );

@@ -3,6 +3,7 @@ import styles from "../styles/style";
 import FullScreenModal from "./Modal";
 import { useState } from "react";
 import { Calendar } from "react-native-calendars";
+import React from "react";
 
 interface FilterByDateCalendarProp {
     title?:string;
@@ -152,7 +153,7 @@ export {FilterByDate, FilterByDateCalendar};
 const styles1 = StyleSheet.create({
     dayContainer: {
         width: 60,
-        height: 60,
+        height: 55,
         justifyContent: "center",
         alignItems: "center",
     },

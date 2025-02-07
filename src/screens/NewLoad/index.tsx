@@ -8,6 +8,7 @@ import TextField from "../../components/TextField";
 import { FilterByDateCalendar } from "../../components/FilterByDate";
 import { NewLoadNavigationProp, NewLoadRouteProp } from "../../navigations/Types";
 import CurrentLoad from "./currentLoad";
+import React from "react";
 
 type ImageKey = 'potato' | 'oil' | 'box' | 'tape' | 'pallets' | 'plastic' | "detergent" | "hat" | "gloves" | "antifoam" | "saap" | "13mm-fries" | "15mm-fries";
 
@@ -107,7 +108,7 @@ const NewLoad:React.FC<Props> = ({navigation,route}) => {
                     <View style={nlStyles.row}>
                         <View style={styles.full}>
                             <Text style={[styles.headText, nlStyles.mt20]}>Weight</Text>
-                            <TextField placeholder="Enter a value" value={weight} setValue={setWeight} styles={styles.full} />
+                            <TextField placeholder="Enter a value" Keyboardtypedefine="numeric" value={weight} setValue={setWeight} styles={styles.full} />
                         </View>
                         <View style={styles.full}>
                             <Text style={[styles.headText, nlStyles.mt20]}>Date</Text>
@@ -156,7 +157,7 @@ const nlStyles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: 10,
-        marginBottom: 10
+        marginBottom: 30
     },
     mt20: {
         marginTop: 20

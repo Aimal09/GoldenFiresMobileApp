@@ -11,6 +11,7 @@ import COLORS from "../../styles/colors";
 import { FilterByDate, FilterByDateCalendar } from "../../components/FilterByDate";
 import ComboBox from "../../components/ComoboBox";
 import { LoadNavigationProp, LoadRouteProp } from "../../navigations/Types";
+import React from "react";
 
 interface OptionItem {
     value: string;
@@ -139,43 +140,27 @@ const Load:React.FC<Props> = ({navigation,route}) => {
 
             {showFilterByDate && <FilterByDateCalendar onFilterChange={onFilterChangeHandler} closeFilter={() => setShowFilterByDate(false)} />}
 
-            <GestureHandlerRootView style={styles.container}>
-                <ScrollView
-                
-                horizontal = {true}
-                contentContainerStyle = {
-                    {
-                        flexDirection : "row",
-                        alignContent:"center",
-                        height:65,
-                        flex:0,
-                        flexGrow:1,
-                    }
-                }
-                >
-
+            <GestureHandlerRootView style={{...styles.container}}>
                 <View style={loadStyles.filterContainer}>
-                    <Text style={loadStyles.text}>Filter: </Text>
-                    <ComboBox label="" style={{ marginBottom: 0, minWidth: 140 }} options={comboOptions} onDropdownChange={OnDropdownChange} usePlaceholder={false} isDark={false} />
-                    <View style={loadStyles.filterByDate}>
-                        <FilterByDate onClick={() => setShowFilterByDate(true)} />
-                        {isFiltered && <TouchableOpacity style={loadStyles.filter} onPress={() => { setIsFiltered(false); setFilterRange(undefined) }}>
-                            <Text style={loadStyles.filterText}>Clear Filter</Text>
-                            <Image source={require("../../assets/images/times.png")} style={loadStyles.filterCross} />
-                        </TouchableOpacity>}
-                    </View>
-                    <TouchableOpacity style={[styles.btnSecondary, {marginLeft:"auto"}]} onPress={()=>navigation.navigate("NewLoad",{})}>
-                        <Text>New</Text>
-                    </TouchableOpacity>
+                    {/* <ScrollView  contentContainerStyle={{flex:0,display:"flex", flexDirection:"row", alignItems:"center", gap:10}}> */}
+                        <Text style={loadStyles.text}>Filter: </Text>
+                        <ComboBox label="" style={{ marginBottom: 0, minWidth: 140 }} options={comboOptions} onDropdownChange={OnDropdownChange} usePlaceholder={false} isDark={false} />
+                        <View style={loadStyles.filterByDate}>
+                            <FilterByDate onClick={() => setShowFilterByDate(true)} />
+                            {isFiltered && <TouchableOpacity style={loadStyles.filter} onPress={() => { setIsFiltered(false); setFilterRange(undefined) }}>
+                                <Text style={loadStyles.filterText}>Clear Filter</Text>
+                                <Image source={require("../../assets/images/times.png")} style={loadStyles.filterCross} />
+                            </TouchableOpacity>}
+                        </View>
+                        <TouchableOpacity style={[styles.btnSecondary, {marginLeft:"auto"}]} onPress={()=>navigation.navigate("NewLoad",{})}>
+                            <Text style={loadStyles.filterText}>New</Text>
+                        </TouchableOpacity>
+                    {/* </ScrollView> */}
                 </View>
 
+                <ScrollView style={{flex:1}}>
+                    <Table data={data} onRowSelect={onRowSelectHandler} />
                 </ScrollView>
-                <GestureHandlerRootView>
-                    <ScrollView>
-                        <Table data={data} onRowSelect={onRowSelectHandler} />
-                    </ScrollView>
-                </GestureHandlerRootView>
-               
             </GestureHandlerRootView>
         </>
     );

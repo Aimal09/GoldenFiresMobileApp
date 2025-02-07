@@ -7,7 +7,7 @@ import {
     Image,
 } from 'react-native';
 import { comboBoxStyles } from '../styles/componentStyle';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 // Define props and types for the component
 interface ComboBoxProps {
@@ -53,33 +53,40 @@ const ComboBox: React.FC<ComboBoxProps> = ({
         setIsModalVisible(false);
     };
 
+    const closeDropdown = () => {
+        if (isModalVisible) {
+            setIsModalVisible(false);
+        }
+    };
     return (
-        <View style={[comboBoxStyles.container, style]}>
-            {label && <Text style={comboBoxStyles.label}>{label}</Text>}
+            <View style={[comboBoxStyles.container, style]}>
+                {label && <Text style={comboBoxStyles.label}>{label}</Text>}
 
-            <TouchableOpacity
-                style={isModalVisible ? (isDark ? comboBoxStyles.comboBoxOpen : comboBoxStyles.comboBoxOpenLight) : 
-                    (isDark ? comboBoxStyles.comboBox : comboBoxStyles.comboBoxLight)}
-                onPress={() => setIsModalVisible(!isModalVisible)}
-            >
-                <Text style={comboBoxStyles.selectedOption}>
-                    {selectedOption?.name || placeholder}
-                </Text>
-                <Image source={require('../assets/images/down.png')} style={comboBoxStyles.icon} />
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={isModalVisible ? (isDark ? comboBoxStyles.comboBoxOpen : comboBoxStyles.comboBoxOpenLight) : 
+                        (isDark ? comboBoxStyles.comboBox : comboBoxStyles.comboBoxLight)}
+                    onPress={() => setIsModalVisible(true)}
+                >
+                    <Text style={comboBoxStyles.selectedOption}>
+                        {selectedOption?.name || placeholder}
+                    </Text>
+                    <Image source={require('../assets/images/down.png')} style={comboBoxStyles.icon} />
+                </TouchableOpacity>
 
-            <ScrollView style={isModalVisible ? (isDark ? comboBoxStyles.optionBox : comboBoxStyles.optionBoxLight) : { display: "none" }}>
-                {initialOptions.map((item,i)=>
-                    <TouchableOpacity
-                    key={i}
-                    style={comboBoxStyles.option}
-                    onPress={() => handleOptionSelect(item.value)}
-                    >
-                    <Text style={comboBoxStyles.optionText}>{item.name}</Text>
-                    </TouchableOpacity>
-                )}
-            </ScrollView>
-        </View>
+                <View style={isModalVisible ? (isDark ? comboBoxStyles.optionBox : comboBoxStyles.optionBoxLight) : { display: "none" }}>
+                    <ScrollView>
+                        {initialOptions.map((item,i)=>
+                            <TouchableOpacity
+                            key={i}
+                            style={comboBoxStyles.option}
+                            onPress={() => handleOptionSelect(item.value)}
+                            >
+                            <Text style={comboBoxStyles.optionText}>{item.name}</Text>
+                            </TouchableOpacity>
+                        )}
+                    </ScrollView>
+                </View>
+            </View>
     );
 };
 

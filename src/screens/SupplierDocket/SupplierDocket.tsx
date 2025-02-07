@@ -2,6 +2,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import ProductCard from "../../components/ProductCard";
 import TopBar from "../../components/TopBar";
 import styles from "../../styles/style";
+import React from "react";
 
 const SupplierDocket = ({ navigation }: any) => {
     return (
@@ -14,11 +15,11 @@ const SupplierDocket = ({ navigation }: any) => {
                 <ProductCard title="General Docket" iconUrl={require('../../assets/images/pallet.png')} onClick={() => { navigation.navigate('DocketDetailsForm', {title:"General Docket"})}} />
             </ScrollView>
 
-            <View style={{ padding:15}}>
+            {/* <View style={{ padding:15}}>
                 <TouchableOpacity style={styles.btn} onPress={() => {}}>
                     <Text style={styles.btnText}>Continue</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </>
     );
 }

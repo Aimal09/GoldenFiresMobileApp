@@ -144,7 +144,7 @@ const isLandscape = width > height;
         <>
        
         {
-              isLandscape ? <TopBar  pageName={data.title} showBackButton={true}  /> :
+            //   isLandscape ? <TopBar  pageName={data.title} showBackButton={true}  /> :
               <TopBar  pageName={data.title} showBackButton={true}  />
         }
 
@@ -179,9 +179,9 @@ const isLandscape = width > height;
                         <View style={DocketDetailsFormStyles.row}>
                             <View style={DocketDetailsFormStyles.inputContainer}>
                                 {errors.docketNumber && <Text style={styles.errorTxt}>{errors.docketNumber}</Text>}
-                                <Text style={DocketDetailsFormStyles.label}>Wightbridge Docket N°</Text>
+                                <Text style={DocketDetailsFormStyles.label}>Wightbridge Docket No</Text>
                                 <TextInput
-                                    placeholder="Enter Docket N°"
+                                    placeholder="Enter Docket No"
                                     style={DocketDetailsFormStyles.input}
                                     value={formData.docketNumber}
                                     onChangeText={(v) => updateField('docketNumber', v)}

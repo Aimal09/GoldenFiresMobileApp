@@ -5,6 +5,7 @@ import { launchCamera, CameraOptions } from 'react-native-image-picker';
 import TopBar from "../../components/TopBar";
 import styles from "../../styles/style";
 import { DocketDetailsPictureFormStyles } from "../../styles/componentStyle";
+import { ScrollView } from "react-native-gesture-handler";
 
 type Props = {
     navigation: DocketDetailsPictureFormNavigationProp;
@@ -47,34 +48,36 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
         <>
             <TopBar pageName="Supplier Docket" showBackButton={true} />
 
-            <View style={{ paddingHorizontal: 20, flex: 1 }}>
-                <View style={DocketDetailsPictureFormStyles.container}>
-                    {photoUriV && <Text style={styles.errorTxt}>Photo is required *</Text>}
-                    <Text style={DocketDetailsPictureFormStyles.title}>Docket Photo</Text>
-                    <TouchableOpacity style={DocketDetailsPictureFormStyles.button} onPress={openCamera}>
-                        {!photoUri && <Image source={require("../../assets/images/camera.png")} style={DocketDetailsPictureFormStyles.camera} />}
-                        {photoUri && (
-                            <Image source={{ uri: photoUri }} style={DocketDetailsPictureFormStyles.image} />
-                        )}
-                    </TouchableOpacity>
+            <ScrollView>
+                <View style={{ paddingHorizontal: 20, flex: 0 }}>
+                    <View style={DocketDetailsPictureFormStyles.container}>
+                        {photoUriV && <Text style={styles.errorTxt}>Photo is required *</Text>}
+                        <Text style={DocketDetailsPictureFormStyles.title}>Docket Photo</Text>
+                        <TouchableOpacity style={DocketDetailsPictureFormStyles.button} onPress={openCamera}>
+                            {!photoUri && <Image source={require("../../assets/images/camera.png")} style={DocketDetailsPictureFormStyles.camera} />}
+                            {photoUri && (
+                                <Image source={{ uri: photoUri }} style={DocketDetailsPictureFormStyles.image} />
+                            )}
+                        </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.btn} onPress={() => { setPhotoUri(null); openCamera(); }}>
-                        <Text style={styles.btnText}>{photoUri == null ? "Take Photo" : "Retake Photo"}</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity style={styles.btn} onPress={() => { setPhotoUri(null); openCamera(); }}>
+                            <Text style={styles.btnText}>{photoUri == null ? "Take Photo" : "Retake Photo"}</Text>
+                        </TouchableOpacity>
 
-                    <View style={DocketDetailsPictureFormStyles.info}>
-                        <Text style={DocketDetailsPictureFormStyles.infoIcon}>i</Text>
-                        <Text style={DocketDetailsPictureFormStyles.infoText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</Text>
+                        <View style={DocketDetailsPictureFormStyles.info}>
+                            <Text style={DocketDetailsPictureFormStyles.infoIcon}></Text>
+                            <Text style={DocketDetailsPictureFormStyles.infoText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
 
-            <View style={{ padding: 20, paddingTop: 0 }}>
-                <TouchableOpacity style={styles.btn} onPress={() => handleContinue()}>
-                    <Text style={styles.btnText}>Continue</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={{ paddingHorizontal:30, paddingVertical:10,  }}>
+                    <TouchableOpacity style={styles.btn} onPress={() => handleContinue()}>
+                        <Text style={styles.btnText}>Continue</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
 
         </>
     );

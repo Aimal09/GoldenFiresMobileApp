@@ -12,6 +12,7 @@ import TextField from "../../components/TextField";
 import styles from "../../styles/style";
 import SignaturePad from "../../components/SignaturePad";
 import SpecialProductCard from "../../components/SpecialProductCard";
+import React from "react";
 
 type ImageKey = 'potato' | 'oil' | 'box' | 'tape' | 'pallets' | 'plastic' | "detergent" | "hat" | "gloves" | "antifoam" | "saap" | "13mm-fries" | "15mm-fries";
 
@@ -78,7 +79,8 @@ const GoodsTrack = () => {
     const [esActiveProductSupplier, setEsActiveProductSupplier] = useState<Supplier>();
     const [showForm, setShowForm] = useState(false);
     const [showSignForm, setShowSignForm] = useState(false);
-    const [val, setVal] = useState("");
+    const [qty, setQty] = useState('');
+    const [val, setVal] = useState();
     const [selectedCityId, setSelectedCityId] = useState(0);
     const [filterByDate, setFilterByDate] = useState<DateRangeProp>(initFilterByDate);
     const [showFilterByDate,setShowFilterByDate] = useState(false);
@@ -118,7 +120,7 @@ const GoodsTrack = () => {
 
             {showForm && <FullScreenModal title="Item" onClose={() => { setShowForm(false) }} visible={true}>
                 <View>
-                    <TextField label="Quantity" value={val} setValue={setVal} placeholder="Enter a value" styles={{ marginBottom: 15 }} />
+                    <TextField label="Quantity" value={qty} setValue={setQty} placeholder="Enter a value" styles={{ marginBottom: 15 }} />
                     <TextField label="Date" value={val} setValue={setVal} placeholder="10.05.2024" styles={{ marginBottom: 15 }} />
                     <TextField label="Updated By" value={val} setValue={setVal} placeholder="Enter Name Surename" styles={{ marginBottom: 15 }} />
                     <TextField label="Comment" value={val} setValue={setVal} placeholder="Reason for change" styles={{ marginBottom: 15 }} multiline={true} numberOfLine={6} />
@@ -135,7 +137,7 @@ const GoodsTrack = () => {
                 </FullScreenModal>
             }
 
-            {showFilterByDate && <FilterByDateCalendar onFilterChange={(range)=>setFilterByDate(range)} closeFilter={()=>setShowFilterByDate(false)}/>}
+            {showFilterByDate && <FilterByDateCalendar maximumToday onFilterChange={(range)=>setFilterByDate(range)} closeFilter={()=>setShowFilterByDate(false)}/>}
 
             <GestureHandlerRootView style={GoodsTrackStyles.container}>
                 <View style={GoodsTrackStyles.types}>

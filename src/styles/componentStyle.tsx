@@ -129,6 +129,7 @@ const topbarStyles = StyleSheet.create({
   chevronIcon: {
     width: 9,
     height: 15,
+    // marginTop:30
   },
   notificationSection: {
     padding: 5,
@@ -136,6 +137,7 @@ const topbarStyles = StyleSheet.create({
   notificationIcon: {
     width: 20,
     height: 20,
+    // paddingRight:60
   },
 });
 
@@ -368,10 +370,11 @@ const comboBoxStyles = StyleSheet.create({
       width: '100%',
       maxHeight:150,
       backgroundColor: COLORS.white,
-      borderBottomLeftRadius: 30,
-      borderBottomRightRadius:30,
       position:"absolute",
       top:"100%",
+      borderRadius:0,
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
       zIndex:2,
       paddingVertical: 10,
       paddingHorizontal: 20,

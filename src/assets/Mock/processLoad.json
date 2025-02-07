@@ -14,6 +14,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "closed"
         }
       ],
       "details": {
@@ -47,6 +51,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "running"
         }
       ],
       "details": {
@@ -80,6 +88,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "running"
         }
       ],
       "details": {
@@ -113,6 +125,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "closed"
         }
       ],
       "details": {
@@ -146,6 +162,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "running"
         }
       ],
       "details": {
@@ -179,6 +199,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "closed"
         }
       ],
       "details": {
@@ -212,6 +236,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "running"
         }
       ],
       "details": {
@@ -245,6 +273,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "closed"
         }
       ],
       "details": {
@@ -278,6 +310,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "running"
         }
       ],
       "details": {
@@ -311,6 +347,10 @@
         {
           "title": "Recieved By",
           "value": "Name Surename"
+        },
+        {
+          "title": "Status",
+          "value": "closed"
         }
       ],
       "details": {

@@ -6,6 +6,8 @@ import Realm from "realm";
 import { useEffect, useState } from "react";
 import NetInfo from '@react-native-community/netinfo';
 import { useNetwork } from '../../context/NetworkContext';
+import { ScrollView } from "react-native-gesture-handler";
+import React from "react";
 
 type Props = {
     navigation: OverviewNavigationProp;
@@ -80,11 +82,13 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
     return (
         <>
             <TopBar pageName="Overview" showBackButton={false} />
+            <ScrollView>
+
             <View style={overviewStyles.mainContainer}>
                 <View style={overviewStyles.container}>
                     <View style={overviewStyles.row}>
                         <View style={overviewStyles.half}>
-                            <Image source={{ uri: data.details.docketPhoto }} style={{ width: "100%", aspectRatio: 4 / 3, height: 140, borderRadius: 10 }} />
+                            <Image source={{ uri: data.details.docketPhoto }} style={{ width: "100%", aspectRatio: 5 / 3, height: 140, borderRadius: 10 }} />
                         </View>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.heading}>Supplier Docket</Text>
@@ -121,15 +125,21 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
                             <Text style={overviewStyles.heading}>{data.details.details.supplierName}</Text>
                         </View>
                         <View style={overviewStyles.half}>
+                        <Text style={overviewStyles.label}>Driver Sign</Text>
+
                             <Image source={{ uri: data.driverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 1, height: 100, borderRadius: 10 }} />
                         </View>
                         <View style={overviewStyles.half}>
+                        <Text style={overviewStyles.label}>Receiver Sign</Text>
+
                             <Image source={{ uri: data.recieverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 1, height: 100, borderRadius: 10 }} />
                         </View>
                     </View>
 
                 </View>
             </View>
+            </ScrollView>
+
 
             <View style={{ padding: 20, paddingTop: 0 }}>
                 <TouchableOpacity style={styles.btn} onPress={handleSend}>
@@ -145,6 +155,7 @@ export default Overview;
 const overviewStyles = StyleSheet.create({
     mainContainer: {
         paddingHorizontal: 20,
+        marginTop:15,
         flex: 1,
     },
     container: {
@@ -158,7 +169,7 @@ const overviewStyles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
     },
     half: {
         width: "50%",
@@ -167,7 +178,7 @@ const overviewStyles = StyleSheet.create({
     label: {
         fontSize: 16,
         color: "#4448",
-        marginBottom: 7
+        marginBottom: 5
     },
     heading: {
         fontSize: 24,

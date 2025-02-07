@@ -11,6 +11,7 @@ import FullScreenModal from "../../components/Modal";
 import TextField from "../../components/TextField";
 import TextBlock from "../../components/TextBlock";
 import COLORS from "../../styles/colors";
+import React from "react";
 
 type ImageKey = "box" | "palette";
 
@@ -170,7 +171,6 @@ const ViewDocket = () => {
                 <TopBar pageName="View Docket" />
 
                 {showFilterByDate && <FilterByDateCalendar maximumToday onFilterChange={onFilterChangeHandler} closeFilter={() => setShowFilterByDate(false)} />}
-
                 <View style={VDstyles.types}>
                     <View style={VDstyles.full}>
                         <ComboBox label="" options={comboOptions} onDropdownChange={OnDropdownChange} usePlaceholder={false} isDark={false} />

@@ -65,17 +65,17 @@ export default SignaturePad;
 
 const styles = StyleSheet.create({
   signatureContainer: {
-    height:200,
+    height:160,
     display:"flex",
     alignItems:"center",
     justifyContent:"center"
   },
   title: {
-      fontSize: 22,
+      fontSize: 20,
       color: "#444444",
       marginLeft: 25,
       fontWeight: "500",
-      marginBottom: 10
+      marginBottom: 5
   },
   signaturebg:{
     width:"90%",

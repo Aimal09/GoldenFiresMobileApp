@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import COLORS from "../styles/colors";
 import { useState } from "react";
+import React from "react";
 
 interface TableProp {
     data: Data[];
@@ -41,8 +42,8 @@ const Table: React.FC<TableProp> = ({ data, onRowSelect }) => {
                         <View key={col.title} style={tableStyle.statusBubbleContainer}><View 
                         style={[
                             tableStyle.statusBubble,
-                            col.value === 'Completed' && tableStyle.statusCompleted,
-                            col.value === 'Credited' && tableStyle.statusCredited,
+                            (col.value === 'Completed' || col.value === 'running') && tableStyle.statusCompleted,
+                            (col.value === 'Credited' || col.value === 'closed') && tableStyle.statusCredited,
                             col.value === 'Pending' && tableStyle.statusPending,
                         ]}></View></View> :
                         <Text key={col.title} style={tableStyle.text}>{col.value}</Text>

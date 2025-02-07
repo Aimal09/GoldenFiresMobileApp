@@ -4,6 +4,7 @@ import styles from "../../styles/style";
 import ProductCard from "../../components/ProductCard";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
 
 type ImageKey = 'potato' | 'oil' | 'box' | 'tape' | 'pallets' | 'plastic' | "detergent" | "hat" | "gloves" | "antifoam" | "saap" | "13mm-fries" | "15mm-fries";
 

@@ -48,8 +48,11 @@ const AppContent = () => {
     useEffect(() => {
         if (isConnected && realm) {
             syncDocketsIfNeeded(realm);
+
+        const authData = realm.objects('Auth')[0];
+        console.log('aauth data: ', JSON.stringify(authData));
         }
-    }, [isConnected]);
+    }, [isConnected, realm]);
 
     const syncDocketsIfNeeded = (realmInstance: Realm) => {
         // if (isConnected) {
@@ -76,10 +79,10 @@ const AppContent = () => {
                 //     realm.delete(allDockets);
                 // });
                 // realm.close();
-                realmInstance.write(() => {
-                    const allDockets = realmInstance.objects("SupplierDocket");
-                    realmInstance.delete(allDockets);
-                });
+                // realmInstance.write(() => {
+                //     const allDockets = realmInstance.objects("SupplierDocket");
+                //     realmInstance.delete(allDockets);
+                // });
             }
         } catch (error) {
             console.error('Error sending to API:', error);

@@ -94,6 +94,7 @@ const topbarStyles = StyleSheet.create({
   leftSection: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: 'center',
   },
   rightSection: {
     flexDirection: "row",
@@ -106,7 +107,7 @@ const topbarStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "600",
     marginLeft: 20,
-    color: COLORS.text
+    color: COLORS.text,
   },
   profileSection: {
     flexDirection: "row",
@@ -127,8 +128,8 @@ const topbarStyles = StyleSheet.create({
     fontSize: 13,
   },
   chevronIcon: {
-    width: 9,
-    height: 15,
+    width: 13,
+    height: 20,
   },
   notificationSection: {
     padding: 5,

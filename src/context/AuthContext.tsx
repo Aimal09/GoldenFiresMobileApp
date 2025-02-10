@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import { useApi } from '../hooks/useApi';
 import { getRealm } from '../config/realm';
 import { useRealm } from './RealmContext';
+import { loginResponse } from '../assets/Mock';
 
 // export const AuthSchema = {
 //     name: "Auth",
@@ -128,6 +129,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
             console.log('in login');
             const response = await loginApi(credentials);
+            // const response = {data: loginResponse, error: ''};
             console.log('resp: ', JSON.stringify(response));
             if (response.error) throw new Error(response.error);
 
@@ -208,7 +210,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Keep existing useEffect and return statement
     useEffect(() => {
-        logout();
+        // logout();
+        console.log('loadStoredAuthState');
         loadStoredAuthState();
     }, [realm]);
 

@@ -15,10 +15,12 @@ type DocketDetailsPictureFormProp = {
     nettWeight: string;
     trailerRego: string;
     weightBridgeDocketNumber: string;
+    driverName: string;
+    receiverName: string;
 }
 type DocketSignatureFormProp = {
     details: DocketDetailsPictureFormProp;
-    docketPhoto:string;
+    docketPhotos:string [];
 }
 type OverviewProp = {
     details: DocketSignatureFormProp;

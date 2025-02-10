@@ -22,6 +22,8 @@ interface FormData {
     nettWeight: string;
     trailerRego: string;
     weightBridgeDocketNumber: string;
+    driverName: string;
+    receiverName: string;
 }
 
 interface FormErrors {
@@ -47,6 +49,8 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
         nettWeight: '',
         trailerRego: '',
         weightBridgeDocketNumber: '',
+        driverName: '',
+        receiverName: ''
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -84,6 +88,14 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
         },
         trailerRego: (value: string) => {
             if (!value) return 'Trailer Rego is required';
+            return undefined;
+        },
+        driverName: (value: string) => {
+            if (!value) return `Driver's name is required`;
+            return undefined;
+        },
+        receiverName: (value: string) => {
+            if (!value) return `Receiver's name is required`;
             return undefined;
         }
     };
@@ -150,7 +162,9 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                 grossWeight: '',
                 nettWeight: '',
                 trailerRego: '',
-                weightBridgeDocketNumber: ''
+                weightBridgeDocketNumber: '',
+                driverName: '',
+                receiverName: ''
             });
             setErrors({});
         };
@@ -203,7 +217,31 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
                         <View style={DocketDetailsFormStyles.row}>
                             <View style={DocketDetailsFormStyles.inputContainer}>
                                 {errors.weightBridgeDocketNumber && <Text style={styles.errorTxt}>{errors.weightBridgeDocketNumber}</Text>}
-                                <Text style={DocketDetailsFormStyles.label}>Wightbridge Docket No.</Text>
+                                <Text style={DocketDetailsFormStyles.label}>Driver's Name</Text>
+                                <TextInput
+                                    placeholder="Enter Driver's Name"
+                                    style={DocketDetailsFormStyles.input}
+                                    value={formData.driverName}
+                                    onChangeText={(v) => updateField('driverName', v)}
+                                />
+                            </View>
+
+                            <View style={DocketDetailsFormStyles.inputContainer}>
+                                {errors.grossWeight && <Text style={styles.errorTxt}>{errors.grossWeight}</Text>}
+                                <Text style={DocketDetailsFormStyles.label}>Receiver's Name</Text>
+                                <TextInput
+                                    placeholder="Enter Receiver's Name"
+                                    style={DocketDetailsFormStyles.input}
+                                    value={formData.receiverName}
+                                    onChangeText={(v) => updateField('receiverName', v)}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={DocketDetailsFormStyles.row}>
+                            <View style={DocketDetailsFormStyles.inputContainer}>
+                                {errors.weightBridgeDocketNumber && <Text style={styles.errorTxt}>{errors.weightBridgeDocketNumber}</Text>}
+                                <Text style={DocketDetailsFormStyles.label}>Weightbridge Docket No.</Text>
                                 <TextInput
                                     placeholder="Enter Docket No."
                                     style={DocketDetailsFormStyles.input}

@@ -64,6 +64,31 @@ const styles = StyleSheet.create({
     },
     full:{
         flex:1
+    },
+    photoSection: {
+        marginBottom: 20,
+        backgroundColor: COLORS.white,
+        borderRadius: 15,
+        padding: 15
+    },
+    addMoreButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.background,
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 20,
+    },
+    plusIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 10,
+        tintColor: COLORS.text
+    },
+    addMoreText: {
+        color: COLORS.text,
+        fontSize: 16,
+        fontWeight: '500'
     }
 })
 

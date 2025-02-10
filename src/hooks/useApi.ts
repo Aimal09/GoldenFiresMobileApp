@@ -19,11 +19,12 @@ export const useApi = () => {
         try {
             setLoading(true);
             const api = getAxiosInstance();
-            const response = await api.post('api/User/login', credentials);
-            // await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log('api: ', JSON.stringify(api));
+            // const response = await api.post('api/User/login', credentials);
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Use mock data instead of API call
-            // const response = { data: loginResponse };
+            const response = { data: loginResponse };
             console.log('response: ', JSON.stringify(response));
             // Update axios instance with new token
             updateToken(response.data.accessToken);

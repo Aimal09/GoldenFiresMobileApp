@@ -16,5 +16,6 @@
   "accessToken": "mock_auth_token",
   "refreshToken": "mock_refresh_token",
   "accessTokenExpiry": 1735689600000,
-  "refreshTokenExpiry": 1735689600000
+  "refreshTokenExpiry": 1735689600000,
+  "tokenExpiry": 1735689600000
 }

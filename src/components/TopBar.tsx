@@ -20,7 +20,7 @@ const TopBar: React.FC<TopBarProps> = ({ pageName, showBackButton=true }) => {
   return (
     <View style={topbarStyles.topBar}>
       <View style={topbarStyles.leftSection}>
-        {showBackButton &&<TouchableOpacity onPress={() => navigation.goBack()}>
+        {showBackButton &&<TouchableOpacity style={{width: 40, height: 40, display: 'flex', justifyContent: 'center', alignItems: 'center' }} onPress={() => navigation.goBack()}>
           <Image source={require("../assets/images/chevron-left.png")} style={topbarStyles.chevronIcon} />
         </TouchableOpacity>}
         <Text style={topbarStyles.pageTitle}>{pageName}</Text>

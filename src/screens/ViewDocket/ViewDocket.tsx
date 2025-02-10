@@ -5,10 +5,8 @@ import { FilterByDate, FilterByDateCalendar } from "../../components/FilterByDat
 import { useEffect, useState } from "react";
 import { deliveryOutbound, promotion, supplierInbound } from "../../assets/Mock";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
-import ProductCard from "../../components/ProductCard";
 import Table from "../../components/Table";
 import FullScreenModal from "../../components/Modal";
-import TextField from "../../components/TextField";
 import TextBlock from "../../components/TextBlock";
 import COLORS from "../../styles/colors";
 import { useRealm } from "../../context/RealmContext";
@@ -62,9 +60,11 @@ interface RealmDocket {
     grossWeight: string;
     nettWeight: string;
     trailerRego: string;
-    docketPhoto: string;
+    docketPhotos: string[];
     driverSign: string;
     recieverSign: string;
+    driverName: string;
+    receiverName: string;
     date: Date;
  }
 
@@ -96,54 +96,6 @@ const ViewDocket = () => {
         { name: "Delivery Outbound", value: "2" },
         { name: "Promotions", value: "3" }
     ]);
-
-    // useEffect(() => {
-    //     if (realm) {
-    //         const dockets = realm.objects('SupplierDocket');
-    //         const updateDockets = () => {
-    //             if (selectedOption === "1") {
-    //                 const docketData: Data[] = Array.from(dockets).map((docket) => ({
-    //                     columns: [
-    //                         { title: 'Supplier Name', value: (docket as unknown as RealmDocket).supplierName },
-    //                         { title: 'Variety', value: (docket as unknown as RealmDocket).variety },
-    //                         { title: 'Weight', value: (docket as unknown as RealmDocket).nettWeight },
-    //                         { title: 'Date', value: formatDate((docket as unknown as RealmDocket).date) }
-    //                     ],
-    //                     details: {
-    //                         date: (docket as unknown as RealmDocket).date
-    //                     }
-    //                 }));
-    //                 setselectedOptionData(getData(docketData));
-    //             }
-    //         };
-    
-    //         dockets.addListener(updateDockets);
-    
-    //         return () => {
-    //             dockets.removeListener(updateDockets);
-    //         };
-    //     }
-    // }, [realm]);
-
-    // useEffect(() => {
-    //     if (realm && selectedOption === "1") {
-    //         const dockets = realm.objects('SupplierDocket').sorted('date', true);
-    //         const docketData: Data[] = Array.from(dockets).map((docket) => ({
-    //             columns: [
-    //                 { title: 'Supplier Name', value: (docket as unknown as RealmDocket).supplierName },
-    //                 { title: 'Variety', value: (docket as unknown as RealmDocket).variety },
-    //                 { title: 'Weight', value: (docket as unknown as RealmDocket).nettWeight },
-    //                 { title: 'Date', value: formatDate((docket as unknown as RealmDocket).date) }
-    //             ],
-    //             details: {
-    //                 date: (docket as unknown as RealmDocket).date
-    //             }
-    //         }));
-    //         setselectedOptionData(getData(docketData));
-    //     } else {
-    //         OnDropdownChange(selectedOption);
-    //     }
-    // }, [realm, selectedOption, isFiltered]);
 
     useEffect(() => {
         if (realm) {
@@ -218,7 +170,6 @@ const ViewDocket = () => {
             console.log(data)
         }
         if (selectedOption === "1") {
-            // console.log("daata 2: ", JSON.stringify(data.details));
             setSelectedRow(data);
             setShowRowDetails(true)
         }
@@ -314,19 +265,23 @@ const ViewDocket = () => {
                     <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
                         <TextBlock label="Nett Weight" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.nettWeight ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
                         <TextBlock label="Trailer Rego" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.trailerRego ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
-                        {/* <View style={{ flex: 1 }}>
-                            <Image source={{ uri: (selectedRow.details as DeliveryOutboundDetail).signatureUrl }}
-                                style={{ objectFit: "contain", width: 70 }} />
-                        </View> */}
                     </View>
-
+                    <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
+                        <TextBlock label="Driver's Name" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.driverName ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
+                        <TextBlock label="Receiver's Name" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.receiverName ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
+                    </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
                         <View style={{ flex: 1 }}>
-                            <TextBlock label="Docket Photo" styles={{ flex: 1, alignItems: 'center' }}/>
-                            <Image 
-                                source={{ uri: (selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.docketPhoto }}
-                                resizeMode='contain'
-                                style={{ width: "100%", height: 100, borderRadius: 10 }} />
+                            <TextBlock label="Docket Photos" styles={{ flex: 1, alignItems: 'center' }}/>
+                            <View style={VDstyles.photosRow}>
+                                {(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.docketPhotos.map((photo, index) => (
+                                    <Image 
+                                        key={index}
+                                        source={{ uri: photo }} 
+                                        style={VDstyles.photo} 
+                                    />
+                                ))}
+                            </View>   
                         </View>
                         <View style={{ flex: 1 }}>
                             <TextBlock label="Driver Sign" styles={{ flex: 1, alignItems: 'center' }}/>
@@ -428,5 +383,16 @@ const VDstyles = StyleSheet.create({
     filterCross:{
         width:10,
         objectFit:"contain"
+    },
+    photosRow: {
+        flexDirection: 'row',
+        gap: 5,
+        justifyContent: 'space-between',
+        width: '100%'
+    },
+    photo: {
+        flex: 1,
+        aspectRatio: 1,
+        borderRadius: 10,
     }
 });

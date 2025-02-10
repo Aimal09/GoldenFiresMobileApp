@@ -63,7 +63,9 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
             grossWeight: data.details.details.grossWeight,
             nettWeight: data.details.details.nettWeight,
             trailerRego: data.details.details.trailerRego,
-            docketPhoto: data.details.docketPhoto,
+            driverName: data.details.details.driverName,
+            receiverName: data.details.details.receiverName,
+            docketPhotos: data.details.docketPhotos,
             driverSign: data.driverSign,
             recieverSign: data.recieverSign,
             date: new Date(),
@@ -109,12 +111,21 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
             <View style={overviewStyles.mainContainer}>
                 <View style={overviewStyles.container}>
                     <View style={overviewStyles.row}>
-                        <View style={overviewStyles.half}>
-                            <Image source={{ uri: data.details.docketPhoto }} style={{ width: "100%", aspectRatio: 4 / 3, height: 140, borderRadius: 10 }} />
-                        </View>
-                        <View style={overviewStyles.half}>
+
+                    <View style={overviewStyles.half}>
                             <Text style={overviewStyles.heading}>Supplier Docket</Text>
                             <Text style={overviewStyles.heading}>{data.details.details.docketNumber}</Text>
+                        </View>
+                        <View style={overviewStyles.half}>
+                            <View style={overviewStyles.photosRow}>
+                                {data.details.docketPhotos.map((photo, index) => (
+                                    <Image 
+                                        key={index}
+                                        source={{ uri: photo }} 
+                                        style={overviewStyles.photo} 
+                                    />
+                                ))}
+                            </View>                            
                         </View>
                     </View>
                     <View style={overviewStyles.row}>
@@ -200,5 +211,16 @@ const overviewStyles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "500",
         color: "#444"
+    },
+    photosRow: {
+        flexDirection: 'row',
+        gap: 5,
+        justifyContent: 'space-between',
+        width: '100%'
+    },
+    photo: {
+        flex: 1,
+        aspectRatio: 1,
+        borderRadius: 10,
     }
 });

@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
     btn:{
         backgroundColor:COLORS.yellow,
         paddingHorizontal:20,
-        paddingVertical:25,
+        paddingVertical:8,
         borderRadius:20,
-        marginTop:20
+        marginTop:20,
     },
     btnSecondary:{
       flexDirection: 'row',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     btnText:{
         color:"#fff",
-        fontSize:22,
+        fontSize:15,
         fontWeight:"600",
         textAlign:"center"
     },
@@ -64,6 +64,31 @@ const styles = StyleSheet.create({
     },
     full:{
         flex:1
+    },
+    photoSection: {
+        marginBottom: 20,
+        backgroundColor: COLORS.white,
+        borderRadius: 15,
+        padding: 15
+    },
+    addMoreButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.background,
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 20,
+    },
+    plusIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 10,
+        tintColor: COLORS.text
+    },
+    addMoreText: {
+        color: COLORS.text,
+        fontSize: 16,
+        fontWeight: '500'
     }
 })
 

@@ -23,6 +23,9 @@ interface FormData {
     grossWeight: string;
     nettWeight: string;
     trailerRego: string;
+    weightBridgeDocketNumber: string;
+    driverName: string;
+    receiverName: string;
 }
 
 interface FormErrors {
@@ -46,7 +49,10 @@ const DocketDetailsForm: React.FC<Props> = ({ navigation, route }) => {
         docketNumber: '',
         grossWeight: '',
         nettWeight: '',
-        trailerRego: ''
+        trailerRego: '',
+        weightBridgeDocketNumber: '',
+        driverName: '',
+        receiverName: ''
     });
     const { width, height } = useWindowDimensions();
 const isLandscape = width > height;
@@ -77,19 +83,44 @@ const isLandscape = width > height;
             return undefined;
         },
         docketNumber: (value: string) => {
+            if (!value) return 'Docket number is required';
+            return undefined;
+        },
+        weightBridgeDocketNumber: (value: string) => {
             if (!value) return 'Wightbridge Docket is required';
             return undefined;
         },
         trailerRego: (value: string) => {
             if (!value) return 'Trailer Rego is required';
             return undefined;
+        },
+        driverName: (value: string) => {
+            if (!value) return `Driver's name is required`;
+            return undefined;
+        },
+        receiverName: (value: string) => {
+            if (!value) return `Receiver's name is required`;
+            return undefined;
         }
     };
 
     const updateField = (field: keyof FormData, value: string) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
-        // Clear error when field is updated
-        setErrors(prev => ({ ...prev, [field]: undefined }));
+        // setFormData(prev => ({ ...prev, [field]: value }));
+        // // Clear error when field is updated
+        // setErrors(prev => ({ ...prev, [field]: undefined }));
+        if (field === 'supplierName' || field === 'variety') {
+            // Find selected option to get name
+            const option = currentOptions[field === 'supplierName' ? 'suppliers' : 'varieties']
+                .find(opt => opt.value === value);
+            
+            if (option) {
+                setFormData(prev => ({ ...prev, [field]: option.name }));
+                setErrors(prev => ({ ...prev, [field]: undefined }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, [field]: value }));
+            setErrors(prev => ({ ...prev, [field]: undefined }));
+        }
     };
 
     const validateForm = (): boolean => {
@@ -134,7 +165,10 @@ const isLandscape = width > height;
                 docketNumber: '',
                 grossWeight: '',
                 nettWeight: '',
-                trailerRego: ''
+                trailerRego: '',
+                weightBridgeDocketNumber: '',
+                driverName: '',
+                receiverName: ''
             });
             setErrors({});
         };
@@ -158,8 +192,20 @@ const isLandscape = width > height;
                             <Text style={DocketDetailsFormStyles.dateText}>{formatDate(currentDate)}</Text>
                             <Text style={DocketDetailsFormStyles.timeText}>{formatTime(currentDate)}</Text>
                         </View>
-                        <Text style={DocketDetailsFormStyles.docketNumber}>Docket number: {docketNumber}</Text>
-                        
+                        {/* <Text style={DocketDetailsFormStyles.docketNumber}>Docket number: {docketNumber}</Text> */}
+                        <View style={DocketDetailsFormStyles.row}>
+                        <View style={DocketDetailsFormStyles.inputContainer}>
+                            {errors.docketNumber && <Text style={styles.errorTxt}>{errors.docketNumber}</Text>}
+                            <Text style={DocketDetailsFormStyles.label}>Docket number</Text>
+                            <TextInput
+                                placeholder="Enter Docket number"
+                                style={DocketDetailsFormStyles.input}
+                                value={formData.docketNumber}
+                                onChangeText={(v) => updateField('docketNumber', v)}
+                                keyboardType="number-pad"
+                            />
+                        </View>
+                        </View>
                         {errors.supplierName && <Text style={styles.errorTxt}>{errors.supplierName}</Text>}
                         <ComboBox 
                             label="Supplier Name" 
@@ -178,13 +224,38 @@ const isLandscape = width > height;
 
                         <View style={DocketDetailsFormStyles.row}>
                             <View style={DocketDetailsFormStyles.inputContainer}>
-                                {errors.docketNumber && <Text style={styles.errorTxt}>{errors.docketNumber}</Text>}
-                                <Text style={DocketDetailsFormStyles.label}>Wightbridge Docket No</Text>
+                                {errors.weightBridgeDocketNumber && <Text style={styles.errorTxt}>{errors.weightBridgeDocketNumber}</Text>}
+                                <Text style={DocketDetailsFormStyles.label}>Driver's Name</Text>
                                 <TextInput
-                                    placeholder="Enter Docket No"
+                                    placeholder="Enter Driver's Name"
                                     style={DocketDetailsFormStyles.input}
-                                    value={formData.docketNumber}
-                                    onChangeText={(v) => updateField('docketNumber', v)}
+                                    value={formData.driverName}
+                                    onChangeText={(v) => updateField('driverName', v)}
+                                />
+                            </View>
+
+                            <View style={DocketDetailsFormStyles.inputContainer}>
+                                {errors.grossWeight && <Text style={styles.errorTxt}>{errors.grossWeight}</Text>}
+                                <Text style={DocketDetailsFormStyles.label}>Receiver's Name</Text>
+                                <TextInput
+                                    placeholder="Enter Receiver's Name"
+                                    style={DocketDetailsFormStyles.input}
+                                    value={formData.receiverName}
+                                    onChangeText={(v) => updateField('receiverName', v)}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={DocketDetailsFormStyles.row}>
+                            <View style={DocketDetailsFormStyles.inputContainer}>
+                                {errors.weightBridgeDocketNumber && <Text style={styles.errorTxt}>{errors.weightBridgeDocketNumber}</Text>}
+                                <Text style={DocketDetailsFormStyles.label}>Weightbridge Docket No.</Text>
+                                <TextInput
+                                    placeholder="Enter Docket No."
+                                    style={DocketDetailsFormStyles.input}
+                                    value={formData.weightBridgeDocketNumber}
+                                    onChangeText={(v) => updateField('weightBridgeDocketNumber', v)}
+                                    keyboardType="number-pad"
                                 />
                             </View>
 
@@ -196,7 +267,7 @@ const isLandscape = width > height;
                                     style={DocketDetailsFormStyles.input}
                                     value={formData.grossWeight}
                                     onChangeText={(v) => updateField('grossWeight', v)}
-                                    keyboardType="numeric"
+                                    keyboardType="decimal-pad"
                                 />
                             </View>
                         </View>
@@ -210,7 +281,7 @@ const isLandscape = width > height;
                                     style={DocketDetailsFormStyles.input}
                                     value={formData.nettWeight}
                                     onChangeText={(v) => updateField('nettWeight', v)}
-                                    keyboardType="numeric"
+                                    keyboardType="decimal-pad"
                                 />
                             </View>
 

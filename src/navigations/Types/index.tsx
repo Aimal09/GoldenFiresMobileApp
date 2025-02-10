@@ -14,10 +14,13 @@ type DocketDetailsPictureFormProp = {
     grossWeight: string;
     nettWeight: string;
     trailerRego: string;
+    weightBridgeDocketNumber: string;
+    driverName: string;
+    receiverName: string;
 }
 type DocketSignatureFormProp = {
     details: DocketDetailsPictureFormProp;
-    docketPhoto:string;
+    docketPhotos:string [];
 }
 type OverviewProp = {
     details: DocketSignatureFormProp;
@@ -34,7 +37,17 @@ export type RootStackParamList = {
     "Load":object;
     "NewLoad":object;
     "GoodStock":object;
+    "View Docket": object;
 };
+
+// export type TabParamList = {
+//     "Dashboard": undefined;
+//     'Supplier Docket': undefined;
+//     'Goods Track': undefined;
+//     'View Docket': undefined;
+//     "Load": undefined;
+// }
+
 
 export type DocketDetailsFormNavigationProp = StackNavigationProp<RootStackParamList, 'DocketDetailsForm'>;
 export type DocketDetailsFormRouteProp = RouteProp<RootStackParamList, 'DocketDetailsForm'>;

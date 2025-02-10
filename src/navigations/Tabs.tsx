@@ -26,6 +26,8 @@ const SupplierDocketStack = () =>
         <Stack.Screen name='DocketDetailsPictureForm' component={DocketDetailsPictureForm} options={tabOptions}/>
         <Stack.Screen name='DocketSignatureForm' component={DocketSignatureForm} options={tabOptions}/>
         <Stack.Screen name='Overview' component={Overview} options={tabOptions}/>
+        <Stack.Screen name='View Docket' component={ViewDocket} options={tabOptions}/>
+
     </Stack.Navigator>
 
 const NewLoadStack = () => 

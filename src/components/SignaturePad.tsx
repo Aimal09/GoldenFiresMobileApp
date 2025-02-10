@@ -38,8 +38,8 @@ const SignaturePad: React.FC<Prop> = ({label,signatureValue,sign, returnSign}) =
   // handleConfirm();
 
   return (
-    <View>
-      {label && <Text style={styles.title}>{label}</Text>}
+    <View style={{flexDirection: 'column', flex: 1}}>
+      <View style={{flex: 1}}>{label && <Text style={styles.title}>{label}</Text>}</View>
       <View style={styles.signatureContainer}>
         <Image source={require("../assets/images/signaturebg.png")} style={styles.signaturebg}/>
         <SignatureScreen
@@ -65,8 +65,9 @@ export default SignaturePad;
 
 const styles = StyleSheet.create({
   signatureContainer: {
-    height:160,
-    display:"flex",
+    // height:200,
+    // display:"flex",
+    flex: 4,
     alignItems:"center",
     justifyContent:"center"
   },

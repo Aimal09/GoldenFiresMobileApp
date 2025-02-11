@@ -90,11 +90,15 @@ const DocketDetailsPictureForm: React.FC<Props> = ({ navigation, route }) => {
             return;
         }
 
-        navigation.navigate("DocketSignatureForm", { 
-            details: data, 
-            docketPhotos: photos.filter(photo => photo !== null)
-        });
+        // navigation.navigate("DocketSignatureForm", { 
+        //     details: data, 
+        //     docketPhotos: photos.filter(photo => photo !== null)
+        // });
 
+        navigation.navigate("DocketCommentForm", { 
+            details: data,
+            docketPhotos: photos.filter(photo => photo !== null) // Only send non-null photos
+        });
     }
     const renderPhotoContent = (index: number) => {
         const hasPhoto = photos[index] !== null;

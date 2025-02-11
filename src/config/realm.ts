@@ -57,11 +57,13 @@ export const SupplierDocketSchema = {
        docketPhotos: "string[]",
        driverSign: "string",
        recieverSign: "string",
+       comment: "string",
+       isFlagged: "bool",
        date: "date"
    }
 };
 
-export const REALM_SCHEMA_VERSION = 3;
+export const REALM_SCHEMA_VERSION = 4;
 
 export const realmConfig = {
    schema: [AuthSchema, SupplierDocketSchema],
@@ -106,6 +108,19 @@ export const realmConfig = {
                 }
             }
         }
+        if (oldRealm.schemaVersion < 4) {
+            const oldDockets = oldRealm.objects('SupplierDocket');
+            const newDockets = newRealm.objects('SupplierDocket');
+  
+            for (const objectIndex in oldDockets) {
+                const oldObject = oldDockets[objectIndex];
+                const newObject = newDockets[objectIndex];
+                // Set default values for new fields
+                newObject.comment = '';
+                newObject.isFlagged = false;
+            }
+        }
+  
    }
 };
 

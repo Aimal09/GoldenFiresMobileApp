@@ -70,6 +70,8 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
             docketPhotos: data.details.docketPhotos,
             driverSign: data.driverSign,
             recieverSign: data.recieverSign,
+            comment: data.details.comment,
+            isFlagged: data.details.isFlagged,
             date: new Date(),
         };
         // console.log('payload: ', JSON.stringify(payload));
@@ -86,7 +88,7 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
         //     });
         if (false) {
             sendToAPI(payload)
-            navigation.navigate('View Docket', {});
+            navigation.navigate('View Docket');
         } else if (realm) {
             try {
                 realm.write(() => {
@@ -94,7 +96,7 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
                         id: new Date().getTime(),
                         ...payload
                     });
-                    navigation.navigate('View Docket', {});
+                    navigation.navigate('View Docket');
                 });
             } catch (e) {
                 console.error('Realm write error:', e);
@@ -152,10 +154,33 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
                     </View>
                     <View style={overviewStyles.row}>
                         <View style={overviewStyles.half}>
-                            <Text style={overviewStyles.label}>Driver</Text>
-                            <View style={overviewStyles.half}>
-                            <Image source={{ uri: data.driverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 4, height: 100, borderRadius: 10 }} />
+                            <Text style={overviewStyles.label}>Driver's Name</Text>
+                            <Text style={overviewStyles.heading}>{data.details.details.driverName}</Text>
                         </View>
+                        <View style={overviewStyles.half}>
+                            <Text style={overviewStyles.label}>Receiver's Name</Text>
+                            <Text style={overviewStyles.heading}>{data.details.details.receiverName}</Text>
+                        </View>
+                    </View>
+                    <View style={overviewStyles.row}>
+                        <View style={overviewStyles.half}>
+                            <Text style={overviewStyles.label}>Comment</Text>
+                            <Text style={overviewStyles.heading}>{data.details.comment}</Text>
+                        </View>
+                        <View style={overviewStyles.half}>
+                            <Text style={overviewStyles.label}>Is Flagged?</Text>
+                            <Text style={overviewStyles.heading}>{data.details.isFlagged ? 'Yes' : 'No'}</Text>
+                        </View>
+                    </View>
+                    <View style={overviewStyles.row}>
+                        <View style={overviewStyles.half}>
+                            <Text style={overviewStyles.label}>Driver</Text>
+                            <View >
+                                <Image 
+                                    source={{ uri: data.driverSign }} 
+                                    resizeMode="contain" 
+                                    style={{ width: "100%", height: 100, borderRadius: 10, backgroundColor: 'grey' }} />
+                            </View>
                         </View>
                         <View style={overviewStyles.half}>
                             <Text style={overviewStyles.label}>Receiver</Text>
@@ -171,8 +196,6 @@ const Overview: React.FC<Props> = ({ navigation, route }) => {
 
                             <Image source={{ uri: data.recieverSign }} resizeMode="contain" style={{ width: "100%", aspectRatio: 1, height: 100, borderRadius: 10 }} />
                         </View>
-                        
-                        
                     </View>
 
                 </View>
@@ -230,7 +253,7 @@ const overviewStyles = StyleSheet.create({
     },
     photo: {
         flex: 1,
-        aspectRatio: 1,
+        aspectRatio: 2,
         borderRadius: 10,
     }
 });

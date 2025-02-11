@@ -72,6 +72,8 @@ interface RealmDocket {
     recieverSign: string;
     driverName: string;
     receiverName: string;
+    comment: string;
+    isFlagged: boolean;
     date: Date;
  }
 
@@ -318,6 +320,11 @@ const ViewDocket = () => {
                         <TextBlock label="Nett Weight" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.nettWeight ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
                         <TextBlock label="Trailer Rego" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.trailerRego ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
                     </View>
+
+                    <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
+                        <TextBlock label="Comment" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.comment ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
+                        <TextBlock label="Is Flagged?" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.isFlagged ? "Yes" : "No"} styles={{ flex: 1, alignItems: 'center' }} />
+                    </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
                         <TextBlock label="Driver's Name" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.driverName ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
                         <TextBlock label="Receiver's Name" value={(selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.receiverName ?? ""} styles={{ flex: 1, alignItems: 'center' }} />
@@ -345,7 +352,7 @@ const ViewDocket = () => {
                     </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
                         <View style={{ flex: 1 }}>
-                        <TextBlock label="Receiver Sign" styles={{ flex: 1, alignItems: 'center' }}/>
+                            <TextBlock label="Receiver Sign" styles={{ flex: 1, alignItems: 'center' }}/>
                             <Image 
                                 source={{ uri: (selectedRow.details as { fullDetails?: RealmDocket })?.fullDetails?.recieverSign }}
                                 resizeMode='contain'
@@ -483,11 +490,13 @@ const VDstyles = StyleSheet.create({
         flexDirection: 'row',
         gap: 5,
         justifyContent: 'space-between',
+        height: 150,
         width: '100%'
     },
     photo: {
         flex: 1,
-        aspectRatio: 1,
+        // aspectRatio: 1,
         borderRadius: 10,
+        height: '100%'
     }
 });

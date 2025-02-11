@@ -14,9 +14,11 @@ interface ProductCardProp {
     iconOnRight?:boolean;
     textField?:boolean;
     textFieldValue?:string;
+    Keyboardtypedefine?: "default" | "numeric" | "email-address" | "phone-pad" | "ascii-capable" | "numbers-and-punctuation" | "url";  // Define specific string values for keyboardType
+
     textFieldSetValue?:Dispatch<SetStateAction<string>>;
 }
-const ProductCard = ({ iconUrl, title, onClick, isActive = false, description, amount, iconOnRight=true, textField=false, textFieldValue, textFieldSetValue }: ProductCardProp) => {
+const ProductCard = ({ iconUrl, title, onClick, isActive = false, description, amount, iconOnRight=true, textField=false, textFieldValue, textFieldSetValue,Keyboardtypedefine }: ProductCardProp) => {
     const setHandler = ()=>{}
     return (
         <TouchableOpacity onPress={()=>onClick()} style={isActive ? productCardStyles.cardActive : productCardStyles.card}>
@@ -27,7 +29,7 @@ const ProductCard = ({ iconUrl, title, onClick, isActive = false, description, a
             </View>
             {amount && <Text style={productCardStyles.amount}>{amount}</Text>}
             {iconOnRight&&<Image source={require("../assets/images/chevron-right.png")} style={cardStyles.chevronIcon} />}
-            {textField&&<TextField value={textFieldValue??""} setValue={textFieldSetValue??setHandler} styles={{borderRadius:10,backgroundColor:COLORS.background}} placeholder="Enter a value"/>}
+            {textField&&<TextField Keyboardtypedefine={Keyboardtypedefine} value={textFieldValue??""} setValue={textFieldSetValue??setHandler} styles={{borderRadius:10,backgroundColor:COLORS.background}} placeholder="Enter a value"/>}
         </TouchableOpacity>
     );
 }

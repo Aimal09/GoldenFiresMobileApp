@@ -115,19 +115,32 @@ const GoodsTrack = () => {
         if(selectedCityId === id) setSelectedCityId(0);
         else setSelectedCityId(id);
     }
+
+    const handleClosed= ()=>{
+        setShowForm(false);
+        setQty("");
+        setComment("");
+        setUpdatedBy("");
+        setVal("");
+        setSelectedCityId(0);
+        setFilterByDate(initFilterByDate);
+        setShowFilterByDate(false)
+    }
+
     return (
         <>
             <TopBar pageName="Goods Track" />
 
 
-            {showForm && <FullScreenModal title="Item" onClose={() => { setShowForm(false) }} visible={true}>
+            {showForm && <FullScreenModal title="Item" onClose={handleClosed} visible={true}>
                 <View>
-                    <TextField label="Quantity" value={qty} setValue={setQty} placeholder="Enter a value" styles={{ marginBottom: 15 }} />
+                    <TextField label="Quantity" Keyboardtypedefine="numeric" value={qty} setValue={setQty} placeholder="Enter a value" styles={{ marginBottom: 15 }} />
                     <TextField label="Date" value={val} setValue={setVal} placeholder="10.05.2024" styles={{ marginBottom: 15 }} />
                     <TextField label="Updated By" value={updatedBy} setValue={setUpdatedBy} placeholder="Enter Name Surename" styles={{ marginBottom: 15 }} />
                     <TextField label="Comment" value={comment} setValue={setComment} placeholder="Reason for change" styles={{ marginBottom: 15 }} multiline={true} numberOfLine={6} />
                     <TouchableOpacity style={styles.btn} onPress={handleContinueClick}><Text style={styles.btnText}>Continue</Text></TouchableOpacity>
                 </View>
+
             </FullScreenModal>}
 
             {showSignForm &&
@@ -141,7 +154,8 @@ const GoodsTrack = () => {
 
             {showFilterByDate && <FilterByDateCalendar maximumToday onFilterChange={(range)=>setFilterByDate(range)} closeFilter={()=>setShowFilterByDate(false)}/>}
 
-            <GestureHandlerRootView style={GoodsTrackStyles.container}>
+            <GestureHandlerRootView style={{...GoodsTrackStyles.container,flex:1}}>
+
                 <View style={GoodsTrackStyles.types}>
                     <View style={GoodsTrackStyles.full}>
                         <ComboBox label="" options={comboOptions} onDropdownChange={OnDropdownChange} usePlaceholder={false} isDark={false} />
@@ -162,12 +176,14 @@ const GoodsTrack = () => {
                 </View>}
 
                 {/* Main card */}
-                <View>
+                <View >
+                <ScrollView>
                     {screenData && screenData.items && screenData.items.map(item =>
-                        screenData.inventoryType !== "Ready Fries" ?
-                            <ProductCard key={item.title} iconUrl={imagePath[item.imageUrl as ImageKey]} title={item.title} onClick={() => { handleProductClick(item) }} isActive={item.title === esActiveProduct?.title} amount={item.amount} /> :
-                            <SpecialProductCard key={item.title} iconUrl={imagePath[item.imageUrl as ImageKey]} title={item.title} onClick={() => { handleProductClick(item) }} isActive={item.title === esActiveProduct?.title} data={selectedCityId === 0 ? item.city : item.city?.filter(city=>city.cityId === selectedCityId)} />
-                    )}
+                                screenData.inventoryType !== "Ready Fries" ?
+                                    <ProductCard key={item.title} iconUrl={imagePath[item.imageUrl as ImageKey]} title={item.title} onClick={() => { handleProductClick(item) }} isActive={item.title === esActiveProduct?.title} amount={item.amount} /> :
+                                    <SpecialProductCard key={item.title} iconUrl={imagePath[item.imageUrl as ImageKey]} title={item.title} onClick={() => { handleProductClick(item) }} isActive={item.title === esActiveProduct?.title} data={selectedCityId === 0 ? item.city : item.city?.filter(city=>city.cityId === selectedCityId)} />
+                                )}
+                                </ScrollView>
                 </View>
 
                 {/* Editable Stocks supplier cards */}
@@ -194,6 +210,7 @@ const GoodsTrack = () => {
                 </>
                 }
             </GestureHandlerRootView>
+
         </>
     );
 }

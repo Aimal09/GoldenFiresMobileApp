@@ -42,13 +42,13 @@ const GoodStock = () => {
                 <Text style={[styles.text, { marginBottom: 20 }]}>Good Stock {box}</Text>
 
                 <View>
-                    <ProductCard title="Boxes" iconUrl={imagePath['box']} onClick={() => { }} iconOnRight={false} textField textFieldValue={box} textFieldSetValue={setBox} />
+                    <ProductCard title="Boxes" iconUrl={imagePath['box']} Keyboardtypedefine="numeric" onClick={() => { }} iconOnRight={false} textField textFieldValue={box}  textFieldSetValue={setBox} />
                 </View>
                 <View>
-                    <ProductCard title="Tape" iconUrl={imagePath['tape']} onClick={() => { }} iconOnRight={false} textField textFieldValue={tape} textFieldSetValue={setTape} />
+                    <ProductCard title="Tape" iconUrl={imagePath['tape']} Keyboardtypedefine="numeric" onClick={() => { }} iconOnRight={false} textField textFieldValue={tape} textFieldSetValue={setTape} />
                 </View>
                 <View>
-                    <ProductCard title="Plastic wrap" iconUrl={imagePath['plastic']} onClick={() => { }} iconOnRight={false} textField textFieldValue={plastic} textFieldSetValue={setPlastic} />
+                    <ProductCard title="Plastic wrap" iconUrl={imagePath['plastic']} Keyboardtypedefine="numeric" onClick={() => { }} iconOnRight={false} textField textFieldValue={plastic} textFieldSetValue={setPlastic} />
                 </View>
             </View>
             <View style={{ padding: 20, paddingTop: 0 }}>

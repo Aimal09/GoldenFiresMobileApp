@@ -35,6 +35,12 @@ interface DeliveryOutboundDetail {
     signatureUrl: string;
     invertoryItems: InvertoryItem[];
 }
+interface PromotionDetail {
+    title: string;
+    date: string;
+    signatureUrl: string;
+    invertoryItems: InvertoryItem[];
+}
 interface DetalisDate {
     date: string;
 }
@@ -174,6 +180,10 @@ const ViewDocket = () => {
             setSelectedRow(data);
             setShowRowDetails(true)
         }
+        if (selectedOption === "3") {
+            setSelectedRow(data);
+            setShowRowDetails(true)
+        }
     }
 
     const onFilterChangeHandler = (range: DateRangeProp) => {
@@ -243,6 +253,47 @@ const ViewDocket = () => {
                     <View style={{ paddingVertical: 20, marginTop: 10, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <Text style={VDstyles.text}>Total</Text>
                         <Text style={VDstyles.text}>{total}</Text>
+                    </View>
+                </>
+            </FullScreenModal>}
+
+
+            {(showRowDetails && selectedOption === "3") && 
+                <FullScreenModal 
+                    title={(selectedRow.details as PromotionDetail).title} 
+                    onClose={() => { setShowRowDetails(false) }} 
+                    visible={showRowDetails}
+                >
+                <>
+                    <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
+                        <TextBlock label="Supplier Name" value={selectedRow.columns.find(c => c.title === 'Supplier Name')?.value.toString() || ""} styles={{ flex: 1 }} />
+                        <TextBlock label="Recieved by" value={selectedRow.columns.find(c => c.title === 'Recieved by')?.value.toString() || ""} styles={{ flex: 1 }} />
+                    </View>
+                    <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
+                        <TextBlock label="Date by" value={selectedRow.columns.find(c => c.title === 'Date by')?.value.toString() || ""} styles={{ flex: 1 }} />
+                    </View>
+                    <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 35 }}>
+                        <TextBlock label="Date" value={(selectedRow.details as PromotionDetail).date} styles={{ flex: 1 }} />
+                        <View style={{ flex: 1 }}>
+                            <Image source={{ uri: (selectedRow.details as PromotionDetail).signatureUrl }}
+                                style={{ objectFit: "contain", width: 70 }} />
+                        </View>
+                    </View>
+
+                    <View style={{ borderTopWidth: 2, borderBottomWidth: 2, borderColor: "#c7c7c7", paddingVertical: 20, gap: 20 }}>
+                        {(selectedRow.details as PromotionDetail).invertoryItems.map(item =>
+                            <View style={{ display: "flex", alignItems: "center", flexDirection: "row", gap: 15 }} key={item.icon}>
+                                <Image style={{ width: 20, height: 20, objectFit: "cover" }} source={imagePath[item.icon as ImageKey]} />
+                                <Text style={[{ flex: 1 }, VDstyles.text]}>{item.title}</Text>
+                                <Text style={VDstyles.text}>{item.value}</Text>
+                            </View>
+                        )
+                        }
+                    </View>
+
+                    <View style={{ paddingVertical: 20, marginTop: 10, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <Text style={VDstyles.text}>Total</Text>
+                        <Text style={VDstyles.text}>{(selectedRow.details as PromotionDetail).invertoryItems.map(item =>item.value).reduce((p,n)=>p+n)}</Text>
                     </View>
                 </>
             </FullScreenModal>}
@@ -324,6 +375,50 @@ const ViewDocket = () => {
                         </TouchableOpacity>}
                     </View>
                 </View>
+                    {
+                        selectedOption === '1' &&
+                        <View style={{display:"flex", flexDirection:"row",alignItems:"center", gap:10, justifyContent:"center", marginVertical:8}}>
+                            <View style={{display:"flex", flexDirection:"row",alignItems:"center", gap:10}}>
+                                <View style={{ width:10, alignItems:"center"}}>
+                                    <View 
+                                        style={{
+                                                width:10,
+                                                height:10,
+                                                borderRadius:10,
+                                                backgroundColor:COLORS.completed
+                                            }}>
+                                        </View>
+                                </View>
+                                <Text style={{color:COLORS.grey}}>Completed</Text>
+                            </View>
+                            <View style={{display:"flex", flexDirection:"row",alignItems:"center", gap:10}}>
+                                <View style={{ width:10, alignItems:"center"}}>
+                                    <View 
+                                        style={{
+                                                width:10,
+                                                height:10,
+                                                borderRadius:10,
+                                                backgroundColor:COLORS.credited
+                                            }}>
+                                        </View>
+                                </View>
+                                <Text style={{color:COLORS.grey}}>Credited</Text>
+                            </View>
+                            <View style={{display:"flex", flexDirection:"row",alignItems:"center", gap:10}}>
+                                <View style={{ width:10, alignItems:"center"}}>
+                                    <View 
+                                        style={{
+                                                width:10,
+                                                height:10,
+                                                borderRadius:10,
+                                                backgroundColor:COLORS.pending
+                                            }}>
+                                        </View>
+                                </View>
+                                <Text style={{color:COLORS.grey}}>Pending</Text>
+                            </View>
+                        </View>
+                    }
 
                 <GestureHandlerRootView>
                     <ScrollView>

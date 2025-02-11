@@ -4,13 +4,14 @@ import styles from "../../styles/style";
 import COLORS from "../../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import ProductCard from "../../components/ProductCard";
 import TextField from "../../components/TextField";
 import { FilterByDateCalendar } from "../../components/FilterByDate";
 import SignaturePad from "../../components/SignaturePad";
 import { SignatureViewRef } from "react-native-signature-canvas";
 import React from "react";
+import { formatDate } from "../../utils";
 
 type ImageKey = 'potato' | 'oil' | 'box' | 'tape' | 'pallets' | 'plastic' | "detergent" | "hat" | "gloves" | "antifoam" | "saap" | "13mm-fries" | "15mm-fries";
 
@@ -46,6 +47,7 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
     const [showDates, setShowDates] = useState(false);
     const [calendarDate, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [surname, setSurname] = useState<string>('');
+    const [error, setError] = useState<string | null>(null);
 
     const imagePath: Record<ImageKey, any> = {
         "potato": require("../../assets/images/potato.png"),
@@ -70,7 +72,7 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         woodenPlattes: string;
         editBox: string;
         editTape: string;
-        editPlatic: string;
+        editPlastic: string;
         editWoodenPlattes: string;
     }
 
@@ -85,7 +87,7 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
             woodenPlattes: '',
             editBox: '',
             editTape: '',
-            editPlatic: '',
+            editPlastic: '',
             editWoodenPlattes:'',
         });
 
@@ -146,8 +148,8 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         };
 
     useEffect(() => {
-        const targetDate = new Date(date);
-
+        const targetDate = new Date('2025-02-15');
+        // targetDate.setDate(targetDate.getDate() + 1)
         const updateCountdown = () => {
             const now = new Date();
             const timeDiff = targetDate.getTime() - now.getTime();
@@ -186,10 +188,21 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         [key: string]: string | undefined;
     }
 
+
+    const updateField = (field: keyof FormData, value: string) => {
+        if(true) {
+            setFormData(prev => ({ ...prev, [field]: value }));
+            setErrors(prev => ({ ...prev, [field]: undefined }));
+        }
+    };
+
+    
+
     const validateForm = (): boolean => {
+        console.log("Form Data Before Validation:", formData); 
         const newErrors: FormErrors = {};
         let isValid = true;
-
+    
         Object.keys(formData).forEach(key => {
             const fieldKey = key as keyof FormData;
             if (validationRules[fieldKey]) {
@@ -200,11 +213,24 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                 }
             }
         });
-
-        setErrors(newErrors);
-        return isValid;
+    
+        // Agar errors hai to pehle return kar do
+        if (!isValid) {
+            console.log("Validation failed, errors:", newErrors);
+            setErrors(newErrors); // Errors update karo
+            return false; // Form invalid hai
+        }
+    
+        setErrors({}); // Agar sab sahi hai to errors clear karo
+        return true; // Form valid hai
     };
+    
 
+
+
+    
+    
+    
 
     const closeLoadFormHandler = () => {
         setCloseLoad(true);
@@ -216,18 +242,31 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         
     // };
     const continueToDateHandler = () => {
-        if (validateForm()) {
-            // navigation.navigate('DocketDetailsPictureForm', formData);
+        console.log("Running validation...");
+    
+        if (!validateForm()) {
+            console.log("Form has errors! Cannot proceed.");
+            return; // Stop here if validation fails
         }
+    
+        console.log("Validation passed! Proceeding...");
         setDateOfCloseLoad(true);
         setCloseLoad(false);
-        //navigation.goBack();
-    }
+    };
+    
     const continueToDSignature = () => {
+        if (!surname.trim()) {
+            setError("This field is required");
+            return;
+        }
+    
+        setError(null); // Agar value hai to error hata do
+        // Next screen pe navigate karo
+        console.log("Navigating to next screen...");
         setSignOfCloseLoad(true);
         setDateOfCloseLoad(false);
         //navigation.goBack();
-    }
+    };
     const closeLoadHandler = () => {
         setSignOfCloseLoad(false);
         //navigation.goBack();
@@ -296,7 +335,13 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                             <Image source={imagePath["box"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Boxes</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={box} Keyboardtypedefine= "numeric" setValue={setBox} placeholder="Enter a value" />
+                            <TextInput
+                                value={formData.box}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('box', v)}
+                                />
+                                {/* <TextField value={box} Keyboardtypedefine= "numeric" setValue={setBox}  placeholder="Enter a value" /> */}
                             </View>
                         </View>
 
@@ -305,7 +350,13 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                             <Image source={imagePath["tape"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Tape</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={tape} Keyboardtypedefine= "numeric" setValue={setTape} placeholder="Enter a value" />
+                                <TextInput
+                                value={formData.tape}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('tape', v)}
+                                />
+                                {/* <TextField value={tape} Keyboardtypedefine= "numeric" setValue={setTape} placeholder="Enter a value" /> */}
                             </View>
                         </View>
                         
@@ -314,7 +365,13 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                             <Image source={imagePath["pallets"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Wooden Pallets</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={woodenPlattes} Keyboardtypedefine= "numeric" setValue={setWoodenPlattes} placeholder="Enter a value" />
+                            <TextInput
+                                value={formData.woodenPlattes}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('woodenPlattes', v)}
+                                />
+                                {/* <TextField value={woodenPlattes} Keyboardtypedefine= "numeric" setValue={setWoodenPlattes} placeholder="Enter a value" /> */}
                             </View>
                         </View>
 
@@ -323,7 +380,13 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                             <Image source={imagePath["plastic"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Plastic Wrap</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={plastic} Keyboardtypedefine= "numeric" setValue={setPlastic} placeholder="Enter a value" />
+                            <TextInput
+                                value={formData.plastic}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('plastic', v)}
+                                />
+                                {/* <TextField value={plastic} Keyboardtypedefine= "numeric" setValue={setPlastic} placeholder="Enter a value" /> */}
                             </View>
                         </View>
 
@@ -334,7 +397,13 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                             <Image source={imagePath["box"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Boxes</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={editBox} Keyboardtypedefine= "numeric" setValue={setEditBox} placeholder="Enter a value" />
+                            <TextInput
+                                value={formData.editBox}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('editBox', v)}
+                                />
+                                {/* <TextField value={editBox} Keyboardtypedefine= "numeric" setValue={setEditBox} placeholder="Enter a value" /> */}
                             </View>
                         </View>
 
@@ -343,25 +412,45 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
                             <Image source={imagePath["tape"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Tape</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={editTape} Keyboardtypedefine= "numeric" setValue={setEditTape} placeholder="Enter a value" />
-                            </View>
-                        </View>
-
-                        <View style={clStyles.itemContainer}>
-                        {errors.editPlastic && <Text style={{ color: 'red' }}>{errors.editPlastic}</Text>}
-                            <Image source={imagePath["pallets"]} style={clStyles.img} />
-                            <Text style={[styles.text, styles.full]}>Wooden Pallets</Text>
-                            <View style={clStyles.txtBox}>
-                                <TextField value={editWoodenPlattes} Keyboardtypedefine= "numeric" setValue={setEditWoodenPlattes} placeholder="Enter a value" />
+                            <TextInput
+                                value={formData.editTape}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('editTape', v)}
+                                />
+                                {/* <TextField value={editTape} Keyboardtypedefine= "numeric" setValue={setEditTape} placeholder="Enter a value" /> */}
                             </View>
                         </View>
 
                         {errors.editWoodenPlattes && <Text style={{ color: 'red' }}>{errors.editWoodenPlattes}</Text>}
                         <View style={clStyles.itemContainer}>
+
+                            <Image source={imagePath["pallets"]} style={clStyles.img} />
+                            <Text style={[styles.text, styles.full]}>Wooden Pallets</Text>
+                            <View style={clStyles.txtBox}>
+                            <TextInput
+                                value={formData.editWoodenPlattes}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('editWoodenPlattes', v)}
+                                />
+                                {/* <TextField value={editWoodenPlattes} Keyboardtypedefine= "numeric" setValue={setEditWoodenPlattes} placeholder="Enter a value" /> */}
+                            </View>
+                        </View>
+
+                        {errors.editPlastic && <Text style={{ color: 'red' }}>{errors.editPlastic}</Text>}
+
+                        <View style={clStyles.itemContainer}>
                             <Image source={imagePath["plastic"]} style={clStyles.img} />
                             <Text style={[styles.text, styles.full]}>Plastic Wrap</Text>
                             <View style={clStyles.txtBox}>
-                                <TextField value={editPlastic} Keyboardtypedefine= "numeric" setValue={setEditPlastic} placeholder="Enter a value" />
+                            <TextInput
+                                value={formData.editPlastic}
+                                placeholder="Enter a value" 
+                                keyboardType="numeric"
+                                onChangeText={(v) => updateField('editPlastic', v)}
+                                />
+                                {/* <TextField value={editPlastic} Keyboardtypedefine= "numeric" setValue={setEditPlastic} placeholder="Enter a value" /> */}
                             </View>
                         </View>
                     </ScrollView>
@@ -376,13 +465,14 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
             {/* Continue to Date */}
             {dateOfCloseLoad && <FullScreenModal onClose={() => { setDateOfCloseLoad(false); setMain(true)}} visible title="Close the Load">
                 <>
-
                     <Text style={[styles.text]}>Date</Text>
                     <TouchableOpacity style={clStyles.goodsCard} onPress={() => setShowDates(true)}>
                         <Text style={clStyles.cardText}>{calendarDate}</Text>
                     </TouchableOpacity>
+                    {error ? <Text style={{ color: "red", marginTop: 5 }}>{error}</Text> : null}
 
                     <Text style={[styles.text, clStyles.mt20]}>Closed By</Text>
+                    
                     <TextField placeholder="Enter a value"   value={surname} setValue={setSurname} styles={styles.full} />
 
                     <TouchableOpacity style={styles.btn} onPress={continueToDSignature}>
@@ -415,12 +505,14 @@ const CurrentLoad: React.FC<CurrentLoadProp> = ({ date, id }) => {
         Put your signature here
       </Text>
 
-      <SignaturePad
-        label=""
-        signatureValue={driverSignature}
-        sign={dsign}
-        returnSign={(s) => setDSign(s)}
-      />
+      <View style={[signatureStyles.container, { height: 200, width: "90%" }]}>
+  <SignaturePad
+    label=""
+    signatureValue={driverSignature}
+    sign={dsign}
+    returnSign={(s) => setDSign(s)}
+  />
+</View>
 
       {!dsign && (
         <Text style={{ color: "red", marginLeft: 10, marginBottom: 10 }}>
@@ -541,3 +633,20 @@ const clStyles = StyleSheet.create({
         marginTop: 20
     }
 });
+
+const signatureStyles = StyleSheet.create({
+    mainContainer:{
+        // paddingHorizontal:20,
+        flex:1,
+        flexDirection: 'column',
+  
+        backgroundColor:COLORS.white,
+        borderRadius:30,
+  
+        padding:25,
+        // gap:25
+    },
+    container:{
+        flex:1,
+    }
+  });

@@ -17,17 +17,17 @@
         }
       ],
       "details": {
-        "title": "Delivery 293883",
-        "signatureUrl": "sign.png",
+        "title": "Promotion 293883",
+        "signatureUrl": "sign",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "boxes.png",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "palette.png",
+            "icon": "palette",
             "value": 2349
           }
         ],
@@ -50,17 +50,17 @@
         }
       ],
       "details": {
-        "title": "Delivery 293883",
-        "signatureUrl": "sign.png",
+        "title": "Promotion 293883",
+        "signatureUrl": "sign",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "boxes.png",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "palette.png",
+            "icon": "palette",
             "value": 2349
           }
         ],
@@ -83,17 +83,17 @@
         }
       ],
       "details": {
-        "title": "Delivery 293883",
-        "signatureUrl": "sign.png",
+        "title": "Promotion 293883",
+        "signatureUrl": "sign",
         "invertoryItems": [
           {
             "title": "Boxes",
-            "icon": "boxes.png",
+            "icon": "box",
             "value": 2349
           },
           {
             "title": "Palettes",
-            "icon": "palette.png",
+            "icon": "palette",
             "value": 2349
           }
         ],

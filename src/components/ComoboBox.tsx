@@ -103,6 +103,7 @@ import {
     Image,
     Modal,
     TouchableWithoutFeedback,
+    StyleSheet,
 } from 'react-native';
 import { comboBoxStyles } from '../styles/componentStyle';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -170,12 +171,14 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 transparent={true}
                 visible={isModalVisible}
                 onRequestClose={() => setIsModalVisible(false)}
-                style={{height:500}}
             >
                 <TouchableWithoutFeedback onPress={() => setIsModalVisible(false)}>
-                    <View style={{ flex: 1 }}>
-                        <View style={isDark ? [comboBoxStyles.optionBox,{flex:1}] : [comboBoxStyles.optionBoxLight,{flex:1}] }>
-                            <ScrollView>
+                    <View style={styles.modalOverlay}>
+                        <View style={[
+                            styles.modalContent,
+                            
+                        ]}>
+                            <ScrollView style={{ maxHeight: 300 }}>
                                 {initialOptions.map((item, i) =>
                                     <TouchableOpacity
                                         key={i}
@@ -195,3 +198,19 @@ const ComboBox: React.FC<ComboBoxProps> = ({
 };
 
 export default ComboBox;
+
+const styles = StyleSheet.create({
+    modalOverlay: {
+        flex: 1,
+        backgroundColor:"rgba(0, 0, 0, 0.5)",
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        width: '80%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 15,
+        maxHeight: 300,
+    },
+});
